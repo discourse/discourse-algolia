@@ -1,0 +1,8 @@
+plugins:
+  algolia_enabled:
+    default: false
+    client: false
+  algolia_application_id: ''
+  algolia_admin_api_key: ''
+  algolia_search_api_key: ''
+  algolia_discourse_username: 'system'
