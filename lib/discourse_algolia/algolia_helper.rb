@@ -34,60 +34,89 @@ module DiscourseAlgolia
 
     def self.index_post(post_id, discourse_event)
       post = Post.find_by(id: post_id)
-      return if post.blank? || post.post_type != Post.types[:regular] || !guardian.can_see?(post)
-
-      topic = post.topic
-      return if topic.blank? || topic.archetype == Archetype.private_message
-
-      post_record = to_post_record(post)
-      add_algolia_record(POSTS_INDEX, post_record, post_id)
+      if should_index_post?(post)
+        post_records = to_post_records(post)
+        add_algolia_records(POSTS_INDEX, post_records)
+      end
     end
 
-    def self.to_post_record(post)
-      record = {
-        objectID: post.id,
-        post_number: post.post_number,
-        created_at: post.created_at,
-        updated_at: post.updated_at,
-        reads: post.reads,
-        like_count: post.like_count,
-        image_url: post.image_url
-      }
-
-      user = post.user
-      record[:user] = {
-        id: user.id,
-        name: user.name,
-        username: user.username,
-        avatar_template: user.avatar_template
-      }
-
+    def self.should_index_post?(post)
+      return false if post.blank? || post.post_type != Post.types[:regular] || !guardian.can_see?(post)
       topic = post.topic
-      if (topic)
-        record[:topic] = {
-          id: topic.id,
-          title: topic.title,
-          views: topic.views,
-          slug: topic.slug,
-          like_count: topic.like_count,
-          tags: topic.tags.map(&:name)
+      return false if topic.blank? || topic.archetype == Archetype.private_message
+      return true
+    end
+
+    def self.to_post_records(post)
+
+      post_records = []
+
+      doc = Nokogiri::HTML(post.cooked)
+      parts = doc.text.split(/\n/)
+
+      parts.reject! do |content|
+        content.strip.empty?
+      end
+
+      parts.each_with_index do |content, index|
+
+        record = {
+          objectID: "#{post.id}-#{index}",
+          url: "https://discourse.algolia.com/t/#{post.topic.slug}/#{post.topic.id}/#{post.post_number}",
+          post_id: post.id,
+          part_number: index,
+          post_number: post.post_number,
+          created_at: post.created_at,
+          updated_at: post.updated_at,
+          reads: post.reads,
+          like_count: post.like_count,
+          image_url: post.image_url,
+          content: content[0..8000]
         }
 
-        category = topic.category
-        if (category)
-          record[:category] = {
-            id: category.id,
-            name: category.name,
-            color: category.color,
-            slug: category.slug
+        user = post.user
+        record[:user] = {
+          id: user.id,
+          name: user.name,
+          username: user.username,
+          avatar_template: user.avatar_template
+        }
+
+        topic = post.topic
+        if (topic)
+          record[:topic] = {
+            id: topic.id,
+            title: topic.title,
+            views: topic.views,
+            slug: topic.slug,
+            like_count: topic.like_count,
+            tags: topic.tags.map(&:name)
           }
+
+          category = topic.category
+          if (category)
+            record[:category] = {
+              id: category.id,
+              name: category.name,
+              color: category.color,
+              slug: category.slug
+            }
+          end
         end
+
+        post_records << record
       end
-      record
+
+      post_records
+
     end
 
     def self.add_algolia_record(index_name, record, object_id)
       algolia_index(index_name).add_object(record, object_id)
+    end
+
+    def self.add_algolia_records(index_name, records)
+      algolia_index(index_name).add_objects(records)
     end
 
     def self.algolia_index(index_name)

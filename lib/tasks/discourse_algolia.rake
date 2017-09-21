@@ -26,6 +26,11 @@ task "algolia:index_posts" => :environment do
   algolia_index_posts
 end
 
+desc "clear posts index in algolia"
+task "algolia:clear_posts_index" => :environment do
+  algolia_clear_posts_index
+end
+
 def algolia_index_all
   algolia_index_users
   algolia_index_posts
@@ -59,15 +64,17 @@ def algolia_configure_posts
   puts "[Starting] Pushing posts index settings to Algolia"
   DiscourseAlgolia::AlgoliaHelper.algolia_index(
     DiscourseAlgolia::AlgoliaHelper::POSTS_INDEX).set_settings(
-      "searchableAttributes" => ["topic.title", "topic.tags", "post.content"],
-      "attributesToHighlight" => ["topic.title", "topic.tags", "post.content"],
+      "searchableAttributes" => ["topic.title", "topic.tags", "content"],
+      "attributesToHighlight" => ["topic.title", "topic.tags", "content"],
       "attributesToRetrieve" => [
         "topic.title", "topic.tags", "topic.slug",
-        "post_number", "content", "image_url",
+        "post_number", "content", "url", "image_url",
         "user.username", "user.avatar_template",
         "category.name", "category.color", "category.slug"],
-      "customRanking" => ["desc(topic.views)", "desc(like_count)"],
-      "attributeForDistinct" => "topic.id"
+      "customRanking" => [
+        "desc(topic.views)", "asc(post_number)", "asc(part_number)"],
+      "attributeForDistinct" => "topic.id",
+      "distinct" => 1
     )
   puts "[Finished] Successfully configured posts index in Algolia"
 end
@@ -76,13 +83,23 @@ def algolia_index_posts
   puts "[Starting] Pushing posts to Algolia"
   post_records = []
   Post.all.includes(:user, :topic).each do |post|
-    post_records << DiscourseAlgolia::AlgoliaHelper.to_post_record(post)
+    if DiscourseAlgolia::AlgoliaHelper.should_index_post?(post)
+      post_records << DiscourseAlgolia::AlgoliaHelper.to_post_records(post)
+    end
   end
+  post_records.flatten!
   puts "[Progress] Gathered posts from Discourse"
-  post_records.each_slice(50) do |slice|
+  post_records.each_slice(100) do |slice|
     DiscourseAlgolia::AlgoliaHelper.algolia_index(
-      DiscourseAlgolia::AlgoliaHelper::POSTS_INDEX).add_objects(slice)
-    puts "[Progress] Pushed 100 posts to Algolia"
+      DiscourseAlgolia::AlgoliaHelper::POSTS_INDEX).add_objects(slice.flatten)
+    puts "[Progress] Pushed #{slice.length} post records to Algolia"
   end
   puts "[Finished] Successfully pushed #{post_records.length} posts to Algolia"
+end
+
+def algolia_clear_posts_index
+  puts "[Starting] Clearing posts in Algolia"
+  DiscourseAlgolia::AlgoliaHelper.algolia_index(
+    DiscourseAlgolia::AlgoliaHelper::POSTS_INDEX).clear_index
+  puts "[Finished] Successfully deleted all posts to Algolia"
 end
