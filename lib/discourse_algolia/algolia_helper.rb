@@ -8,15 +8,24 @@ module DiscourseAlgolia
       user = User.find_by(id: user_id)
       return if user.blank? || !guardian.can_see?(user)
 
-      user_object = to_user_object(user)
-      add_algolia_object(USERS_INDEX, user_object, user_id)
+      user_record = to_user_record(user)
+      add_algolia_record(USERS_INDEX, user_record, user_id)
     end
 
-    def self.to_user_object(user)
+    def self.to_user_record(user)
       {
         objectID: user.id,
         name: user.name,
         username: user.username,
+        avatar_template: user.avatar_template,
+        bio_raw: user.user_profile.bio_raw,
+        post_count: user.post_count,
+        badge_count: user.badge_count,
+        likes_given_count: user.user_stat.likes_given,
+        likes_received_count: user.user_stat.likes_received,
+        days_visited_count: user.user_stat.days_visited,
+        topic_count: user.user_stat.topic_count,
+        posts_read_count: user.user_stat.posts_read_count
       }
     end
 
@@ -30,38 +39,43 @@ module DiscourseAlgolia
       topic = post.topic
       return if topic.blank? || topic.archetype == Archetype.private_message
 
-      post_object = to_post_object(post)
-      add_algolia_object(POSTS_INDEX, post_object, post_id)
+      post_record = to_post_record(post)
+      add_algolia_record(POSTS_INDEX, post_record, post_id)
     end
 
-    def self.to_post_object(post)
-      object = {
+    def self.to_post_record(post)
+      record = {
         objectID: post.id,
         post_number: post.post_number,
         created_at: post.created_at,
         updated_at: post.updated_at,
         reads: post.reads,
         like_count: post.like_count,
-        score: post.score
+        image_url: post.image_url
       }
 
       user = post.user
-      object[:user] = {
+      record[:user] = {
         id: user.id,
         name: user.name,
-        username: user.username
+        username: user.username,
+        avatar_template: user.avatar_template
       }
 
       topic = post.topic
       if (topic)
-        object[:topic] = {
+        record[:topic] = {
           id: topic.id,
-          title: topic.title
+          title: topic.title,
+          views: topic.views,
+          slug: topic.slug,
+          like_count: topic.like_count,
+          tags: topic.tags.map(&:name)
         }
 
         category = topic.category
         if (category)
-          object[:category] = {
+          record[:category] = {
             id: category.id,
             name: category.name,
             color: category.color,
@@ -69,10 +83,10 @@ module DiscourseAlgolia
           }
         end
       end
-      object
+      record
     end
 
-    def self.add_algolia_object(index_name, object, object_id)
+    def self.add_algolia_record(index_name, record, object_id)
       algolia_index(index_name).add_object(record, object_id)
     end
 
