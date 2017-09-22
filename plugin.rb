@@ -14,6 +14,8 @@
 enabled_site_setting :algolia_enabled
 
 register_asset 'stylesheets/algolia.scss'
+register_asset 'lib/algoliasearch.js'
+register_asset 'lib/autocomplete.js'
 
 after_initialize do
   load File.expand_path('../lib/discourse_algolia/algolia_helper.rb', __FILE__)
