@@ -1,56 +1,70 @@
 import {withPluginApi} from 'discourse/lib/plugin-api';
+import {default as computed, on} from 'ember-addons/ember-computed-decorators';
+import {h} from 'virtual-dom';
 
 export default {
   name : "discourse-algolia",
-  initialize() {
-    $(document).ready(() => {
-      withPluginApi('0.8.8', (api) => {
+  initialize(container) {
+    withPluginApi('0.8.8', (api) => {
 
-        var myComponent = Ember.Component.extend({
-          didInsertElement() {
-            this._super();
-            console.log("JOSH");
-          }
-        });
+      var algoliaWidget = api.createWidget('algolia', {
+        tagName: 'div.algolia-holder',
+        html() {
+          return [
+            h('input.aa-input#search-box', {placeholder: "Search the forum..."}),
+            h('div#hits-container')
+          ];
+        }
+      });
 
-        var tpl = `<div class="discourse-instantsearch">
-             <input class="search-input" id="search-box" placeholder="Search..."/>
-             <div id="hits-container"></div>
-         </div>`;
+      api.decorateWidget('header:after', function(helper) {
+        return helper.attach('algolia');
+      });
 
-        $('.d-header .wrap .contents').append(tpl);
+      api.modifyClass('component:site-header', {
+        @on("didInsertElement")
+        initializeAlgolia() {
+          this._super();
+          setTimeout(() => {
+            initSearch(this.siteSettings.algolia_application_id, this.siteSettings.algolia_search_api_key);
+          }, 100);
+        }
+      });
 
+      function initSearch(algoliaApplicationId, algoliaSearchApiKey) {
         var searchInput = '#search-box';
         var $hits = $('#hits-container');
-        var client = algoliasearch('', '');
+        var client = algoliasearch(algoliaApplicationId, algoliaSearchApiKey);
         var index = client.initIndex('posts');
-
-        autocomplete(searchInput, {
+        let auto = autocomplete(searchInput, {
           hint: false,
-          debug: true
+          debug: true // remove me in prod
         }, [
           {
             source: autocomplete.sources.hits(index, {hitsPerPage: 4}),
             displayKey: 'title',
             templates: {
-              suggestion: function(s) {
+              empty: `<div class="aa-empty">No matching posts.</div>`,
+              suggestion: function(hit) {
                 return `<div>
-                         <div class="topic-title">
-                           ${s._highlightResult.topic.title.value}
-                           <div class="topic-category">
-                             <span class="badge-wrapper bullet" style="margin-right: 0;">
-                               <span class="badge-category-bg" style="background-color: #${s.category.color};"></span>
-                             </span>
-                             <span>${s.category.name}</span>
-                           </div>
+                       <div class="topic-title">
+                         ${hit._highlightResult.topic.title.value}
+                         <div class="topic-category">
+                           <span class="badge-wrapper bullet" style="margin-right: 0;">
+                             <span class="badge-category-bg" style="background-color: #${hit.category.color};"></span>
+                           </span>
+                           <span>${hit.category.name}</span>
                          </div>
-                         <div class="topic-excerpt">${s._highlightResult.content.value}</span>
-                       </div>`;
+                       </div>
+                       <div class="topic-excerpt">${hit._highlightResult.content.value}</span>
+                     </div>`;
               }
             }
           }
-        ]);
-      });
+        ]).on('autocomplete:selected', function(event, suggestion, dataset) {
+          DiscourseURL.routeTo(suggestion.url);
+        });;
+      }
     });
   }
 }

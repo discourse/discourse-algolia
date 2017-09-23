@@ -1,19 +1,42 @@
+.extra-info-wrapper {
+  max-width: 300px;
+}
 .header-dropdown-toggle:first-child {
   display: none;
 }
 
-.algolia-autocomplete {
-  margin-left: 20px;
-  margin-top: 5px;
+.algolia-holder {
+  position: absolute;
+  top: 15px;
+  right: 300px;
   display: inline-block;
-  width: 500px;
 }
 
-.discourse-instantsearch .aa-input {
-  border-radius: 3px;
-  border: 0px;
-  width: 500px;
-  padding: 7px 12px;
+.algolia-holder .aa-input {
+  font-family: Open Sans, Arial, sans-serif;
+  border: solid 1px rgba(137,149,199,0.2);
+  border-radius: 6px;
+  font-size: 13px;
+  line-height: 13px;
+  padding: 8px 24px 6px 12px;
+  height: auto;
+  color: #353535;
+  width: 250px;
+  outline: 0;
+}
+
+.algolia-holder svg {
+  width: 12px;
+  height: 12px;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  left: 16px;
+  position: absolute;
+}
+
+.algolia-holder svg path:not(:first-child) {
+  fill: #8995C7;
 }
 
 // Autocomplete
@@ -22,30 +45,18 @@
 }
 .algolia-autocomplete .aa-dropdown-menu {
   box-sizing: border-box;
-  width: calc(100% + 20px);
+  width: 450px;
   background-color: #fff;
-  padding: 20px;
+  padding: 10px;
 
-  border-top: none;
-  margin-top: 12px;
+  border-top: 1px solid #eee;
+  margin-top: 8px;
   display: block;
   border-radius: 3px;
   box-shadow: 0 1px 0 0 rgba(0,0,0,0.2),0 2px 3px 0 rgba(0,0,0,0.1);
 }
 
 .algolia-autocomplete .aa-dropdown-menu::before {
-  display: block;
-  position: absolute;
-  content: '';
-  width: 14px;
-  height: 14px;
-  background: #FFFFFF;
-  z-index: 1000;
-  top: -7px;
-  border-top: 1px solid #d9d9d9;
-  border-right: 1px solid #d9d9d9;
-  transform: rotate(-45deg);
-  border-radius: 2px;
 }
 .algolia-autocomplete .aa-dropdown-menu .aa-suggestion {
   cursor: pointer;
