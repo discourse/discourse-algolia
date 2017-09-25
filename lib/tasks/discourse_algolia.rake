@@ -21,6 +21,11 @@ task "algolia:index_users" => :environment do
   algolia_index_users
 end
 
+desc "clear users index in algolia"
+task "algolia:clear_users_index" => :environment do
+  algolia_clear_users_index
+end
+
 desc "index posts in algolia"
 task "algolia:index_posts" => :environment do
   algolia_index_posts
@@ -58,6 +63,13 @@ def algolia_index_users
   DiscourseAlgolia::AlgoliaHelper.algolia_index(
     DiscourseAlgolia::AlgoliaHelper::USERS_INDEX).add_objects(user_records)
   puts "[Finished] Successfully pushed #{user_records.length} users to Algolia"
+end
+
+def algolia_clear_users_index
+  puts "[Starting] Clearing users in Algolia"
+  DiscourseAlgolia::AlgoliaHelper.algolia_index(
+    DiscourseAlgolia::AlgoliaHelper::USERS_INDEX).clear_index
+  puts "[Finished] Successfully deleted all users in Algolia"
 end
 
 def algolia_configure_posts
@@ -101,5 +113,5 @@ def algolia_clear_posts_index
   puts "[Starting] Clearing posts in Algolia"
   DiscourseAlgolia::AlgoliaHelper.algolia_index(
     DiscourseAlgolia::AlgoliaHelper::POSTS_INDEX).clear_index
-  puts "[Finished] Successfully deleted all posts to Algolia"
+  puts "[Finished] Successfully deleted all posts in Algolia"
 end
