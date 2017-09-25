@@ -8,26 +8,29 @@ export default {
     withPluginApi('0.8.8', (api) => {
 
       var algoliaWidget = api.createWidget('algolia', {
-        tagName: 'div.algolia-holder',
+        tagName: 'li.algolia-holder',
         html() {
           return [
-            h('input.aa-input#search-box', {placeholder: "Search the forum..."}),
-            h('div#hits-container')
+            h('input.aa-input#search-box', {placeholder: "Search the forum..."})
           ];
         }
       });
 
-      api.decorateWidget('header:after', function(helper) {
-        return helper.attach('algolia');
+      api.decorateWidget('header-icons:before', function(helper) {
+        if (helper.widget.siteSettings.algolia_enabled) {
+          return helper.attach('algolia');
+        }
       });
 
       api.modifyClass('component:site-header', {
         @on("didInsertElement")
         initializeAlgolia() {
           this._super();
-          setTimeout(() => {
-            initSearch(this.siteSettings.algolia_application_id, this.siteSettings.algolia_search_api_key);
-          }, 100);
+          if (this.siteSettings.algolia_enabled) {
+            setTimeout(() => {
+              initSearch(this.siteSettings.algolia_application_id, this.siteSettings.algolia_search_api_key);
+            }, 100);
+          }
         }
       });
 

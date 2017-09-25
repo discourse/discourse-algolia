@@ -1,42 +1,37 @@
+/* don't let topic titles run into the search bar */
 .extra-info-wrapper {
   max-width: 300px;
 }
-.header-dropdown-toggle:first-child {
+
+/* hide the default search icon */
+header .icons > li:nth-child(2) {
   display: none;
 }
 
 .algolia-holder {
-  position: absolute;
-  top: 15px;
-  right: 300px;
-  display: inline-block;
+  padding: 3px 15px 0 0;
 }
 
 .algolia-holder .aa-input {
+  color: #919191;
   font-family: Open Sans, Arial, sans-serif;
   border: solid 1px rgba(137,149,199,0.2);
   border-radius: 6px;
   font-size: 13px;
   line-height: 13px;
-  padding: 8px 24px 6px 12px;
+  padding: 8px 10px 8px 35px;
   height: auto;
-  color: #353535;
   width: 250px;
   outline: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg width='14' height='14' viewBox='0 0 14 14' xmlns='http://www.w3.org/2000/svg'><path d='M12.5 11h-.79l-.28-.27C12.41 9.59 13 8.11 13 6.5 13 2.91 10.09 0 6.5 0S0 2.91 0 6.5 2.91 13 6.5 13c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L17.49 16l-4.99-5zm-6 0C4.01 11 2 8.99 2 6.5S4.01 2 6.5 2 11 4.01 11 6.5 8.99 11 6.5 11z' fill='%237C8A94' fill-rule='evenodd'/></svg>");
+  background-size: 14px 14px;
+  background-repeat: no-repeat;
+  background-position-x: 10px;
+  background-position-y: center;
 }
 
-.algolia-holder svg {
-  width: 12px;
-  height: 12px;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  transform: translateY(-50%);
-  left: 16px;
-  position: absolute;
-}
-
-.algolia-holder svg path:not(:first-child) {
-  fill: #8995C7;
+.algolia-autocomplete .aa-empty {
+  color: #919191;
 }
 
 // Autocomplete
@@ -45,10 +40,9 @@
 }
 .algolia-autocomplete .aa-dropdown-menu {
   box-sizing: border-box;
-  width: 450px;
+  width: 410px;
   background-color: #fff;
   padding: 10px;
-
   border-top: 1px solid #eee;
   margin-top: 8px;
   display: block;
@@ -59,6 +53,7 @@
 .algolia-autocomplete .aa-dropdown-menu::before {
 }
 .algolia-autocomplete .aa-dropdown-menu .aa-suggestion {
+  text-align: left;
   cursor: pointer;
   padding: 10px 4px;
 }
