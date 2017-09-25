@@ -3,6 +3,7 @@ module DiscourseAlgolia
 
     USERS_INDEX = "users".freeze
     POSTS_INDEX = "posts".freeze
+    TAGS_INDEX = "tags".freeze
 
     SKIP_WORDS = ["thanks", "thank", "hi", "hey", "hello", "bye",
       "goodbye", "sincerely", "regards", "cheers", "ok"]
@@ -74,8 +75,9 @@ module DiscourseAlgolia
           next
         end
 
-        # don't index short lines that are probably saluations
         words = content.split(/\s+/)
+
+        # don't index short lines that are probably saluations
         words.map! do |word|
           word.downcase.gsub(/[^0-9a-z]/i, '')
         end
@@ -133,6 +135,23 @@ module DiscourseAlgolia
 
       post_records
 
+    end
+
+    def self.to_tag_record(tag)
+      {
+        objectID: tag.id,
+        name: tag.name,
+        topic_count: tag.topic_count
+      }
+    end
+
+    def self.index_tags(tag_names)
+      tag_names.each do |tag_name|
+        tag = Tag.find_by_name(tag_name)
+        if (tag)
+          add_algolia_record(TAGS_INDEX, to_tag_record(tag), tag.id)
+        end
+      end
     end
 
     def self.add_algolia_record(index_name, record, object_id)

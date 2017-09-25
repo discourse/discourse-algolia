@@ -54,6 +54,11 @@ after_initialize do
           topic_id: topic.id,
           discourse_event: discourse_event
         )
+        Jobs.enqueue_in(0,
+          :update_algolia_tags,
+          tags: topic.tags.map(&:name),
+          discourse_event: discourse_event
+        )
       end
     end
   end
@@ -66,6 +71,13 @@ after_initialize do
           post_id: post.id,
           discourse_event: discourse_event
         )
+        if post.topic
+          Jobs.enqueue_in(0,
+            :update_algolia_tags,
+            tags: post.topic.tags.map(&:name),
+            discourse_event: discourse_event
+          )
+        end
       end
     end
   end

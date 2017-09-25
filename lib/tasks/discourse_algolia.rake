@@ -8,12 +8,14 @@ desc "configure algolia index settings"
 task "algolia:configure" => :environment do
   algolia_configure_users
   algolia_configure_posts
+  algolia_configure_tags
 end
 
 desc "reindex everything to algolia"
 task "algolia:reindex" => :environment do
   algolia_reindex_users
   algolia_reindex_posts
+  algolia_reindex_tags
 end
 
 desc "reindex users in algolia"
@@ -24,6 +26,11 @@ end
 desc "reindex posts in algolia"
 task "algolia:reindex_posts" => :environment do
   algolia_reindex_posts
+end
+
+desc "reindex tags in algolia"
+task "algolia:reindex_tags" => :environment do
+  algolia_reindex_tags
 end
 
 def algolia_configure_users
@@ -57,6 +64,18 @@ def algolia_configure_posts
       "advancedSyntax" => true
     )
   puts "[Finished] Successfully configured posts index in Algolia"
+end
+
+def algolia_configure_tags
+  puts "[Starting] Pushing tags index settings to Algolia"
+  DiscourseAlgolia::AlgoliaHelper.algolia_index(
+    DiscourseAlgolia::AlgoliaHelper::TAGS_INDEX).set_settings(
+      "searchableAttributes" => [:name],
+      "attributesToHighlight" => [:name],
+      "attributesToRetrieve" => [:name],
+      "customRanking" => ["desc(topic_count)"],
+    )
+  puts "[Finished] Successfully configured tags index in Algolia"
 end
 
 def algolia_reindex_users
@@ -97,4 +116,21 @@ def algolia_reindex_posts
     puts "[Progress] Pushed #{slice.length} post records to Algolia"
   end
   puts "[Finished] Successfully pushed #{post_records.length} posts to Algolia"
+end
+
+def algolia_reindex_tags
+  puts "[Starting] Clearing tags in Algolia"
+  DiscourseAlgolia::AlgoliaHelper.algolia_index(
+    DiscourseAlgolia::AlgoliaHelper::TAGS_INDEX).clear_index
+  puts "[Finished] Successfully deleted all tags in Algolia"
+
+  puts "[Starting] Pushing tags to Algolia"
+  tag_records = []
+  Tag.all.each do |tag|
+    tag_records << DiscourseAlgolia::AlgoliaHelper.to_tag_record(tag)
+  end
+  puts "[Progress] Gathered tags from Discourse"
+  DiscourseAlgolia::AlgoliaHelper.algolia_index(
+    DiscourseAlgolia::AlgoliaHelper::TAGS_INDEX).add_objects(tag_records)
+  puts "[Finished] Successfully pushed #{tag_records.length} tags to Algolia"
 end
