@@ -6,7 +6,8 @@ module DiscourseAlgolia
     TAGS_INDEX = "tags".freeze
 
     SKIP_WORDS = ["thanks", "thank", "hi", "hey", "hello", "bye",
-      "goodbye", "sincerely", "regards", "cheers", "ok", "heyo", "heya"]
+      "goodbye", "sincerely", "regards", "cheers", "ok", "heyo",
+      "heya", "dear"]
 
     def self.index_user(user_id, discourse_event)
       user = User.find_by(id: user_id)
