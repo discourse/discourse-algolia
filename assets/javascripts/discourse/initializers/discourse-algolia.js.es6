@@ -44,6 +44,7 @@ export default {
         var client = algoliasearch(algoliaApplicationId, algoliaSearchApiKey);
         var index = client.initIndex('posts');
         let auto = autocomplete(searchInput, {
+          openOnFocus: true,
           hint: false,
           debug: true // remove me in prod
         }, [
@@ -53,18 +54,32 @@ export default {
             templates: {
               empty: `<div class="aa-empty">No matching posts.</div>`,
               suggestion: function(hit) {
-                return `<div>
-                       <div class="topic-title">
-                         ${hit._highlightResult.topic.title.value}
-                         <div class="topic-category">
-                           <span class="badge-wrapper bullet" style="margin-right: 0;">
-                             <span class="badge-category-bg" style="background-color: #${hit.category.color};"></span>
-                           </span>
-                           <span>${hit.category.name}</span>
-                         </div>
-                       </div>
-                       <div class="topic-excerpt">${hit._snippetResult.content.value}</span>
-                     </div>`;
+                let tags = "";
+                let baseTags = hit.topic.tags;
+                let highlightedTags = hit._highlightResult.topic.tags;
+                if (baseTags && highlightedTags) {
+                  for (var i = 0; i < baseTags.length; i++) {
+                    tags += `<a class="discourse-tag simple" href="/tags/${baseTags[i]}">${highlightedTags[i].value}</a>`;
+                  }
+                }
+                return `
+                  <div>
+                    <div class="topic-title">
+                      ${hit._highlightResult.topic.title.value}
+                    </div>
+                    <div>
+                      <span class="topic-category">
+                        <span class="badge-wrapper bullet">
+                          <span class="badge-category-bg" style="background-color: #${hit.category.color};" />
+                          <a class='badge-category' href="/c/${hit.category.slug}">${hit.category.name}</a>
+                        </span>
+                      </span>
+                      <span class="list-tags">${tags}</span>
+                    </div>
+                    <div class="topic-excerpt">
+                      ${hit._snippetResult.content.value}
+                    </div>
+                  </div>`;
               }
             }
           }

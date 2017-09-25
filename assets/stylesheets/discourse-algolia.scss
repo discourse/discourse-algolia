@@ -38,10 +38,6 @@ body.algolia-enabled {
     color: #919191;
   }
 
-  // Autocomplete
-  .algolia-autocomplete .aa-hint {
-    color: #999;
-  }
   .algolia-autocomplete .aa-dropdown-menu {
     box-sizing: border-box;
     width: 410px;
@@ -54,49 +50,45 @@ body.algolia-enabled {
     box-shadow: 0 1px 0 0 rgba(0,0,0,0.2),0 2px 3px 0 rgba(0,0,0,0.1);
   }
 
-  .algolia-autocomplete .aa-dropdown-menu::before {
-  }
   .algolia-autocomplete .aa-dropdown-menu .aa-suggestion {
-    text-align: left;
     cursor: pointer;
+    text-align: left;
     padding: 10px 4px;
   }
+
   .algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {
     background-color: #B2D7FF;
   }
+
   .algolia-autocomplete .aa-dropdown-menu .aa-suggestion em {
     font-weight: bold;
     font-style: normal;
-  }
-
-  .algolia-autocomplete .aa-suggestion .topic-category {
-    font-size: 11px;
-    display: block;
-  }
-
-  .algolia-autocomplete .aa-suggestion .topic-category span {
-    vertical-align: middle;
-  }
-
-  .algolia-autocomplete .aa-suggestion .topic-category .badge-wrapper,
-  .algolia-autocomplete .aa-suggestion .topic-category .badge-wrapper .badge-category-bg
-  {
-    border-radius: 50%;
+    background-color: #d5e9fb;
+    color: #53afff;
+    font-weight: inherit;
   }
 
   .algolia-autocomplete .aa-suggestion .topic-title {
     font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 2px;
+  }
+
+  .algolia-autocomplete .aa-suggestion .badge-category {
+    color: black;
+  }
+
+  .algolia-autocomplete .aa-dropdown-menu a:hover {
+    font-weight: bold;
+  }
+
+  .algolia-autocomplete .aa-dropdown-menu .list-tags {
+    line-height: 15px;
   }
 
   .algolia-autocomplete .aa-suggestion .topic-excerpt {
     color: #777;
     margin-top: 4px;
     font-size: 11px;
-  }
-
-  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion em {
-    background-color: #d5e9fb;
-    color: #53afff;
-    font-weight: inherit;
   }
 }
