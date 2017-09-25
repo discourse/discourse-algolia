@@ -52,6 +52,7 @@ def algolia_configure_posts
       "searchableAttributes" => ["topic.title", "topic.tags", "content"],
       "attributesToHighlight" => ["topic.title", "topic.tags", "content"],
       "attributesToSnippet" => ["content:30"],
+      "attributesForFaceting" => ["category.name", "topic.tags"],
       "attributesToRetrieve" => [
         "topic.title", "topic.tags", "topic.slug",
         "post_number", "content", "url", "image_url",
