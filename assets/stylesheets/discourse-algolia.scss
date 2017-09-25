@@ -55,6 +55,11 @@ body.algolia-enabled {
     cursor: pointer;
     text-align: left;
     padding: 10px 4px;
+    border-bottom: 1px solid #f1f1f1;
+  }
+
+  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion:last-child {
+    border-bottom: none;
   }
 
   .algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {
