@@ -53,7 +53,8 @@ def algolia_configure_posts
       "customRanking" => [
         "desc(topic.views)", "asc(post_number)", "asc(part_number)"],
       "attributeForDistinct" => "topic.id",
-      "distinct" => 1
+      "distinct" => 1,
+      "advancedSyntax" => true
     )
   puts "[Finished] Successfully configured posts index in Algolia"
 end
