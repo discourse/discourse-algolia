@@ -68,7 +68,10 @@ export default {
           }
         ]).on('autocomplete:selected', function(event, suggestion, dataset) {
           DiscourseURL.routeTo(suggestion.url);
-        });;
+        });
+        $("#search-box").on('focus', function (event) {
+          $(this).select();
+        });
       }
     });
   }
