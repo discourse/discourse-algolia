@@ -44,6 +44,7 @@ def algolia_configure_posts
     DiscourseAlgolia::AlgoliaHelper::POSTS_INDEX).set_settings(
       "searchableAttributes" => ["topic.title", "topic.tags", "content"],
       "attributesToHighlight" => ["topic.title", "topic.tags", "content"],
+      "attributesToSnippet" => ["content:30"],
       "attributesToRetrieve" => [
         "topic.title", "topic.tags", "topic.slug",
         "post_number", "content", "url", "image_url",

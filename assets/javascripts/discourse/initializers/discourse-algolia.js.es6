@@ -59,7 +59,7 @@ export default {
                            <span>${hit.category.name}</span>
                          </div>
                        </div>
-                       <div class="topic-excerpt">${hit._highlightResult.content.value}</span>
+                       <div class="topic-excerpt">${hit._snippetResult.content.value}</span>
                      </div>`;
               }
             }
