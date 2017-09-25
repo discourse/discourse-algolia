@@ -40,7 +40,8 @@ body.algolia-enabled {
 
   .algolia-autocomplete .aa-dropdown-menu {
     box-sizing: border-box;
-    width: 410px;
+    width: 500px;
+    left: -100px !important;
     background-color: #fff;
     padding: 10px;
     border-top: 1px solid #eee;
