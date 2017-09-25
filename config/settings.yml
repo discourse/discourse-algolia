@@ -1,7 +1,7 @@
 plugins:
   algolia_enabled:
     default: false
-    client: false
+    client: true
   algolia_application_id:
     default: ''
     client: true
