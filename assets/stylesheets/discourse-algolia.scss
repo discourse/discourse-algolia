@@ -78,6 +78,10 @@ body.algolia-enabled {
     color: black;
   }
 
+  .algolia-autocomplete .aa-suggestion .badge-category:hover {
+    font-size: 13px;
+  }
+
   .algolia-autocomplete .aa-dropdown-menu a:hover {
     font-weight: bold;
   }
