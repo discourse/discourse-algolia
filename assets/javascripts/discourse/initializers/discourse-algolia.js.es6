@@ -7,11 +7,27 @@ export default {
   initialize(container) {
     withPluginApi('0.8.8', (api) => {
 
-      var algoliaWidget = api.createWidget('algolia', {
+      api.modifyClass('component:site-header', {
+        @on("didInsertElement")
+        initializeAlgolia() {
+          this._super();
+          if (this.siteSettings.algolia_enabled) {
+            $("body").addClass("algolia-enabled");
+            setTimeout(() => {
+              initSearch(this.siteSettings.algolia_application_id,
+                this.siteSettings.algolia_search_api_key);
+            }, 100);
+          }
+        }
+      });
+
+      api.createWidget('algolia', {
         tagName: 'li.algolia-holder',
         html() {
           return [
-            h('input.aa-input#search-box', {placeholder: "Search the forum..."})
+            h('input.aa-input#search-box', {
+              placeholder: "Search the forum..."
+            })
           ];
         }
       });
@@ -19,20 +35,6 @@ export default {
       api.decorateWidget('header-icons:before', function(helper) {
         if (helper.widget.siteSettings.algolia_enabled) {
           return helper.attach('algolia');
-        }
-      });
-
-      api.modifyClass('component:site-header', {
-        @on("didInsertElement")
-        initializeAlgolia() {
-          this._super();
-          if (this.siteSettings.algolia_enabled) {
-            setTimeout(() => {
-              $("body").addClass("algolia-enabled");
-              $(".algolia-holder .aa-input").css({ display: "block" });
-              initSearch(this.siteSettings.algolia_application_id, this.siteSettings.algolia_search_api_key);
-            }, 100);
-          }
         }
       });
 
