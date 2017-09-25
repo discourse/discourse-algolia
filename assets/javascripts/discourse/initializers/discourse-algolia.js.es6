@@ -28,6 +28,8 @@ export default {
           this._super();
           if (this.siteSettings.algolia_enabled) {
             setTimeout(() => {
+              $("body").addClass("algolia-enabled");
+              $(".algolia-holder .aa-input").css({ display: "block" });
               initSearch(this.siteSettings.algolia_application_id, this.siteSettings.algolia_search_api_key);
             }, 100);
           }
