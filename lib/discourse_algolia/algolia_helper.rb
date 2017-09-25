@@ -5,7 +5,7 @@ module DiscourseAlgolia
     POSTS_INDEX = "posts".freeze
 
     SKIP_WORDS = ["thanks", "thank", "hi", "hey", "hello", "bye",
-      "goodbye", "sincerely", "regards", "cheers"]
+      "goodbye", "sincerely", "regards", "cheers", "ok"]
 
     def self.index_user(user_id, discourse_event)
       user = User.find_by(id: user_id)
@@ -61,6 +61,8 @@ module DiscourseAlgolia
         content.strip.empty?
       end
 
+      # for debugging, print the skips after the loop
+      # to see what was excluded from indexing
       skips = []
 
       parts.each_with_index do |content, index|
@@ -72,12 +74,12 @@ module DiscourseAlgolia
           next
         end
 
-        # don't index parts with less than 3 words
-        # usually they're greeting or saluation
+        # don't index short lines that are probably saluations
         words = content.split(/\s+/)
-        # intersect the arrays to see if any skip words exist
-        # in a line that only has a few words
-        if (words.length < 5 && (SKIP_WORDS & words.map(&:downcase)).length > 0)
+        words.map! do |word|
+          word.downcase.gsub(/[^0-9a-z]/i, '')
+        end
+        if (words.length < 5 && (SKIP_WORDS & words).length > 0)
           skips.push(content)
           next
         end
