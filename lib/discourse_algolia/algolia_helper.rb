@@ -25,11 +25,15 @@ module DiscourseAlgolia
         bio_raw: user.user_profile.bio_raw,
         post_count: user.post_count,
         badge_count: user.badge_count,
-        likes_given_count: user.user_stat.likes_given,
-        likes_received_count: user.user_stat.likes_received,
-        days_visited_count: user.user_stat.days_visited,
+        likes_given: user.user_stat.likes_given,
+        likes_received: user.user_stat.likes_received,
+        days_visited: user.user_stat.days_visited,
         topic_count: user.user_stat.topic_count,
-        posts_read_count: user.user_stat.posts_read_count
+        posts_read: user.user_stat.posts_read_count,
+        time_read: user.user_stat.time_read,
+        created_at: user.created_at.to_i,
+        updated_at: user.updated_at.to_i,
+        last_seen_at: user.last_seen_at
       }
     end
 
@@ -92,8 +96,8 @@ module DiscourseAlgolia
           post_id: post.id,
           part_number: index,
           post_number: post.post_number,
-          created_at: post.created_at,
-          updated_at: post.updated_at,
+          created_at: post.created_at.to_i,
+          updated_at: post.updated_at.to_i,
           reads: post.reads,
           like_count: post.like_count,
           image_url: post.image_url,

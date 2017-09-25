@@ -40,7 +40,7 @@ def algolia_configure_users
       "searchableAttributes" => [:username, :name],
       "attributesToHighlight" => [:username, :name],
       "attributesToRetrieve" => [:username, :name, :avatar_template],
-      "customRanking" => ["desc(days_visited_count)"],
+      "customRanking" => ["desc(days_visited)"],
     )
   puts "[Finished] Successfully configured users index in Algolia"
 end
