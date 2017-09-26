@@ -158,10 +158,14 @@ module DiscourseAlgolia
     def self.index_tags(tag_names)
       tag_names.each do |tag_name|
         tag = Tag.find_by_name(tag_name)
-        if (tag)
+        if (tag && should_index_tag(tag))
           add_algolia_record(TAGS_INDEX, to_tag_record(tag), tag.id)
         end
       end
+    end
+
+    def self.should_index_tag?(tag)
+      tag.topic_count > 0
     end
 
     def self.add_algolia_record(index_name, record, object_id)

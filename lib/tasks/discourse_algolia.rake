@@ -128,7 +128,9 @@ def algolia_reindex_tags
   puts "[Starting] Pushing tags to Algolia"
   tag_records = []
   Tag.all.each do |tag|
-    tag_records << DiscourseAlgolia::AlgoliaHelper.to_tag_record(tag)
+    if DiscourseAlgolia::AlgoliaHelper.should_index_tag?(tag)
+      tag_records << DiscourseAlgolia::AlgoliaHelper.to_tag_record(tag)
+    end
   end
   puts "[Progress] Gathered tags from Discourse"
   DiscourseAlgolia::AlgoliaHelper.algolia_index(
