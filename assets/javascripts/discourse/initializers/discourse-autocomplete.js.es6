@@ -52,7 +52,7 @@ export default {
                     @${hit._highlightResult.username.value}
                   </span>
                   <span class="hit-user-custom-ranking" title="Number of likes the user has received">
-                    ${hit.likes_received > 0 ? `❤ ${hit.likes_received}` : ''}
+                    ${hit.likes_received > 0 ? `<span class="hit-user-like-heart">❤</span> ${hit.likes_received}` : ''}
                   </span>
                 </div>
                 <div class="hit-user-name">

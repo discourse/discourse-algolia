@@ -9,12 +9,13 @@ $aa-small-font: 11.5px;
 
 $aa-dark-font-color: #222;
 $aa-light-font-color: #919191;
+$aa-heart-color: #fa6c8d;
 
 $aa-dropdown-left-panel-width: 450px;
 $aa-dropdown-right-panel-width: 225px;
 $aa-dropdown-width: $aa-dropdown-right-panel-width + $aa-dropdown-left-panel-width;
 
-$aa-cursor-color: #fff;
+$aa-cursor-color: $athens-gray;
 $aa-background-color: lighten($titan-white, 1%);
 $aa-panel-background-color: lighten($athens-gray, 3%);
 $aa-border-color: lighten($ghost, 10%);

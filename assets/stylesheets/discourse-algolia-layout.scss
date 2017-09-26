@@ -91,6 +91,9 @@
     color: $aa-light-font-color;
     font-size: $aa-small-font;
   }
+  .hit-user-like-heart {
+    color: $aa-heart-color;
+  }
 }
 
 .aa-dataset-tags {
@@ -118,13 +121,14 @@
   .hit-post {
     .hit-post-topic-title {
       font-size: $aa-large-font;
+      font-weight: bold;
     }
     .hit-post-topic-views {
       font-size: $aa-small-font;
       color: $aa-light-font-color;
     }
     .hit-post-category-tags {
-      margin: 4px 0 8px;
+      margin: 2px 0 4px;
     }
     .hit-post-tag {
       color: $aa-light-font-color;
