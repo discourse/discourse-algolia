@@ -41,6 +41,7 @@ def algolia_configure_users
       "attributesToHighlight" => [:username, :name],
       "attributesToRetrieve" => [:username, :name, :url, :avatar_template, :likes_received, :days_visited],
       "customRanking" => ["desc(likes_received)", "desc(days_visited)"],
+      "removeWordsIfNoResults" => "allOptional"
     )
   puts "[Finished] Successfully configured users index in Algolia"
 end
@@ -63,7 +64,8 @@ def algolia_configure_posts
         "desc(is_wordy)", "desc(topic.views)", "asc(post_number)", "asc(part_number)"],
       "attributeForDistinct" => "topic.id",
       "distinct" => 1,
-      "advancedSyntax" => true
+      "advancedSyntax" => true,
+      "removeWordsIfNoResults" => "allOptional"
     )
   puts "[Finished] Successfully configured posts index in Algolia"
 end
@@ -76,6 +78,7 @@ def algolia_configure_tags
       "attributesToHighlight" => [:name],
       "attributesToRetrieve" => [:name, :url, :topic_count],
       "customRanking" => ["desc(topic_count)"],
+      "removeWordsIfNoResults" => "allOptional"
     )
   puts "[Finished] Successfully configured tags index in Algolia"
 end
