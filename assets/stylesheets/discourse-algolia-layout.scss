@@ -79,6 +79,7 @@
   }
   .hit-user-username-holder {
     max-width: $aa-dropdown-right-panel-width - 78px;
+    overflow: hidden;
   }
   .hit-user-avatar {
     width: 45px;
