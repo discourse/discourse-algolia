@@ -19,7 +19,7 @@ export default {
               discourseAutocomplete._initialize(
                 this.siteSettings.algolia_application_id,
                 this.siteSettings.algolia_search_api_key,
-                "/"
+                ""
               );
             }, 100);
           }

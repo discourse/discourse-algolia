@@ -2,7 +2,7 @@ export default {
 
   name: "discourse-autocomplete",
   initialize() {},
-  initialize(algoliaApplicationId, algoliaSearchApiKey, baseURL) {
+  _initialize(algoliaApplicationId, algoliaSearchApiKey, baseURL) {
 
     var searchInput = '#search-box';
     var client = algoliasearch(algoliaApplicationId, algoliaSearchApiKey);
