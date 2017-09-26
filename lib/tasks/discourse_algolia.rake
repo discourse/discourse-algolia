@@ -39,7 +39,7 @@ def algolia_configure_users
     DiscourseAlgolia::AlgoliaHelper::USERS_INDEX).set_settings(
       "searchableAttributes" => [:username, :name],
       "attributesToHighlight" => [:username, :name],
-      "attributesToRetrieve" => [:username, :name, :avatar_template, :likes_received, :days_visited],
+      "attributesToRetrieve" => [:username, :name, :url, :avatar_template, :likes_received, :days_visited],
       "customRanking" => ["desc(likes_received)", "desc(days_visited)"],
     )
   puts "[Finished] Successfully configured users index in Algolia"
