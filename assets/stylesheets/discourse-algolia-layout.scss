@@ -140,6 +140,10 @@
       color: $aa-light-font-color;
       font-size: $aa-small-font;
     }
+    .hit-post-content {
+      word-break: break-word;
+      font-size: $aa-small-font;
+    }
   }
 }
 
