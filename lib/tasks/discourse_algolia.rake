@@ -37,7 +37,7 @@ def algolia_configure_users
   puts "[Starting] Pushing users index settings to Algolia"
   DiscourseAlgolia::AlgoliaHelper.algolia_index(
     DiscourseAlgolia::AlgoliaHelper::USERS_INDEX).set_settings(
-      "searchableAttributes" => [:username, :name],
+      "searchableAttributes" => ["unordered(username)", "unordered(name)"],
       "attributesToHighlight" => [:username, :name],
       "attributesToRetrieve" => [:username, :name, :url, :avatar_template, :likes_received, :days_visited],
       "customRanking" => ["desc(likes_received)", "desc(days_visited)"],
@@ -49,7 +49,7 @@ def algolia_configure_posts
   puts "[Starting] Pushing posts index settings to Algolia"
   DiscourseAlgolia::AlgoliaHelper.algolia_index(
     DiscourseAlgolia::AlgoliaHelper::POSTS_INDEX).set_settings(
-      "searchableAttributes" => ["topic.title", "topic.tags", "content"],
+      "searchableAttributes" => ["unordered(topic.title)", "unordered(topic.tags)", "unordered(content)"],
       "attributesToHighlight" => ["topic.title", "topic.tags", "content"],
       "attributesToSnippet" => ["content:30"],
       "attributesForFaceting" => ["category.name", "topic.tags"],
@@ -59,7 +59,7 @@ def algolia_configure_posts
         "user.username", "user.name", "user.avatar_template", "user.url",
         "category.name", "category.color", "category.slug", "category.url"],
       "customRanking" => [
-        "desc(topic.views)", "asc(post_number)", "asc(part_number)"],
+        "desc(is_wordy)", "desc(topic.views)", "asc(post_number)", "asc(part_number)"],
       "attributeForDistinct" => "topic.id",
       "distinct" => 1,
       "advancedSyntax" => true

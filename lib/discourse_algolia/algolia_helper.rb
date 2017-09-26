@@ -5,6 +5,11 @@ module DiscourseAlgolia
     POSTS_INDEX = "posts".freeze
     TAGS_INDEX = "tags".freeze
 
+    # rank fragments with just a few words lower than others
+    # usually they contain less substance
+    WORDINESS_THRESHOLD = 5
+
+    # detect salutations to avoid indexing with these common words
     SKIP_WORDS = ["thanks", "thank", "hi", "hey", "hello", "bye",
       "goodbye", "sincerely", "regards", "cheers", "ok", "heyo",
       "heya", "dear"]
@@ -87,7 +92,7 @@ module DiscourseAlgolia
         words.map! do |word|
           word.downcase.gsub(/[^0-9a-z]/i, '')
         end
-        if (words.length < 5 && (SKIP_WORDS & words).length > 0)
+        if (words.length <= WORDINESS_THRESHOLD && (SKIP_WORDS & words).length > 0)
           skips.push(content)
           next
         end
@@ -103,6 +108,8 @@ module DiscourseAlgolia
           reads: post.reads,
           like_count: post.like_count,
           image_url: post.image_url,
+          word_count: words.length,
+          is_wordy: words.length >= WORDINESS_THRESHOLD,
           content: content[0..8000]
         }
 
