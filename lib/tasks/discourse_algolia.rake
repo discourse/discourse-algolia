@@ -53,7 +53,7 @@ def algolia_configure_posts
       "searchableAttributes" => ["unordered(topic.title)", "unordered(topic.tags)", "unordered(content)"],
       "attributesToHighlight" => ["topic.title", "topic.tags", "content"],
       "attributesToSnippet" => ["content:30"],
-      "attributesForFaceting" => ["category.name", "topic.tags"],
+      "attributesForFaceting" => ["category.name", "topic.tags", "user.username"],
       "attributesToRetrieve" => [
         "post_number", "content", "url", "image_url",
         "topic.title", "topic.tags", "topic.slug", "topic.url", "topic.views",
