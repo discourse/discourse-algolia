@@ -39,8 +39,8 @@ def algolia_configure_users
     DiscourseAlgolia::AlgoliaHelper::USERS_INDEX).set_settings(
       "searchableAttributes" => [:username, :name],
       "attributesToHighlight" => [:username, :name],
-      "attributesToRetrieve" => [:username, :name, :avatar_template],
-      "customRanking" => ["desc(days_visited)"],
+      "attributesToRetrieve" => [:username, :name, :avatar_template, :likes_received, :days_visited],
+      "customRanking" => ["desc(likes_received)", "desc(days_visited)"],
     )
   puts "[Finished] Successfully configured users index in Algolia"
 end
@@ -54,10 +54,10 @@ def algolia_configure_posts
       "attributesToSnippet" => ["content:30"],
       "attributesForFaceting" => ["category.name", "topic.tags"],
       "attributesToRetrieve" => [
-        "topic.title", "topic.tags", "topic.slug",
         "post_number", "content", "url", "image_url",
-        "user.username", "user.avatar_template",
-        "category.name", "category.color", "category.slug"],
+        "topic.title", "topic.tags", "topic.slug", "topic.url", "topic.views",
+        "user.username", "user.name", "user.avatar_template", "user.url",
+        "category.name", "category.color", "category.slug", "category.url"],
       "customRanking" => [
         "desc(topic.views)", "asc(post_number)", "asc(part_number)"],
       "attributeForDistinct" => "topic.id",
@@ -73,7 +73,7 @@ def algolia_configure_tags
     DiscourseAlgolia::AlgoliaHelper::TAGS_INDEX).set_settings(
       "searchableAttributes" => [:name],
       "attributesToHighlight" => [:name],
-      "attributesToRetrieve" => [:name],
+      "attributesToRetrieve" => [:name, :url, :topic_count],
       "customRanking" => ["desc(topic_count)"],
     )
   puts "[Finished] Successfully configured tags index in Algolia"

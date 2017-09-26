@@ -20,6 +20,7 @@ module DiscourseAlgolia
     def self.to_user_record(user)
       {
         objectID: user.id,
+        url: "/users/#{user.username}",
         name: user.name,
         username: user.username,
         avatar_template: user.avatar_template,
@@ -93,7 +94,7 @@ module DiscourseAlgolia
 
         record = {
           objectID: "#{post.id}-#{index}",
-          url: "https://discourse.algolia.com/t/#{post.topic.slug}/#{post.topic.id}/#{post.post_number}",
+          url: "/t/#{post.topic.slug}/#{post.topic.id}/#{post.post_number}",
           post_id: post.id,
           part_number: index,
           post_number: post.post_number,
@@ -108,6 +109,7 @@ module DiscourseAlgolia
         user = post.user
         record[:user] = {
           id: user.id,
+          url: "/users/#{user.username}",
           name: user.name,
           username: user.username,
           avatar_template: user.avatar_template
@@ -117,6 +119,7 @@ module DiscourseAlgolia
         if (topic)
           record[:topic] = {
             id: topic.id,
+            url: "/t/#{topic.slug}/#{topic.id}",
             title: topic.title,
             views: topic.views,
             slug: topic.slug,
@@ -128,6 +131,7 @@ module DiscourseAlgolia
           if (category)
             record[:category] = {
               id: category.id,
+              url: "/c/#{category.slug}",
               name: category.name,
               color: category.color,
               slug: category.slug
@@ -145,6 +149,7 @@ module DiscourseAlgolia
     def self.to_tag_record(tag)
       {
         objectID: tag.id,
+        url: "/tags/#{tag.name}",
         name: tag.name,
         topic_count: tag.topic_count
       }
