@@ -49,6 +49,7 @@ def algolia_configure_posts
   puts "[Starting] Pushing posts index settings to Algolia"
   DiscourseAlgolia::AlgoliaHelper.algolia_index(
     DiscourseAlgolia::AlgoliaHelper::POSTS_INDEX).set_settings(
+      "ranking" => ["typo", "geo", "words", "filters", "proximity", "attribute", "custom"],
       "searchableAttributes" => ["unordered(topic.title)", "unordered(topic.tags)", "unordered(content)"],
       "attributesToHighlight" => ["topic.title", "topic.tags", "content"],
       "attributesToSnippet" => ["content:30"],
