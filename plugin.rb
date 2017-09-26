@@ -13,7 +13,9 @@
 
 enabled_site_setting :algolia_enabled
 
-register_asset 'stylesheets/discourse-algolia.scss'
+register_asset 'stylesheets/variables.scss'
+register_asset 'stylesheets/discourse-algolia-layout.scss'
+register_asset 'stylesheets/discourse-algolia-base.scss'
 register_asset 'lib/algoliasearch.js'
 register_asset 'lib/autocomplete.js'
 

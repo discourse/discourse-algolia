@@ -1,0 +1,21 @@
+$algolia-blue: rgb(0,174,255);
+$titan-white: rgb(248,250,255);
+$athens-gray: rgb(238, 240, 247);
+$ghost: rgb(196, 200, 216);
+
+$aa-large-font: 15px;
+$aa-normal-font: 13px;
+$aa-small-font: 11.5px;
+
+$aa-dark-font-color: #222;
+$aa-light-font-color: #919191;
+
+$aa-dropdown-left-panel-width: 500px;
+$aa-dropdown-right-panel-width: 200px;
+$aa-dropdown-width: $aa-dropdown-right-panel-width + $aa-dropdown-left-panel-width;
+
+$aa-cursor-color: #fff;
+$aa-background-color: lighten($titan-white, 1%);
+$aa-panel-background-color: lighten($athens-gray, 3%);
+$aa-border-color: lighten($ghost, 10%);
+$aa-highlight-background-color: lighten($algolia-blue, 40%);
