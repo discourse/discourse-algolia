@@ -4,12 +4,9 @@
 # authors: Josh Dzielak and Gianluca Bargelli
 # url: https://github.com/algolia/discourse-algolia
 
-# the way that JSON gets loaded conflicts with something
-# in Discourse and breaks the UI; putting the
-# algoliasearch gem in the Gemfile of the Discourse works
-# gem "httpclient", "2.8.3", {require: false}
-# gem "json", "2.1.0", {require: false}
-# gem "algoliasearch", "1.12.7"
+# right now the algoliasearch gem dependency
+# needs to be put in the Gemfile of the discourse
+# couldn't get the plugin gem loading to work yet
 
 enabled_site_setting :algolia_enabled
 
