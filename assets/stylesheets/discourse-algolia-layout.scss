@@ -77,7 +77,7 @@
     font-size: $aa-small-font;
     color: $aa-light-font-color;
   }
-  .hit-user-username-holder {
+  .hit-user-name, .hit-user-username-holder {
     max-width: $aa-dropdown-right-panel-width - 78px;
     overflow: hidden;
   }
