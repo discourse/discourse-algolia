@@ -2,7 +2,7 @@ export default {
 
   name: "discourse-autocomplete",
   initialize() {},
-  _initialize(algoliaApplicationId, algoliaSearchApiKey, baseURL) {
+  _initialize(algoliaApplicationId, algoliaSearchApiKey, baseURL, debug) {
 
     var searchInput = '#search-box';
     var client = algoliasearch(algoliaApplicationId, algoliaSearchApiKey);
@@ -13,7 +13,7 @@ export default {
     autocomplete(searchInput, {
       openOnFocus: true,
       hint: false,
-      debug: true,
+      debug: debug,
       templates: {
         dropdownMenu: `
           <div class="left-container">

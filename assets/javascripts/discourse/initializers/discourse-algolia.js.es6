@@ -13,13 +13,15 @@ export default {
         @on("didInsertElement")
         initializeAlgolia() {
           this._super();
+          var debug = document.location.host.indexOf('localhost') > -1;
           if (this.siteSettings.algolia_enabled) {
             $("body").addClass("algolia-enabled");
             setTimeout(() => {
               discourseAutocomplete._initialize(
                 this.siteSettings.algolia_application_id,
                 this.siteSettings.algolia_search_api_key,
-                ""
+                "/",
+                debug
               );
             }, 100);
           }
