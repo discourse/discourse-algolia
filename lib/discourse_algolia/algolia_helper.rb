@@ -44,9 +44,6 @@ module DiscourseAlgolia
       }
     end
 
-    def self.index_topic(topic_id, discourse_event)
-    end
-
     def self.index_post(post_id, discourse_event)
       post = Post.find_by(id: post_id)
       if should_index_post?(post)
@@ -124,10 +121,11 @@ module DiscourseAlgolia
 
         topic = post.topic
         if (topic)
+          clean_title = topic.title.gsub(/[^\u1F600-\u1F6FF\s]/i, '')
           record[:topic] = {
             id: topic.id,
             url: "/t/#{topic.slug}/#{topic.id}",
-            title: topic.title,
+            title: clean_title,
             views: topic.views,
             slug: topic.slug,
             like_count: topic.like_count,
