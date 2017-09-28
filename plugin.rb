@@ -31,6 +31,7 @@ after_initialize do
   require_dependency File.expand_path('../app/jobs/regular/update_algolia_post.rb', __FILE__)
   require_dependency File.expand_path('../app/jobs/regular/update_algolia_user.rb', __FILE__)
   require_dependency File.expand_path('../app/jobs/regular/update_algolia_topic.rb', __FILE__)
+  require_dependency File.expand_path('../app/jobs/regular/update_algolia_tags.rb', __FILE__)
   require_dependency 'discourse_event'
 
   [:user_created, :user_updated].each do |discourse_event|
