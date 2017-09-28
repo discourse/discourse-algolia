@@ -1,8 +1,8 @@
 en:
   site_settings:
-    algolia_enabled: "Enable the discourse-algolia plugin"
-    algolia_application_id: "The Algolia app ID where you want the data sent"
-    algolia_admin_api_key: "An Algolia API key with write and index setting permissions"
-    algolia_search_api_key: "An Algolia API key with only search permission, used for the front end"
-    algolia_discourse_username: "Name of user act as when fetching content"
-    algolia_searchbar: "Enable the Algolia search bar"
+    algolia_enabled: "Enable the discourse-algolia plugin and send data to Algolia for indexing"
+    algolia_autocomplete_enabled: "Enable the Algolia autocomplete in the site header"
+    algolia_application_id: "The Algolia app ID where data should be sent for indexing"
+    algolia_admin_api_key: "An Algolia API key with permissions to write data and configure indices"
+    algolia_search_api_key: "An Algolia API key with permission to search, used for the front end"
+    algolia_discourse_username: "The data indexed will contain only objects that this user can see"

@@ -14,15 +14,15 @@ export default {
         @on("didInsertElement")
         initializeAlgolia() {
           this._super();
-          var debug = document.location.host.indexOf('localhost') > -1;
-          if (this.siteSettings.algolia_enabled) {
+          if (this.siteSettings.algolia_enabled &&
+              this.siteSettings.algolia_autocomplete_enabled) {
             $("body").addClass("algolia-enabled");
             setTimeout(() => {
               discourseAutocomplete._initialize({
                 algoliaApplicationId: this.siteSettings.algolia_application_id,
                 algoliaSearchApiKey: this.siteSettings.algolia_search_api_key,
                 imageBaseURL: "",
-                debug: debug,
+                debug: document.location.host.indexOf('localhost') > -1,
                 onSelect: function(event, suggestion, dataset) {
                   DiscourseURL.routeTo(suggestion.url);
                 }
@@ -45,7 +45,8 @@ export default {
       });
 
       api.decorateWidget('header-icons:before', function(helper) {
-        if (helper.widget.siteSettings.algolia_enabled) {
+        if (helper.widget.siteSettings.algolia_enabled &&
+            helper.widget.siteSettings.algolia_autocomplete_enabled) {
           return helper.attach('algolia');
         }
       });
