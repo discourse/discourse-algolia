@@ -1,5 +1,6 @@
 import { h } from 'virtual-dom';
 import { on } from 'ember-addons/ember-computed-decorators';
+import DiscourseURL from 'discourse/lib/url';
 import { withPluginApi } from 'discourse/lib/plugin-api';
 import discourseAutocomplete from './discourse-autocomplete';
 
@@ -17,12 +18,15 @@ export default {
           if (this.siteSettings.algolia_enabled) {
             $("body").addClass("algolia-enabled");
             setTimeout(() => {
-              discourseAutocomplete._initialize(
-                this.siteSettings.algolia_application_id,
-                this.siteSettings.algolia_search_api_key,
-                "",
-                debug
-              );
+              discourseAutocomplete._initialize({
+                algoliaApplicationId: this.siteSettings.algolia_application_id,
+                algoliaSearchApiKey: this.siteSettings.algolia_search_api_key,
+                imageBaseURL: "",
+                debug: debug,
+                onSelect: function(event, suggestion, dataset) {
+                  DiscourseURL.routeTo(suggestion.url);
+                }
+              });
             }, 100);
           }
         }

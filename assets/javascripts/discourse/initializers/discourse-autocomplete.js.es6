@@ -2,10 +2,10 @@ export default {
 
   name: "discourse-autocomplete",
   initialize() {},
-  _initialize(algoliaApplicationId, algoliaSearchApiKey, baseURL, debug) {
+  _initialize(options) {
 
     var searchInput = '#search-box';
-    var client = algoliasearch(algoliaApplicationId, algoliaSearchApiKey);
+    var client = algoliasearch(options.algoliaApplicationId, options.algoliaSearchApiKey);
     var postsIndex = client.initIndex('posts');
     var tagsIndex = client.initIndex('tags');
     var usersIndex = client.initIndex('users');
@@ -13,7 +13,7 @@ export default {
     autocomplete(searchInput, {
       openOnFocus: true,
       hint: false,
-      debug: debug,
+      debug: options.debug,
       templates: {
         dropdownMenu: `
           <div class="left-container">
@@ -44,7 +44,7 @@ export default {
           suggestion: function(hit) {
             return `
               <div class='hit-user-left'>
-                <img class="hit-user-avatar" src="${baseURL}${hit.avatar_template.replace("\{size}", 50)}" />
+                <img class="hit-user-avatar" src="${options.imageBaseURL}${hit.avatar_template.replace("\{size}", 50)}" />
               </div>
               <div class='hit-user-right'>
                 <div class="hit-user-username-holder">
@@ -123,9 +123,8 @@ export default {
           }
         }
       }
-    ]).on('autocomplete:selected', function(event, suggestion, dataset) {
-      DiscourseURL.routeTo(suggestion.url);
-    });
+    ]).on('autocomplete:selected', options.onSelect);
+
     $("#search-box").on('focus', function (event) {
       $(this).select();
     });
