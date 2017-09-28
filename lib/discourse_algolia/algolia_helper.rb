@@ -44,6 +44,9 @@ module DiscourseAlgolia
       }
     end
 
+    def self.index_topic(topic_id, discourse_event)
+    end
+
     def self.index_post(post_id, discourse_event)
       post = Post.find_by(id: post_id)
       if should_index_post?(post)
