@@ -34,6 +34,12 @@ body.algolia-enabled {
     background-position: 10px center;
   }
 
+  @media (max-width: 768px) {
+    .algolia-holder .aa-input {
+      display: none;
+    }
+  }
+
   .algolia-autocomplete .aa-dropdown-menu {
     left: -295px !important;
     margin-top: 8px;
