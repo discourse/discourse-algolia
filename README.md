@@ -84,6 +84,19 @@ LOAD_PLUGINS=1 bundle exec rails algolia:initialize
 
 This will create and configure three indices - `users`, `posts`, and `tags` - and then populate them by loading data from your database and sending it to Algolia. The data will be searchable as soon as the task is finished. You can now enable the **algolia autocomplete enabled** setting of the plugin, reload the page of your Discourse, and try the autocomplete search.
 
+## Rake tasks
+
+Additional rake tasks are provided for configuring indices and syncing data.
+
+```
+rake algolia:configure                                                 # configure algolia index settings
+rake algolia:initialize                                                # configure indices and upload data
+rake algolia:reindex                                                   # reindex everything to algolia
+rake algolia:reindex_posts                                             # reindex posts in algolia
+rake algolia:reindex_tags                                              # reindex tags in algolia
+rake algolia:reindex_users                                             # reindex users in algolia
+```
+
 ## Styling with CSS
 
 To see how you can change the look and feel of the autocomplete, see the CSS styles in the plugin's [assets/stylesheets](https://github.com/algolia/discourse-algolia/tree/master/assets/stylesheets) directory.
