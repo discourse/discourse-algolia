@@ -167,4 +167,13 @@
     vertical-align: middle;
     padding: 0!important;
   }
+  .left-container {
+    vertical-align: middle;
+    .advanced-search {
+      float: right;
+      display: inline-block;
+      margin-right: 12px;
+      font-size: 10px;
+    }
+  }
 }

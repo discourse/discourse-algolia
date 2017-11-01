@@ -36,10 +36,16 @@ export default {
         tagName: 'li.algolia-holder',
         html() {
           return [
-            h('input.aa-input#search-box', {
-              placeholder: "Search the forum...",
-              autocomplete: "off"
-            })
+            h('form', {
+              action: '/search',
+              method: 'GET'
+            }, [
+              h('input.aa-input#search-box', {
+                name: "q",
+                placeholder: "Search the forum...",
+                autocomplete: "off"
+              })
+            ])
           ];
         }
       });
