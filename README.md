@@ -5,7 +5,7 @@ Power the search on your Discourse with [Algolia](https://algolia.com/) 🔎🎉
 
 The discourse-algolia plugin indexes user, post, topic and tag activity with Algolia and adds a multi-category implementation of [autocomplete.js](https://github.com/algolia/autocomplete.js) to the Discourse header. Try it live on [Algolia's Community Forum](https://discourse.algolia.com/):
 
-![discourse-algolia autocomplete](https://cl.ly/203G0j3Z0m1E/Screenshot%202017-10-04%2014.27.24.png)
+![discourse-algolia autocomplete](https://d26dzxoao6i3hh.cloudfront.net/items/3B23471G3E0b3E1j1K2L/Screen%20Recording%202017-11-07%20at%2012.20%20AM.gif)
 
 ## Features
 
