@@ -1,3 +1,5 @@
+require 'algoliasearch'
+
 module DiscourseAlgolia
   class AlgoliaHelper
 
