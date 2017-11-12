@@ -3,26 +3,29 @@ discourse-algolia [beta]
 
 Power the search on your Discourse with [Algolia](https://algolia.com/) 🔎🎉
 
-The discourse-algolia plugin indexes user, post, topic and tag activity with Algolia and adds a multi-category implementation of [autocomplete.js](https://github.com/algolia/autocomplete.js) to the Discourse header. Try it live on [Algolia's Community Forum](https://discourse.algolia.com/):
+The discourse-algolia plugin indexes users, posts, topics and tags with Algolia and adds a search box built with [autocomplete.js](https://github.com/algolia/autocomplete.js) to the Discourse header. Try it live on [Algolia's Community Forum](https://discourse.algolia.com/):
 
 ![discourse-algolia autocomplete](https://d26dzxoao6i3hh.cloudfront.net/items/3B23471G3E0b3E1j1K2L/Screen%20Recording%202017-11-07%20at%2012.20%20AM.gif)
 
 ## Features
 
-The discourse-algolia plugin uses the Algolia API to provide a search that's both fast and relevant.
+The discourse-algolia plugin uses the Algolia API, which provides powerful indexing and search capabilities.
 
-- Topics are ranked by their *number of views*, users by their number of *likes received*, and tags by their *topic count*. This makes sure the most popular content stays near the top of your search results.
-- Algolia's distinct faceting feature is used to make sure each topic only appears once in the search results, leaving more room for other topics. Additional ranking signals are used within topics - including the order of posts in the topic and paragraphs in the post - to provide the best matches within a topic even when there are many.
-- Natively, Algolia handles typos, multiple languages, highlighting and snippeting results, and providing results as-you-type from the first keystroke.
-- The multi-category autocomplete searches posts, topics, users and tags simultaneously, displaying them in different parts of the autocomplete for readability. Keyboard navigation is supported with the up/down arrows.
+- Speed: Results update immediately with each keystroke
+- Relevance: Metrics like views and likes are used to surface the best content first
+- User experience: All indicies are searched simultaneously and presented in a unified view
 
 ## Prerequisites
 
-You'll need an Algolia account.
+You'll need an Algolia account if you don't have one already.
 
-* If you don't have one already, go here to [sign up](https://algolia.com/users/sign_up). You'll get 10,000 records and 100,000 indexing operations for free every month.
-* If you're using Discourse for an open source project and need higher limits, check out our [Algolia for Open Source](https://algolia.com/for-open-source) page to see if you qualify.
+* Go here to [sign up](https://algolia.com/users/sign_up) for a free account (10,000 records and 100,000 indexing operations monthly)
+* If you're using Discourse for an open source project and need higher limits, fill out the form on the [Algolia for Open Source](https://algolia.com/for-open-source) page.
 * If you need higher limits for your business, we're happy to help you [find the right plan](mailto:hey@algolia.com).
+
+## Beta testers wanted
+
+Please see this thread on meta.discourse.org for more information: [Add Algolia search to your Discourse](https://meta.discourse.org/t/add-algolia-search-to-your-discourse/73517).
 
 ## Installation
 
@@ -76,13 +79,13 @@ Once all of the settings are turned on and populated, the plugin configuration s
 
 ## Initial indexing
 
-Before you perform the initial indexing, you must have enabled Algolia above and provided an application ID and an admin API key. Run the following rake task in your Discourse directory:
+Once you have enabled the Algolia plugin and added an application ID and admin API key, you can now index all of your forum's content. Run the following rake task in your Discourse directory:
 
 ```shell
 LOAD_PLUGINS=1 bundle exec rails algolia:initialize
 ```
 
-This will create and configure three indices - `users`, `posts`, and `tags` - and then populate them by loading data from your database and sending it to Algolia. The data will be searchable as soon as the task is finished. You can now enable the **algolia autocomplete enabled** setting of the plugin, reload the page of your Discourse, and try the autocomplete search.
+This will create and configure three indices - `discourse-users`, `discourse-posts`, and `discourse-tags` - and then populate them by loading data from your database and sending it to Algolia. The data will be searchable as soon as the task is finished. You can now enable the **algolia autocomplete enabled** setting of the plugin, reload the page of your Discourse, and try the autocomplete search.
 
 ## Rake tasks
 
@@ -124,7 +127,7 @@ You'll see style definitions like this, which you can override by creating a for
 
 ## Customizing ranking
 
-You can use the full power of your Algolia dashboard to change the way that users, topics, posts and tags are ranked in the results - without ever touching any of the plugin code. The plugin pushes a large number of attributes from each object to Algolia, anticipating that some may be usable as ranking signals for different plugin users. While a full treatment of ranking, relevance and the Algolia dashboard is out of scope here, we encourage you to head over to the [Algolia documentation](https://algolia.com/doc/) and start digging in.
+You can use your Algolia dashboard to change the way that users, topics, posts and tags are ranked in the results, without touching any plugin code. The plugin pushes a large number of attributes from each object to Algolia, anticipating that some may be usable as ranking signals for different plugin users. While a full treatment of ranking, relevance and the Algolia dashboard is out of scope here, we encourage you to head over to the [Algolia documentation](https://algolia.com/doc/) and start digging in.
 
 ## Support
 
