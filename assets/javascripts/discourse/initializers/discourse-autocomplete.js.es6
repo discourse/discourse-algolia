@@ -6,9 +6,9 @@ export default {
 
     var searchInput = '#search-box';
     var client = algoliasearch(options.algoliaApplicationId, options.algoliaSearchApiKey);
-    var postsIndex = client.initIndex('posts');
-    var tagsIndex = client.initIndex('tags');
-    var usersIndex = client.initIndex('users');
+    var postsIndex = client.initIndex('discourse-posts');
+    var tagsIndex = client.initIndex('discourse-tags');
+    var usersIndex = client.initIndex('discourse-users');
 
     autocomplete(searchInput, {
       openOnFocus: true,
