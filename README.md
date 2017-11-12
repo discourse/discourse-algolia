@@ -127,7 +127,9 @@ You'll see style definitions like this, which you can override by creating a for
 
 ## Customizing ranking
 
-You can use your Algolia dashboard to change the way that users, topics, posts and tags are ranked in the results, without touching any plugin code. The plugin pushes a large number of attributes from each object to Algolia, anticipating that some may be usable as ranking signals for different plugin users. While a full treatment of ranking, relevance and the Algolia dashboard is out of scope here, we encourage you to head over to the [Algolia documentation](https://algolia.com/doc/) and start digging in.
+Once you've indexed your data with Algolia, you can see it and search it from the Algolia dashboard. That will give you an idea of what attributes the plugin indexes. You can also make changes to relevance and other index configuration settings. A full treatment of ranking, relevance and the Algolia dashboard is out of scope here, but we encourage you to head over to the [Algolia documentation](https://algolia.com/doc/) and start digging in.
+
+![algolia dashboard indices tab](https://cl.ly/3w112X0B2m1M/Screenshot%202017-11-12%2016.43.10.png)
 
 ## Support
 
