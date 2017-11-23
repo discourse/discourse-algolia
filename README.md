@@ -14,6 +14,7 @@ The discourse-algolia plugin uses the Algolia API, which provides powerful index
 - Speed: Results update immediately with each keystroke
 - Relevance: Metrics like views and likes are used to surface the best content first
 - User experience: All indicies are searched simultaneously and presented in a unified view
+- Analytics: See what users are searching for, see top queries that produce 0 results
 
 ## Prerequisites
 
