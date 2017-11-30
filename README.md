@@ -89,6 +89,12 @@ This will create and configure three indices - `discourse-users`, `discourse-pos
 
 ## Rake tasks
 
+To run rake tasks, first `cd` into your Discourse directory. If you're using the Docker install, just run this command:
+
+```shell
+./launcher enter app
+```
+
 Additional rake tasks are provided for configuring indices and syncing data.
 
 ```
