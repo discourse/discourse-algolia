@@ -39,7 +39,6 @@ hooks:
         cd: $home/plugins
         cmd:
           - mkdir -p plugins
-          - git clone https://github.com/algolia/docker_manager.git
           - git clone https://github.com/algolia/discourse-algolia.git
 ```
 
