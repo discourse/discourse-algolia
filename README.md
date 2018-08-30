@@ -39,7 +39,7 @@ hooks:
         cd: $home/plugins
         cmd:
           - mkdir -p plugins
-          - git clone https://github.com/algolia/discourse-algolia.git
+          - git clone https://github.com/discourse/discourse-algolia.git
 ```
 
 Rebuild your container:
