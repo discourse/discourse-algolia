@@ -5,7 +5,7 @@
 # url: https://github.com/algolia/discourse-algolia
 
 gem 'httpclient', '2.8.3',  require: false
-gem 'json', '2.1.0', require: false
+gem 'json', '2.2.0', require: false
 gem 'algoliasearch', '1.18.0', require: false
 
 enabled_site_setting :algolia_enabled
