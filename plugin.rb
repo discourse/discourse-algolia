@@ -7,7 +7,7 @@
 require 'json'
 
 gem 'httpclient', '2.8.3',  require: false
-gem 'algoliasearch', '1.18.0', require: false
+gem 'algoliasearch', '1.26.0' #, require: false
 
 enabled_site_setting :algolia_enabled
 
