@@ -17,16 +17,7 @@ export default {
           <div class="left-container">
             <div class="aa-dataset-posts" />
           </div>`,
-        footer: `
-          <div class="aa-footer">
-            <div class="left-container">
-            </div>
-            <div class="right-container">
-              <a target="_blank" class="algolia-logo" href="https://algolia.com/"
-                title="Powered by the discourse-algolia search plugin"></a>
-            </div>
-          </div>
-        `
+        footer: ``
       }
     }, [
       {
