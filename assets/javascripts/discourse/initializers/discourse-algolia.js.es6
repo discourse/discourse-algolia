@@ -37,7 +37,7 @@ export default {
         html() {
           return [
             h('form', {
-              action: '/search',
+              action: '/community/search',
               method: 'GET'
             }, [
               h('input.aa-input#search-box', {

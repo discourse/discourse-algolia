@@ -26,7 +26,7 @@ export default {
         footer: `
           <div class="aa-footer">
             <div class="left-container">
-              <a class="advanced-search" onclick="document.location.href='/search'; document.reload();" href="/search">advanced search</a>
+              <a class="advanced-search" onclick="document.location.href='/community/search'; document.reload();" href="/community/search">advanced search</a>
             </div>
             <div class="right-container">
               <a target="_blank" class="algolia-logo" href="https://algolia.com/"
