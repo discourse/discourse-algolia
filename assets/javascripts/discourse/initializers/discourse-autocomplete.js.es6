@@ -7,8 +7,6 @@ export default {
     var searchInput = '#search-box';
     var client = algoliasearch(options.algoliaApplicationId, options.algoliaSearchApiKey);
     var postsIndex = client.initIndex('discourse-posts');
-    var tagsIndex = client.initIndex('discourse-tags');
-    var usersIndex = client.initIndex('discourse-users');
 
     autocomplete(searchInput, {
       openOnFocus: true,
@@ -18,10 +16,6 @@ export default {
         dropdownMenu: `
           <div class="left-container">
             <div class="aa-dataset-posts" />
-          </div>
-          <div class="right-container">
-            <span class="aa-dataset-users" />
-            <span class="aa-dataset-tags" />
           </div>`,
         footer: `
           <div class="aa-footer">
@@ -36,50 +30,6 @@ export default {
         `
       }
     }, [
-      {
-        source: autocomplete.sources.hits(usersIndex, {hitsPerPage: 4}),
-        name: 'users',
-        displayKey: 'users',
-        templates: {
-          empty: "",
-          suggestion: function(hit) {
-            return `
-              <div class='hit-user-left'>
-                <img class="hit-user-avatar" src="${options.imageBaseURL}${hit.avatar_template.replace("\{size}", 50)}" />
-              </div>
-              <div class='hit-user-right'>
-                <div class="hit-user-username-holder">
-                  <span class="hit-user-username">
-                    @${hit._highlightResult.username.value}
-                  </span>
-                  <span class="hit-user-custom-ranking" title="Number of likes the user has received">
-                    ${hit.likes_received > 0 ? `<span class="hit-user-like-heart">❤</span> ${hit.likes_received}` : ''}
-                  </span>
-                </div>
-                <div class="hit-user-name">
-                  ${autocomplete.escapeHighlightedString(hit._highlightResult.name ? hit._highlightResult.name.value : hit.name)}
-                </div>
-              </div>
-              `
-          }
-        }
-      },
-    {
-        source: autocomplete.sources.hits(tagsIndex, {hitsPerPage: 4}),
-        name: 'tags',
-        displayKey: 'tags',
-        templates: {
-          empty: "",
-          suggestion: function(hit) {
-            return `
-              <div class='hit-tag'>
-                <span class="hit-tag-name">#${autocomplete.escapeHighlightedString(hit._highlightResult.name ? hit._highlightResult.name.value : hit.name)}</span>
-                <span class="hit-tag-topic_count" title="Number of topics with this tag">${hit.topic_count}</span>
-              </div>
-              `
-          }
-        }
-      },
       {
         source: autocomplete.sources.hits(postsIndex, {hitsPerPage: 4}),
         name: 'posts',
