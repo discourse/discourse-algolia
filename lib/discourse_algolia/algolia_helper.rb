@@ -69,7 +69,7 @@ module DiscourseAlgolia
 
         record = {
           objectID: "#{post.id}-#{index}",
-          url: "#{GlobalSetting.relative_url_root}/t/#{post.topic.slug}/#{post.topic.id}/#{post.post_number}",
+          url: self.url("/t/#{post.topic.slug}/#{post.topic.id}/#{post.post_number}"),
           post_id: post.id,
           part_number: index,
           post_number: post.post_number,
@@ -86,7 +86,7 @@ module DiscourseAlgolia
         user = post.user
         record[:user] = {
           id: user.id,
-          url: "#{GlobalSetting.relative_url_root}/users/#{user.username}",
+          url: self.url("/users/#{user.username}"),
           name: user.name,
           username: user.username,
           avatar_template: user.avatar_template
@@ -97,7 +97,7 @@ module DiscourseAlgolia
           clean_title = topic.title.gsub(/[^\u1F600-\u1F6FF\s]/i, '')
           record[:topic] = {
             id: topic.id,
-            url: "#{GlobalSetting.relative_url_root}/t/#{topic.slug}/#{topic.id}",
+            url: self.url("/t/#{topic.slug}/#{topic.id}"),
             title: clean_title,
             views: topic.views,
             slug: topic.slug,
@@ -109,7 +109,7 @@ module DiscourseAlgolia
           if (category)
             record[:category] = {
               id: category.id,
-              url: "#{GlobalSetting.relative_url_root}/c/#{category.slug}",
+              url: self.url("/c/#{category.slug}"),
               name: category.name,
               color: category.color,
               slug: category.slug
@@ -122,6 +122,13 @@ module DiscourseAlgolia
 
       post_records
 
+    end
+
+    def self.url(url_)
+      if GlobalSetting.relative_url_root.present?
+        return "#{GlobalSetting.relative_url_root}#{url_}"
+      end
+      return url_
     end
 
     def self.add_algolia_record(index_name, record, object_id)
