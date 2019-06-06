@@ -69,7 +69,7 @@ module DiscourseAlgolia
 
         record = {
           objectID: "#{post.id}-#{index}",
-          url: "#{GlobalSetting.relative_url_root}t/#{post.topic.slug}/#{post.topic.id}/#{post.post_number}",
+          url: "#{GlobalSetting.relative_url_root}/t/#{post.topic.slug}/#{post.topic.id}/#{post.post_number}",
           post_id: post.id,
           part_number: index,
           post_number: post.post_number,
