@@ -4,7 +4,6 @@
 # authors: Josh Dzielak and Gianluca Bargelli
 # url: https://github.com/algolia/discourse-algolia
 
-gem 'json', '2.3.0'
 gem 'httpclient', '2.8.3'
 gem 'algoliasearch', '1.26.0'
 
