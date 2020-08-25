@@ -27,7 +27,7 @@ module DiscourseAlgolia
     def self.to_user_record(user)
       {
         objectID: user.id,
-        url: "/users/#{user.username}",
+        url: "/u/#{user.username}",
         name: user.name,
         username: user.username,
         avatar_template: user.avatar_template,
@@ -118,7 +118,7 @@ module DiscourseAlgolia
         user = post.user
         record[:user] = {
           id: user.id,
-          url: "/users/#{user.username}",
+          url: "/u/#{user.username}",
           name: user.name,
           username: user.username,
           avatar_template: user.avatar_template
