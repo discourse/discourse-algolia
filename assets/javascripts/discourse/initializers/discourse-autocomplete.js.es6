@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 export default {
   name: "discourse-autocomplete",
   initialize() {},
@@ -11,7 +13,7 @@ export default {
     let tagsIndex = client.initIndex("discourse-tags");
     let usersIndex = client.initIndex("discourse-users");
 
-    autocomplete(
+    return autocomplete(
       searchInput,
       {
         openOnFocus: true,
@@ -157,9 +159,7 @@ export default {
         },
       ]
     ).on("autocomplete:selected", options.onSelect);
-
-    $("#search-box").on("focus", function () {
-      $(this).select();
-    });
   },
 };
+
+/* eslint-enable */

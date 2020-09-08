@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 /*!
  * autocomplete.js 0.28.1
  * https://github.com/algolia/autocomplete.js
@@ -166,7 +168,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* Zepto v1.2.0 - zepto event assets data - zeptojs.com/license */
 	(function(global, factory) {
 	  module.exports = factory(global);
-	}(/* this ##### UPDATED: here we want to use window/global instead of this which is the current file context ##### */ window, function(window) {  
+	}(/* this ##### UPDATED: here we want to use window/global instead of this which is the current file context ##### */ window, function(window) {
 	  var Zepto = (function() {
 	  var undefined, key, $, classList, emptyArray = [], concat = emptyArray.concat, filter = emptyArray.filter, slice = emptyArray.slice,
 	    document = window.document,
@@ -4101,3 +4103,5 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ ])
 });
 ;
+
+/* eslint-enable */
