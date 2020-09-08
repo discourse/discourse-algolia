@@ -1,3 +1,4 @@
+import I18n from "I18n";
 import { h } from "virtual-dom";
 import { on } from "ember-addons/ember-computed-decorators";
 import DiscourseURL from "discourse/lib/url";
@@ -46,7 +47,7 @@ export default {
               [
                 h("input.aa-input#search-box", {
                   name: "q",
-                  placeholder: "Search the forum...",
+                  placeholder: I18n.t("discourse_algolia.search_box_placeholder"),
                   autocomplete: "off",
                 }),
               ]

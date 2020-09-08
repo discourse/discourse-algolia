@@ -1,0 +1,4 @@
+en:
+  js:
+    discourse_algolia:
+      search_box_placeholder: "Search the forum..."
