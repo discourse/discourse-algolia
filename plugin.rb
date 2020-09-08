@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # name: discourse-algolia
 # about: Use Algolia to power the search on your Discourse
 # version: 0.1

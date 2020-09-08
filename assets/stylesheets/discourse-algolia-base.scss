@@ -1,7 +1,6 @@
 /* make changes to discourse styling outside the affected widgets
    only when the algolia plugin has been enabled */
 body.algolia-enabled {
-
   /* don't let topic titles run into the search bar */
   .extra-info-wrapper {
     max-width: 300px;
@@ -53,7 +52,6 @@ body.algolia-enabled {
     left: -295px !important;
     margin-top: 8px;
     border-radius: 3px;
-    box-shadow: 0 1px 0 0 rgba(0,0,0,0.2),0 2px 3px 0 rgba(0,0,0,0.1);
+    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.2), 0 2px 3px 0 rgba(0, 0, 0, 0.1);
   }
-
 }

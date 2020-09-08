@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Jobs
   class UpdateAlgoliaUser < ::Jobs::Base
     def execute(args)
