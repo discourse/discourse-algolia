@@ -8,13 +8,22 @@ body.algolia-enabled {
   }
 
   /* hide the default search icon */
-  header .icons > li:nth-child(2) {
+  header .icons > li.search-dropdown {
     display: none;
   }
 
+  ul.d-header-icons {
+    display: flex;
+    align-items: center;
+  }
+
   .algolia-holder {
-    padding: 3px 15px 0 0;
+    margin-right: 0.5em;
     text-align: left;
+
+    form {
+      margin: 0;
+    }
   }
 
   .algolia-holder .aa-input {
