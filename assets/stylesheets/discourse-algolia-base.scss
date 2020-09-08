@@ -27,9 +27,9 @@ body.algolia-enabled {
   }
 
   .algolia-holder .aa-input {
-    color: #919191;
+    color: var(--primary-medium);
     font-family: Open Sans, Arial, sans-serif;
-    border: solid 1px rgba(137,149,199,0.2);
+    border: solid 1px var(--primary-low);
     border-radius: 6px;
     font-size: 13px;
     line-height: 13px;

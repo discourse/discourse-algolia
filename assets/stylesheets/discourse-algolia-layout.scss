@@ -13,13 +13,13 @@
 }
 
 .aa-dropdown-menu {
-  border: 1px solid $aa-border-color;
+  border: 1px solid var(--primary-low);
   .left-container {
-    background-color: $aa-background-color;
+    background-color: var(--primary-low);
   }
   .right-container {
-    border-left: 1px solid $aa-border-color;
-    background-color: $aa-panel-background-color;
+    border-left: 1px solid var(--primary-low);
+    background-color: var(--primary-very-low);
   }
 }
 
@@ -41,11 +41,11 @@
 }
 
 .algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {
-  background-color: $aa-cursor-color;
+  background-color: var(--primary-very-low);
 }
 
 .algolia-autocomplete .aa-dropdown-menu .aa-suggestion em {
-  background-color: $aa-highlight-background-color;
+  background-color: var(--highlight);
   font-weight: bold;
   font-style: normal;
   font-weight: inherit;
@@ -53,7 +53,7 @@
 
 .algolia-autocomplete .aa-empty {
   padding: 12px;
-  color: $aa-light-font-color;
+  color: var(--primary-medium);
 }
 
 .aa-dataset-users {
@@ -74,8 +74,8 @@
     font-weight: bold;
   }
   .hit-user-name {
-    font-size: $aa-small-font;
-    color: $aa-light-font-color;
+    font-size: $font-down-1;
+    color: var(--primary-medium);
   }
   .hit-user-name, .hit-user-username-holder {
     max-width: $aa-dropdown-right-panel-width - 78px;
@@ -88,65 +88,64 @@
     border-radius: 50%;
   }
   .hit-user-custom-ranking {
-    color: $aa-light-font-color;
-    font-size: $aa-small-font;
+    color: var(--primary-medium);
+    font-size: $font-down-1;
   }
   .hit-user-like-heart {
-    color: $aa-heart-color;
+    color: var(--love);
   }
 }
 
 .aa-dataset-tags {
   .aa-suggestion {
     padding: 8px 12px;
-    border-top: 1px solid $aa-border-color;
+    border-top: 1px solid var(--primary-low);
   }
   .hit-tag-name {
     font-weight: bold;
   }
   .hit-tag-topic_count {
-    color: $aa-light-font-color;
-    font-size: $aa-small-font;
+    color: var(--primary-medium);
+    font-size: $font-down-1;
   }
 }
 
 .aa-dataset-posts {
   .aa-suggestion {
     padding: 12px;
-    border-bottom: 1px solid $aa-border-color;
+    border-bottom: 1px solid var(--primary-low);
     &:last-child {
       border-bottom: none;
     }
   }
   .hit-post {
     .hit-post-topic-title {
-      font-size: $aa-large-font;
+      font-size: $font-up-1;
       font-weight: bold;
     }
     .hit-post-topic-views {
-      font-size: $aa-small-font;
-      color: $aa-light-font-color;
+      font-size: $font-down-1;
+      color: var(--primary-medium);
     }
     .hit-post-category-tags {
       margin: 2px 0 4px;
     }
     .hit-post-tag {
-      color: $aa-light-font-color;
-      font-size: $aa-small-font;
+      color: var(--primary-medium);
+      font-size: $font-down-1;
       padding: 0 3px;
     }
     .hit-post-category-name {
-      color: $aa-dark-font-color;
-      font-size: $aa-normal-font;
+      color: var(--primary);
       font-weight: normal;
     }
     .hit-post-content-holder {
-      color: $aa-light-font-color;
-      font-size: $aa-small-font;
+      color: var(--primary-medium);
+      font-size: $font-down-1;
     }
     .hit-post-content {
       word-break: break-word;
-      font-size: $aa-small-font;
+      font-size: $font-down-1;
     }
   }
 }
