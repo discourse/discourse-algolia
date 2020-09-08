@@ -63,7 +63,7 @@ module DiscourseAlgolia
       return false if post.blank? || post.post_type != Post.types[:regular] || !guardian.can_see?(post)
       topic = post.topic
       return false if topic.blank? || topic.archetype == Archetype.private_message
-      return true
+      true
     end
 
     def self.to_post_records(post)
