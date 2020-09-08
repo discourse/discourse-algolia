@@ -57,7 +57,7 @@ export default {
                   </span>
                 </div>
                 <div class="hit-user-name">
-                  ${autocomplete.escapeHighlightedString(hit._highlightResult.name ? hit._highlightResult.name.value : hit.name)}
+                  ${autocomplete.escapeHighlightedString(hit._highlightResult.name ? hit._highlightResult.name.value : hit.name ? hit.name : hit.username)}
                 </div>
               </div>
               `
