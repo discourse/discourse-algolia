@@ -59,7 +59,9 @@ export default {
               [
                 h("input.aa-input#search-box", {
                   name: "q",
-                  placeholder: I18n.t("discourse_algolia.search_box_placeholder"),
+                  placeholder: I18n.t(
+                    "discourse_algolia.search_box_placeholder"
+                  ),
                   autocomplete: "off",
                 }),
               ]
