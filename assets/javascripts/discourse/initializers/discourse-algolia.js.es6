@@ -8,7 +8,7 @@ import { schedule } from "@ember/runloop";
 export default {
   name: "discourse-algolia",
   initialize() {
-    withPluginApi("0.8.8", api => {
+    withPluginApi("0.8.8", (api) => {
       api.createWidget("algolia", {
         tagName: "li.algolia-holder",
 
@@ -34,7 +34,7 @@ export default {
                 debug: document.location.host.indexOf("localhost") > -1,
                 onSelect(event, suggestion) {
                   DiscourseURL.routeTo(suggestion.url);
-                }
+                },
               });
             });
           }
@@ -54,7 +54,7 @@ export default {
               "form",
               {
                 action: "/search",
-                method: "GET"
+                method: "GET",
               },
               [
                 h("input.aa-input#search-box", {
@@ -62,19 +62,19 @@ export default {
                   placeholder: I18n.t(
                     "discourse_algolia.search_box_placeholder"
                   ),
-                  autocomplete: "off"
-                })
+                  autocomplete: "off",
+                }),
               ]
-            )
+            ),
           ];
         },
 
         _selectSearchBoxContent(event) {
           event.target.select();
-        }
+        },
       });
 
-      api.decorateWidget("header-icons:before", function(helper) {
+      api.decorateWidget("header-icons:before", function (helper) {
         if (
           helper.widget.siteSettings.algolia_enabled &&
           helper.widget.siteSettings.algolia_autocomplete_enabled
@@ -83,5 +83,5 @@ export default {
         }
       });
     });
-  }
+  },
 };
