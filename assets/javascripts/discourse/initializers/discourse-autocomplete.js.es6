@@ -38,8 +38,8 @@ export default {
                 title="Powered by the discourse-algolia search plugin"></a>
             </div>
           </div>
-        `,
-        },
+        `
+        }
       },
       [
         {
@@ -48,7 +48,7 @@ export default {
           displayKey: "users",
           templates: {
             empty: "",
-            suggestion: function (hit) {
+            suggestion: function(hit) {
               return `
               <div class='hit-user-left'>
                 <img class="hit-user-avatar" src="${
@@ -63,7 +63,9 @@ export default {
                   <span class="hit-user-custom-ranking" title="Number of likes the user has received">
                     ${
                       hit.likes_received > 0
-                        ? `<span class="hit-user-like-heart">❤</span> ${hit.likes_received}`
+                        ? `<span class="hit-user-like-heart">❤</span> ${
+                            hit.likes_received
+                          }`
                         : ""
                     }
                   </span>
@@ -79,8 +81,8 @@ export default {
                 </div>
               </div>
               `;
-            },
-          },
+            }
+          }
         },
         {
           source: autocomplete.sources.hits(tagsIndex, { hitsPerPage: 4 }),
@@ -88,7 +90,7 @@ export default {
           displayKey: "tags",
           templates: {
             empty: "",
-            suggestion: function (hit) {
+            suggestion: function(hit) {
               return `
               <div class='hit-tag'>
                 <span class="hit-tag-name">#${autocomplete.escapeHighlightedString(
@@ -101,8 +103,8 @@ export default {
                 }</span>
               </div>
               `;
-            },
-          },
+            }
+          }
         },
         {
           source: autocomplete.sources.hits(postsIndex, { hitsPerPage: 4 }),
@@ -110,7 +112,7 @@ export default {
           displayKey: "posts",
           templates: {
             empty: `<div class="aa-empty">No matching posts.</div>`,
-            suggestion: function (hit) {
+            suggestion: function(hit) {
               let tags = "";
               let baseTags = hit.topic.tags;
               let highlightedTags = hit._highlightResult.topic.tags;
@@ -154,12 +156,12 @@ export default {
                   )}</span>
                 </div>
               </div>`;
-            },
-          },
-        },
+            }
+          }
+        }
       ]
     ).on("autocomplete:selected", options.onSelect);
-  },
+  }
 };
 
 /* eslint-enable */
