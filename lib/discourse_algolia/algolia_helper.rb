@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'algoliasearch'
 
 module DiscourseAlgolia
@@ -14,6 +16,36 @@ module DiscourseAlgolia
       "goodbye", "sincerely", "regards", "cheers", "ok", "heyo",
       "heya", "dear"]
 
+    def self.index_user(user_id, discourse_event)
+      user = User.find_by(id: user_id)
+      return if user.blank? || !guardian.can_see?(user)
+
+      user_record = to_user_record(user)
+      add_algolia_record(USERS_INDEX, user_record, user_id)
+    end
+
+    def self.to_user_record(user)
+      {
+        objectID: user.id,
+        url: self.url("/u/#{user.username}"),
+        name: user.name,
+        username: user.username,
+        avatar_template: user.avatar_template,
+        bio_raw: user.user_profile.bio_raw,
+        post_count: user.post_count,
+        badge_count: user.badge_count,
+        likes_given: user.user_stat.likes_given,
+        likes_received: user.user_stat.likes_received,
+        days_visited: user.user_stat.days_visited,
+        topic_count: user.user_stat.topic_count,
+        posts_read: user.user_stat.posts_read_count,
+        time_read: user.user_stat.time_read,
+        created_at: user.created_at.to_i,
+        updated_at: user.updated_at.to_i,
+        last_seen_at: user.last_seen_at
+      }
+    end
+
     def self.index_topic(topic_id, discourse_event)
     end
 
@@ -29,7 +61,7 @@ module DiscourseAlgolia
       return false if post.blank? || post.post_type != Post.types[:regular] || !guardian.can_see?(post)
       topic = post.topic
       return false if topic.blank? || topic.archetype == Archetype.private_message
-      return true
+      true
     end
 
     def self.to_post_records(post)
@@ -86,7 +118,7 @@ module DiscourseAlgolia
         user = post.user
         record[:user] = {
           id: user.id,
-          url: self.url("/users/#{user.username}"),
+          url: self.url("/u/#{user.username}"),
           name: user.name,
           username: user.username,
           avatar_template: user.avatar_template

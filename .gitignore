@@ -1,1 +1,4 @@
 gems/
+node_modules
+yarn-error.log
+.rubocop-https---raw-githubusercontent-com-discourse-*

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 desc "configure indices and upload data"
 task "algolia:initialize" => :environment do
   Rake::Task["algolia:configure"].invoke

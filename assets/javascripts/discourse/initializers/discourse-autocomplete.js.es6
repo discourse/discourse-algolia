@@ -1,43 +1,114 @@
-export default {
+/* eslint-disable */
 
+export default {
   name: "discourse-autocomplete",
   initialize() {},
   _initialize(options) {
+    let searchInput = "#search-box";
+    let client = algoliasearch(
+      options.algoliaApplicationId,
+      options.algoliaSearchApiKey
+    );
+    let postsIndex = client.initIndex("discourse-posts");
+    let tagsIndex = client.initIndex("discourse-tags");
+    let usersIndex = client.initIndex("discourse-users");
 
-    var searchInput = '#search-box';
-    var client = algoliasearch(options.algoliaApplicationId, options.algoliaSearchApiKey);
-    var postsIndex = client.initIndex('discourse-posts');
-
-    autocomplete(searchInput, {
-      openOnFocus: true,
-      hint: false,
-      debug: options.debug,
-      templates: {
-        dropdownMenu: `
+    return autocomplete(
+      searchInput,
+      {
+        openOnFocus: true,
+        hint: false,
+        debug: options.debug,
+        templates: {
+          dropdownMenu: `
           <div class="left-container">
             <div class="aa-dataset-posts" />
           </div>`,
-        footer: ``
-      }
-    }, [
-      {
-        source: autocomplete.sources.hits(postsIndex, {hitsPerPage: 4}),
-        name: 'posts',
-        displayKey: 'posts',
-        templates: {
-          empty: `<div class="aa-empty">No matching posts.</div>`,
-          suggestion: function(hit) {
-            let tags = "";
-            let baseTags = hit.topic.tags;
-            let highlightedTags = hit._highlightResult.topic.tags;
-            let date = new Date(hit.updated_at * 1000);
-            let dateStr = (date.getMonth() + 1) + '/' + date.getDate() + '/';
-            if (baseTags && highlightedTags) {
-              for (var i = 0; i < baseTags.length; i++) {
-                tags += `<a class="hit-post-tag" href="/tags/${baseTags[i]}">${autocomplete.escapeHighlightedString(highlightedTags[i].value)}</a>`;
+          footer: ``,
+        },
+      },
+      [
+        {
+          source: autocomplete.sources.hits(usersIndex, { hitsPerPage: 4 }),
+          name: "users",
+          displayKey: "users",
+          templates: {
+            empty: "",
+            suggestion: function (hit) {
+              return `
+              <div class='hit-user-left'>
+                <img class="hit-user-avatar" src="${
+                  options.imageBaseURL
+                }${hit.avatar_template.replace("{size}", 50)}" />
+              </div>
+              <div class='hit-user-right'>
+                <div class="hit-user-username-holder">
+                  <span class="hit-user-username">
+                    @${hit._highlightResult.username.value}
+                  </span>
+                  <span class="hit-user-custom-ranking" title="Number of likes the user has received">
+                    ${
+                      hit.likes_received > 0
+                        ? `<span class="hit-user-like-heart">❤</span> ${hit.likes_received}`
+                        : ""
+                    }
+                  </span>
+                </div>
+                <div class="hit-user-name">
+                  ${autocomplete.escapeHighlightedString(
+                    hit._highlightResult.name
+                      ? hit._highlightResult.name.value
+                      : hit.name
+                      ? hit.name
+                      : hit.username
+                  )}
+                </div>
+              </div>
+              `;
+            },
+          },
+        },
+        {
+          source: autocomplete.sources.hits(tagsIndex, { hitsPerPage: 4 }),
+          name: "tags",
+          displayKey: "tags",
+          templates: {
+            empty: "",
+            suggestion: function (hit) {
+              return `
+              <div class='hit-tag'>
+                <span class="hit-tag-name">#${autocomplete.escapeHighlightedString(
+                  hit._highlightResult.name
+                    ? hit._highlightResult.name.value
+                    : hit.name
+                )}</span>
+                <span class="hit-tag-topic_count" title="Number of topics with this tag">${
+                  hit.topic_count
+                }</span>
+              </div>
+              `;
+            },
+          },
+        },
+        {
+          source: autocomplete.sources.hits(postsIndex, { hitsPerPage: 4 }),
+          name: "posts",
+          displayKey: "posts",
+          templates: {
+            empty: `<div class="aa-empty">No matching posts.</div>`,
+            suggestion: function (hit) {
+              let tags = "";
+              let baseTags = hit.topic.tags;
+              let highlightedTags = hit._highlightResult.topic.tags;
+
+              if (baseTags && highlightedTags) {
+                baseTags.forEach((baseTag, index) => {
+                  tags += `<a class="hit-post-tag" href="/tags/${baseTag}">${autocomplete.escapeHighlightedString(
+                    highlightedTags[index].value
+                  )}</a>`;
+                });
               }
-            }
-            return `
+              return `
               <div class="hit-post">
                 <div class="hit-post-title-holder">
                   <span class="hit-post-topic-title">
@@ -50,24 +121,31 @@ export default {
                 <div class="hit-post-category-tags">
                   <span class="hit-post-category">
                     <span class="badge-wrapper bullet">
-                      <span class="badge-category-bg" style="background-color: #${hit.category.color};" />
-                      <a class='badge-category hit-post-category-name' href="${hit.category.url}">${hit.category.name}</a>
+                      <span class="badge-category-bg" style="background-color: #${
+                        hit.category.color
+                      };" />
+                      <a class='badge-category hit-post-category-name' href="${
+                        hit.category.url
+                      }">${hit.category.name}</a>
                     </span>
                   </span>
                   <span class="hit-post-tags">${tags}</span>
                 </div>
                 <div class="hit-post-content-holder">
-                  <a class="hit-post-username" href="${hit.user.url}">@${hit.user.username}</a>:
-                  <span class="hit-post-content">${autocomplete.escapeHighlightedString(hit._snippetResult.content.value)}</span>
+                  <a class="hit-post-username" href="${hit.user.url}">@${
+                hit.user.username
+              }</a>:
+                  <span class="hit-post-content">${autocomplete.escapeHighlightedString(
+                    hit._snippetResult.content.value
+                  )}</span>
                 </div>
               </div>`;
-          }
-        }
-      }
-    ]).on('autocomplete:selected', options.onSelect);
+            },
+          },
+        },
+      ]
+    ).on("autocomplete:selected", options.onSelect);
+  },
+};
 
-    $("#search-box").on('focus', function (event) {
-      $(this).select();
-    });
-  }
-}
+/* eslint-enable */

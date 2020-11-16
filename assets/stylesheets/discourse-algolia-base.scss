@@ -1,26 +1,34 @@
 /* make changes to discourse styling outside the affected widgets
    only when the algolia plugin has been enabled */
 body.algolia-enabled {
-
   /* don't let topic titles run into the search bar */
   .extra-info-wrapper {
     max-width: 300px;
   }
 
   /* hide the default search icon */
-  header .icons > li:nth-child(2) {
+  header .icons > li.search-dropdown {
     display: none;
   }
 
+  ul.d-header-icons {
+    display: flex;
+    align-items: center;
+  }
+
   .algolia-holder {
-    padding: 3px 15px 0 0;
+    margin-right: 0.5em;
     text-align: left;
+
+    form {
+      margin: 0;
+    }
   }
 
   .algolia-holder .aa-input {
-    color: #919191;
+    color: var(--primary-medium);
     font-family: Open Sans, Arial, sans-serif;
-    border: solid 1px rgba(137,149,199,0.2);
+    border: solid 1px var(--primary-low);
     border-radius: 6px;
     font-size: 13px;
     line-height: 13px;
@@ -44,7 +52,6 @@ body.algolia-enabled {
     left: -295px !important;
     margin-top: 8px;
     border-radius: 3px;
-    box-shadow: 0 1px 0 0 rgba(0,0,0,0.2),0 2px 3px 0 rgba(0,0,0,0.1);
+    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.2), 0 2px 3px 0 rgba(0, 0, 0, 0.1);
   }
-
 }

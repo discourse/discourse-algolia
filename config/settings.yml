@@ -6,14 +6,14 @@ plugins:
     default: false
     client: true
   algolia_application_id:
-    default: ''
+    default: ""
     client: true
   algolia_search_api_key:
-    default: ''
+    default: ""
     client: true
   algolia_admin_api_key:
-    default: ''
+    default: ""
     client: false
   algolia_discourse_username:
-    default: 'system'
+    default: "system"
     client: false

@@ -1,10 +1,11 @@
+# frozen_string_literal: true
+
 # name: discourse-algolia
 # about: Use Algolia to power the search on your Discourse
 # version: 0.1
 # authors: Josh Dzielak and Gianluca Bargelli
 # url: https://github.com/algolia/discourse-algolia
 
-gem 'json', '2.2.0'
 gem 'httpclient', '2.8.3'
 gem 'algoliasearch', '1.26.0'
 
