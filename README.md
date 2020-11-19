@@ -64,6 +64,7 @@ Populate the settings as follows:
 
 - **algolia enabled**: Check this box to enable indexing new content with Algolia.
 - **algolia autocomplete enabled**: Check this box to replace the default Discourse autocomplete with the Algolia autocomplete. It is recommended to do this only once you have all content indexed (see below).
+- **algolia answers enabled**: Check this box to use [Algolia Answers](https://www.algolia.com/doc/guides/algolia-ai/answers/) to search Posts semantically.
 - **algolia application id**: The ID of an Algolia application you have created.
 - **algolia search api key**: A search-only API key of the Algolia application. Do not use an admin API key, as this will be visible to the clients of your Discourse.
 - **algolia admin api key**: The admin API key of your Discourse application, or any API key that can write and configure indices.
