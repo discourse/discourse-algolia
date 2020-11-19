@@ -16,8 +16,8 @@ export default {
     let hitsPerPage = 4;
 
     // When Algolia Answers is enabled, use a different endpoint
-    let postsSource = !options.algoliaAnswersEnabled?
-      autocomplete.sources.hits(postsIndex, { hitsPerPage: hitsPerPage }) :
+    let postsSourceFallback = autocomplete.sources.hits(postsIndex, { hitsPerPage: hitsPerPage});
+    let postsSource = !options.algoliaAnswersEnabled ? postsSourceFallback :
       function(query, callback) {
         const data = {
           "query": query,
@@ -31,21 +31,27 @@ export default {
           method: "POST",
           headers: {
             "X-Algolia-Application-Id": options.algoliaApplicationId,
-            "X-Algolia-API-Key": options.algoliaSearchApiKey
+            "X-Algolia-API-Key": options.algoliaSearchApiKey + "XXX"
           },
           body: JSON.stringify(data)
         })
         .then((response) => response.json())
         .then((res) => {
-          res.hits.forEach(hit => {
-            console.log(hit);
-            if ("_answer" in hit && "extract" in hit["_answer"]) {
-              hit["_snippetResult"]["content"]["value"] = hit["_answer"]["extract"];
-            }
-          });
-          callback(res.hits);
+          if (!res.hits) {
+            throw new Error(`Invalid response: ${res.message}`);
+          } else {
+            res.hits.forEach(hit => {
+              if ("_answer" in hit && "extract" in hit["_answer"]) {
+                hit["_snippetResult"]["content"]["value"] = hit["_answer"]["extract"];
+              }
+            });
+            callback(res.hits);
+          }
         })
-        .catch(console.error);
+        .catch((err) => {
+          console.error("[Algolia Answers]", err);
+          return postsSourceFallback(query, callback);
+        });
     }
     return autocomplete(
       searchInput,
