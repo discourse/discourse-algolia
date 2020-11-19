@@ -13,6 +13,40 @@ export default {
     let tagsIndex = client.initIndex("discourse-tags");
     let usersIndex = client.initIndex("discourse-users");
 
+    let hitsPerPage = 4;
+
+    // When Algolia Answers is enabled, use a different endpoint
+    let postsSource = !options.algoliaAnswersEnabled?
+      autocomplete.sources.hits(postsIndex, { hitsPerPage: hitsPerPage }) :
+      function(query, callback) {
+        const data = {
+          "query": query,
+          "queryLanguages": ["en"],
+          "attributesForPrediction": ["content"],
+          "nbHits": hitsPerPage
+        };
+
+        const URL = `https://${options.algoliaApplicationId}-dsn.algolia.net/1/answers/discourse-posts/prediction`;
+        fetch(URL, {
+          method: "POST",
+          headers: {
+            "X-Algolia-Application-Id": options.algoliaApplicationId,
+            "X-Algolia-API-Key": options.algoliaSearchApiKey
+          },
+          body: JSON.stringify(data)
+        })
+        .then((response) => response.json())
+        .then((res) => {
+          res.hits.forEach(hit => {
+            console.log(hit);
+            if ("_answer" in hit && "extract" in hit["_answer"]) {
+              hit["_snippetResult"]["content"]["value"] = hit["_answer"]["extract"];
+            }
+          });
+          callback(res.hits);
+        })
+        .catch(console.error);
+    }
     return autocomplete(
       searchInput,
       {
@@ -43,7 +77,7 @@ export default {
       },
       [
         {
-          source: autocomplete.sources.hits(usersIndex, { hitsPerPage: 4 }),
+          source: autocomplete.sources.hits(usersIndex, { hitsPerPage: hitsPerPage }),
           name: "users",
           displayKey: "users",
           templates: {
@@ -83,7 +117,7 @@ export default {
           },
         },
         {
-          source: autocomplete.sources.hits(tagsIndex, { hitsPerPage: 4 }),
+          source: autocomplete.sources.hits(tagsIndex, { hitsPerPage: hitsPerPage }),
           name: "tags",
           displayKey: "tags",
           templates: {
@@ -105,7 +139,7 @@ export default {
           },
         },
         {
-          source: autocomplete.sources.hits(postsIndex, { hitsPerPage: 4 }),
+          source: postsSource,
           name: "posts",
           displayKey: "posts",
           templates: {

@@ -30,6 +30,7 @@ export default {
               this._search = discourseAutocomplete._initialize({
                 algoliaApplicationId: this.siteSettings.algolia_application_id,
                 algoliaSearchApiKey: this.siteSettings.algolia_search_api_key,
+                algoliaAnswersEnabled: this.siteSettings.algolia_answers_enabled,
                 imageBaseURL: "",
                 debug: document.location.host.indexOf("localhost") > -1,
                 onSelect(event, suggestion) {
