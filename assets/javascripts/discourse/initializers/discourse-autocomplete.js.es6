@@ -16,43 +16,47 @@ export default {
     let hitsPerPage = 4;
 
     // When Algolia Answers is enabled, use a different endpoint
-    let postsSourceFallback = autocomplete.sources.hits(postsIndex, { hitsPerPage: hitsPerPage});
-    let postsSource = !options.algoliaAnswersEnabled ? postsSourceFallback :
-      function(query, callback) {
-        const data = {
-          "query": query,
-          "queryLanguages": ["en"],
-          "attributesForPrediction": ["content"],
-          "nbHits": hitsPerPage
-        };
+    let postsSourceFallback = autocomplete.sources.hits(postsIndex, {
+      hitsPerPage: hitsPerPage,
+    });
+    let postsSource = !options.algoliaAnswersEnabled
+      ? postsSourceFallback
+      : function (query, callback) {
+          const data = {
+            query: query,
+            queryLanguages: ["en"],
+            attributesForPrediction: ["content"],
+            nbHits: hitsPerPage,
+          };
 
-        const URL = `https://${options.algoliaApplicationId}-dsn.algolia.net/1/answers/discourse-posts/prediction`;
-        fetch(URL, {
-          method: "POST",
-          headers: {
-            "X-Algolia-Application-Id": options.algoliaApplicationId,
-            "X-Algolia-API-Key": options.algoliaSearchApiKey + "XXX"
-          },
-          body: JSON.stringify(data)
-        })
-        .then((response) => response.json())
-        .then((res) => {
-          if (!res.hits) {
-            throw new Error(`Invalid response: ${res.message}`);
-          } else {
-            res.hits.forEach(hit => {
-              if ("_answer" in hit && "extract" in hit["_answer"]) {
-                hit["_snippetResult"]["content"]["value"] = hit["_answer"]["extract"];
+          const URL = `https://${options.algoliaApplicationId}-dsn.algolia.net/1/answers/discourse-posts/prediction`;
+          fetch(URL, {
+            method: "POST",
+            headers: {
+              "X-Algolia-Application-Id": options.algoliaApplicationId,
+              "X-Algolia-API-Key": options.algoliaSearchApiKey + "XXX",
+            },
+            body: JSON.stringify(data),
+          })
+            .then((response) => response.json())
+            .then((res) => {
+              if (!res.hits) {
+                throw new Error(`Invalid response: ${res.message}`);
+              } else {
+                res.hits.forEach((hit) => {
+                  if ("_answer" in hit && "extract" in hit["_answer"]) {
+                    hit["_snippetResult"]["content"]["value"] =
+                      hit["_answer"]["extract"];
+                  }
+                });
+                callback(res.hits);
               }
+            })
+            .catch((err) => {
+              console.error("[Algolia Answers]", err);
+              return postsSourceFallback(query, callback);
             });
-            callback(res.hits);
-          }
-        })
-        .catch((err) => {
-          console.error("[Algolia Answers]", err);
-          return postsSourceFallback(query, callback);
-        });
-    }
+        };
     return autocomplete(
       searchInput,
       {
@@ -83,7 +87,9 @@ export default {
       },
       [
         {
-          source: autocomplete.sources.hits(usersIndex, { hitsPerPage: hitsPerPage }),
+          source: autocomplete.sources.hits(usersIndex, {
+            hitsPerPage: hitsPerPage,
+          }),
           name: "users",
           displayKey: "users",
           templates: {
@@ -123,7 +129,9 @@ export default {
           },
         },
         {
-          source: autocomplete.sources.hits(tagsIndex, { hitsPerPage: hitsPerPage }),
+          source: autocomplete.sources.hits(tagsIndex, {
+            hitsPerPage: hitsPerPage,
+          }),
           name: "tags",
           displayKey: "tags",
           templates: {
