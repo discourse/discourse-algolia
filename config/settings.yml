@@ -5,6 +5,9 @@ plugins:
   algolia_autocomplete_enabled:
     default: false
     client: true
+  algolia_answers_enabled:
+    default: false
+    client: true
   algolia_application_id:
     default: ""
     client: true

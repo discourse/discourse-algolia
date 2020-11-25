@@ -2,9 +2,9 @@
 
 # name: discourse-algolia
 # about: Use Algolia to power the search on your Discourse
-# version: 0.1
-# authors: Josh Dzielak and Gianluca Bargelli
-# url: https://github.com/algolia/discourse-algolia
+# version: 0.2
+# authors: Josh Dzielak and Gianluca Bargelli and Paul-Louis Nech
+# url: https://github.com/discourse/discourse-algolia
 
 gem 'httpclient', '2.8.3'
 gem 'algoliasearch', '1.26.0'
