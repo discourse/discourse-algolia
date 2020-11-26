@@ -34,7 +34,7 @@ export default {
             method: "POST",
             headers: {
               "X-Algolia-Application-Id": options.algoliaApplicationId,
-              "X-Algolia-API-Key": options.algoliaSearchApiKey + "XXX",
+              "X-Algolia-API-Key": options.algoliaSearchApiKey,
             },
             body: JSON.stringify(data),
           })
