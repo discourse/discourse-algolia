@@ -92,14 +92,19 @@ def algolia_reindex_users
   puts "[Finished] Successfully deleted all users in Algolia"
 
   puts "[Starting] Pushing users to Algolia"
-  user_records = []
-  User.all.each do |user|
-    user_records << DiscourseAlgolia::AlgoliaHelper.to_user_record(user)
+  user_count = 0
+
+  User.find_in_batches do |users|
+    records = users.map { |user| DiscourseAlgolia::AlgoliaHelper.to_user_record(user) }
+
+    user_count += records.size
+
+    DiscourseAlgolia::AlgoliaHelper.add_algolia_records(DiscourseAlgolia::AlgoliaHelper::USERS_INDEX, records)
+
+    puts "[Progress] Pushed #{records.size} user records to Algolia"
   end
-  puts "[Progress] Gathered users from Discourse"
-  DiscourseAlgolia::AlgoliaHelper.algolia_index(
-    DiscourseAlgolia::AlgoliaHelper::USERS_INDEX).add_objects(user_records)
-  puts "[Finished] Successfully pushed #{user_records.length} users to Algolia"
+
+  puts "[Finished] Successfully pushed #{user_count} users to Algolia"
 end
 
 def algolia_reindex_posts
@@ -109,20 +114,22 @@ def algolia_reindex_posts
   puts "[Finished] Successfully deleted all posts in Algolia"
 
   puts "[Starting] Pushing posts to Algolia"
-  post_records = []
-  Post.all.includes(:user, :topic).each do |post|
-    if DiscourseAlgolia::AlgoliaHelper.should_index_post?(post)
-      post_records << DiscourseAlgolia::AlgoliaHelper.to_post_records(post)
-    end
+  post_count = 0
+
+  Post.includes(:user, :topic).find_in_batches do |posts|
+    records = posts
+      .filter { |post| DiscourseAlgolia::AlgoliaHelper.should_index_post?(post) }
+      .map { |post| DiscourseAlgolia::AlgoliaHelper.to_post_records(post) }
+      .flatten # a post may generate several records
+
+    post_count += records.size
+
+    DiscourseAlgolia::AlgoliaHelper.add_algolia_records(DiscourseAlgolia::AlgoliaHelper::POSTS_INDEX, records)
+
+    puts "[Progress] Pushed #{records.size} post records to Algolia"
   end
-  post_records.flatten!
-  puts "[Progress] Gathered posts from Discourse"
-  post_records.each_slice(100) do |slice|
-    DiscourseAlgolia::AlgoliaHelper.algolia_index(
-      DiscourseAlgolia::AlgoliaHelper::POSTS_INDEX).add_objects(slice.flatten)
-    puts "[Progress] Pushed #{slice.length} post records to Algolia"
-  end
-  puts "[Finished] Successfully pushed #{post_records.length} posts to Algolia"
+
+  puts "[Finished] Successfully pushed #{post_count} posts to Algolia"
 end
 
 def algolia_reindex_tags
@@ -132,14 +139,19 @@ def algolia_reindex_tags
   puts "[Finished] Successfully deleted all tags in Algolia"
 
   puts "[Starting] Pushing tags to Algolia"
-  tag_records = []
-  Tag.all.each do |tag|
-    if DiscourseAlgolia::AlgoliaHelper.should_index_tag?(tag)
-      tag_records << DiscourseAlgolia::AlgoliaHelper.to_tag_record(tag)
-    end
+  tag_count = 0
+
+  Tag.find_in_batches do |tags|
+    records = tags
+      .filter { |tag| DiscourseAlgolia::AlgoliaHelper.should_index_tag?(tag) }
+      .map { |tag| DiscourseAlgolia::AlgoliaHelper.to_tag_record(tag) }
+
+    tag_count += records.size
+
+    DiscourseAlgolia::AlgoliaHelper.add_algolia_records(DiscourseAlgolia::AlgoliaHelper::TAGS_INDEX, records)
+
+    puts "[Progress] Pushed #{records.size} tag records to Algolia"
   end
-  puts "[Progress] Gathered tags from Discourse"
-  DiscourseAlgolia::AlgoliaHelper.algolia_index(
-    DiscourseAlgolia::AlgoliaHelper::TAGS_INDEX).add_objects(tag_records)
-  puts "[Finished] Successfully pushed #{tag_records.length} tags to Algolia"
+
+  puts "[Finished] Successfully pushed #{tag_count} tags to Algolia"
 end
