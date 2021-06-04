@@ -2,12 +2,12 @@
 
 # name: discourse-algolia
 # about: Use Algolia to power the search on your Discourse
-# version: 0.2.1
-# authors: Josh Dzielak and Gianluca Bargelli and Paul-Louis Nech
+# version: 0.3.0
+# authors: Josh Dzielak, Gianluca Bargelli and Paul-Louis Nech
 # url: https://github.com/discourse/discourse-algolia
 
-gem 'httpclient', '2.8.3'
-gem 'algoliasearch', '1.26.0'
+gem 'net-http-persistent', '4.0.1', require: false
+gem 'algolia', '2.0.4'
 
 enabled_site_setting :algolia_enabled
 
@@ -18,68 +18,48 @@ register_asset 'lib/algoliasearch.js'
 register_asset 'lib/autocomplete.js'
 
 after_initialize do
-  load File.expand_path('../lib/discourse_algolia/algolia_helper.rb', __FILE__)
+  load File.expand_path("../lib/discourse_algolia.rb", __FILE__)
 
-  module ::DiscourseAlgolia
-    PLUGIN_NAME = "discourse-algolia".freeze
+  USER_EVENTS ||= %i{
+    user_created
+    user_updated
+    user_destroyed
+  }
 
-    class Engine < ::Rails::Engine
-      engine_name DiscourseAlgolia::PLUGIN_NAME
-      isolate_namespace DiscourseAlgolia
+  POST_EVENTS ||= %i{
+    post_created
+    post_edited
+    post_destroyed
+    post_recovered
+  }
+
+  TAG_EVENTS ||= %i{
+    tag_created
+    tag_updated
+    tag_destroyed
+  }
+
+  USER_EVENTS.each do |event|
+    DiscourseEvent.on(event) do |user|
+      next unless SiteSetting.algolia_enabled?
+      DiscourseAlgolia.enqueue_record(:user, user.id)
     end
   end
 
-  require_dependency File.expand_path('../app/jobs/regular/update_algolia_post.rb', __FILE__)
-  require_dependency File.expand_path('../app/jobs/regular/update_algolia_user.rb', __FILE__)
-  require_dependency File.expand_path('../app/jobs/regular/update_algolia_topic.rb', __FILE__)
-  require_dependency File.expand_path('../app/jobs/regular/update_algolia_tags.rb', __FILE__)
-  require_dependency 'discourse_event'
-
-  [:user_created, :user_updated].each do |discourse_event|
-    DiscourseEvent.on(discourse_event) do |user|
-      if SiteSetting.algolia_enabled?
-        Jobs.enqueue_in(0,
-          :update_algolia_user,
-          user_id: user.id,
-          discourse_event: discourse_event
-        )
-      end
+  POST_EVENTS.each do |event|
+    DiscourseEvent.on(event) do |post|
+      next unless SiteSetting.algolia_enabled?
+      type = post.post_number == 1 ? :topic : :post
+      DiscourseAlgolia.enqueue_record(type, post.id)
+      Scheduler::Defer.later("flush algolia queue") { DiscourseAlgolia.process_queue! }
     end
   end
 
-  [:topic_created, :topic_edited, :topic_destroyed, :topic_recovered].each do |discourse_event|
-    DiscourseEvent.on(discourse_event) do |topic|
-      if SiteSetting.algolia_enabled?
-        Jobs.enqueue_in(0,
-          :update_algolia_topic,
-          topic_id: topic.id,
-          discourse_event: discourse_event
-        )
-        Jobs.enqueue_in(0,
-          :update_algolia_tags,
-          tags: topic.tags.map(&:name),
-          discourse_event: discourse_event
-        )
-      end
+  TAG_EVENTS.each do |event|
+    DiscourseEvent.on(event) do |tag|
+      next unless SiteSetting.algolia_enabled?
+      DiscourseAlgolia.enqueue_record(:tag, tag.id)
     end
   end
 
-  [:post_created, :post_edited, :post_destroyed, :post_recovered].each do |discourse_event|
-    DiscourseEvent.on(discourse_event) do |post|
-      if SiteSetting.algolia_enabled?
-        Jobs.enqueue_in(0,
-          :update_algolia_post,
-          post_id: post.id,
-          discourse_event: discourse_event
-        )
-        if post.topic
-          Jobs.enqueue_in(0,
-            :update_algolia_tags,
-            tags: post.topic.tags.map(&:name),
-            discourse_event: discourse_event
-          )
-        end
-      end
-    end
-  end
 end
