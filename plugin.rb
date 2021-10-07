@@ -6,8 +6,13 @@
 # authors: Josh Dzielak, Gianluca Bargelli and Paul-Louis Nech
 # url: https://github.com/discourse/discourse-algolia
 
-gem 'net-http-persistent', '4.0.1', require: false
-gem 'algolia', '2.0.4'
+gem 'net-http-persistent', '4.0.1', require_name: 'net/http/persistent'
+gem 'algolia', '2.1.1'
+
+# HACK: Faraday tries to load `net/http/persistent` before this file is loaded
+# and caches that `require` result. These lines retry to load the library.
+Faraday::Adapter::NetHttpPersistent.instance_variable_set(:@load_error, nil)
+Faraday::Adapter::NetHttpPersistent.dependency('net/http/persistent')
 
 enabled_site_setting :algolia_enabled
 

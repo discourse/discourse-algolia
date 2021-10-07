@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "algolia"
-
 class DiscourseAlgolia
   PROCESSING_QUEUE_NAME ||= "discourse-algolia-processing-queue"
 
