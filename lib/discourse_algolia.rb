@@ -45,12 +45,10 @@ class DiscourseAlgolia
   end
 
   def self.process_queue!
-    return unless SiteSetting.algolia_enabled?
-    return unless algolia_client
+    return if !SiteSetting.algolia_enabled?
 
     DistributedMutex.synchronize("algolia-queue", validity: 1.minute) do
       records = dequeue_records
-
       return if records.blank?
 
       first_post_ids = []
@@ -164,7 +162,7 @@ class DiscourseAlgolia
   end
 
   def self.post_to_object(post)
-    {
+    object = {
       objectID: post.id,
       url: post.url,
       post_id: post.id,
@@ -191,15 +189,20 @@ class DiscourseAlgolia
         slug: post.topic.slug,
         like_count: post.topic.like_count,
         tags: post.topic.tags.map(&:name),
-      },
-      category: {
+      }
+    }
+
+    if post.topic.category.present?
+      object[:category] = {
         id: post.topic.category.id,
         url: post.topic.category.url,
         name: post.topic.category.name,
         color: post.topic.category.color,
         slug: post.topic.category.slug,
       }
-    }
+    end
+
+    object
   end
 
   def self.user_to_object(user)
@@ -250,16 +253,19 @@ class DiscourseAlgolia
   def self.algolia_index(name, settings)
     @algolia_indexes[name] ||= begin
       index = algolia_client.init_index(name)
-      index.set_settings(settings) unless index.exists?
+      index.set_settings(settings) if !index.exists?
       index
     end
   end
 
   def self.algolia_client
-    @algolia_client ||= Algolia::Search::Client.create(SiteSetting.algolia_application_id, SiteSetting.algolia_admin_api_key)
+    @algolia_client ||= Algolia::Search::Client.create(
+      SiteSetting.algolia_application_id,
+      SiteSetting.algolia_admin_api_key
+    )
   end
 
   def self.algolia_guardian
-    @algolia_guardian ||= Guardian.new(User.find_by(username: SiteSetting.algolia_discourse_username))
+    @algolia_guardian ||= User.find_by_username(SiteSetting.algolia_discourse_username).guardian
   end
 end
