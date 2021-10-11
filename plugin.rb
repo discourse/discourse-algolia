@@ -16,11 +16,11 @@ Faraday::Adapter::NetHttpPersistent.dependency('net/http/persistent')
 
 enabled_site_setting :algolia_enabled
 
-register_asset 'stylesheets/variables.scss'
-register_asset 'stylesheets/discourse-algolia-layout.scss'
-register_asset 'stylesheets/discourse-algolia-base.scss'
 register_asset 'lib/algoliasearch.js'
 register_asset 'lib/autocomplete.js'
+register_asset 'stylesheets/variables.scss'
+register_asset 'stylesheets/discourse-algolia-base.scss'
+register_asset 'stylesheets/discourse-algolia-layout.scss'
 
 after_initialize do
   require_relative 'app/jobs/scheduled/update_indexes.rb'
@@ -47,7 +47,7 @@ after_initialize do
 
   USER_EVENTS.each do |event|
     DiscourseEvent.on(event) do |user|
-      next unless SiteSetting.algolia_enabled?
+      next if !SiteSetting.algolia_enabled?
 
       DiscourseAlgolia.enqueue_record(:user, user.id)
     end
@@ -55,7 +55,7 @@ after_initialize do
 
   POST_EVENTS.each do |event|
     DiscourseEvent.on(event) do |post|
-      next unless SiteSetting.algolia_enabled?
+      next if !SiteSetting.algolia_enabled?
 
       type = post.post_number == 1 ? :topic : :post
       DiscourseAlgolia.enqueue_record(type, post.id)
@@ -65,7 +65,7 @@ after_initialize do
 
   TAG_EVENTS.each do |event|
     DiscourseEvent.on(event) do |tag|
-      next unless SiteSetting.algolia_enabled?
+      next if !SiteSetting.algolia_enabled?
 
       DiscourseAlgolia.enqueue_record(:tag, tag.id)
     end

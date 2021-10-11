@@ -58,6 +58,7 @@ function initializeAutocomplete(options) {
             }
           })
           .catch((err) => {
+            // eslint-disable-next-line no-console
             console.error("[Algolia Answers]", err);
             return postsSourceFallback(query, callback);
           });
@@ -255,10 +256,12 @@ export default {
 
         willRerenderWidget() {
           const searchBox = document.querySelector("#search-box");
-          searchBox &&
+          if (searchBox) {
             searchBox.removeEventListener("focus", this._selectSearchBox);
-
-          this._search && this._search.autocomplete.destroy();
+          }
+          if (this._search) {
+            this._search.autocomplete.destroy();
+          }
         },
 
         html() {
