@@ -5,3 +5,6 @@
 # https://translate.discourse.org/
 
 sv:
+  js:
+    discourse_algolia:
+      search_box_placeholder: "Sök i forumet..."
