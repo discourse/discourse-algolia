@@ -5,3 +5,11 @@
 # https://translate.discourse.org/
 
 sv:
+  site_settings:
+    algolia_enabled: "Aktivera insticksprogrammet discourse-algolia och skicka data till Algolia för indexering"
+    algolia_autocomplete_enabled: "Aktivera autofyllning av Algolia i webbplatshuvudet"
+    algolia_answers_enabled: "Använd <a href='https://www.algolia.com/doc/guides/algolia-ai/answers/'>Algolia svar</a> när du söker efter inlägg"
+    algolia_application_id: "Algolia app-ID där data ska skickas för indexering"
+    algolia_admin_api_key: "En Algolia API-nyckel med behörighet att skriva data och konfigurera index"
+    algolia_search_api_key: "En Algolia API-nyckel med <b>sök</b> behörighet, används för besöksidan<br /><i>När Svar är aktiverat behöver den också behörighet till </i><b>nluReadAnswers</b>"
+    algolia_discourse_username: "Data som indexeras innehåller endast objekt som den här användaren kan se"
