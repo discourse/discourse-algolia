@@ -25,49 +25,39 @@ register_asset 'stylesheets/discourse-algolia-layout.scss'
 after_initialize do
   require_relative 'app/jobs/scheduled/update_indexes.rb'
   require_relative 'lib/discourse_algolia.rb'
+  require_relative 'lib/discourse_algolia/indexer.rb'
+  require_relative 'lib/discourse_algolia/post_indexer.rb'
+  require_relative 'lib/discourse_algolia/tag_indexer.rb'
+  require_relative 'lib/discourse_algolia/topic_indexer.rb'
+  require_relative 'lib/discourse_algolia/user_indexer.rb'
 
-  USER_EVENTS ||= %i{
-    user_created
-    user_updated
-    user_destroyed
-  }
-
-  POST_EVENTS ||= %i{
-    post_created
-    post_edited
-    post_destroyed
-    post_recovered
-  }
-
-  TAG_EVENTS ||= %i{
-    tag_created
-    tag_updated
-    tag_destroyed
-  }
-
-  USER_EVENTS.each do |event|
-    DiscourseEvent.on(event) do |user|
+  %i{user_created user_updated user_destroyed}.each do |event|
+    on(event) do |user|
       next if !SiteSetting.algolia_enabled?
 
-      DiscourseAlgolia.enqueue_record(:user, user.id)
+      DiscourseAlgolia::UserIndexer.enqueue(user.id)
     end
   end
 
-  POST_EVENTS.each do |event|
-    DiscourseEvent.on(event) do |post|
+  %i{post_created post_edited post_destroyed post_recovered}.each do |event|
+    on(event) do |post|
       next if !SiteSetting.algolia_enabled?
 
-      type = post.post_number == 1 ? :topic : :post
-      DiscourseAlgolia.enqueue_record(type, post.id)
-      Scheduler::Defer.later("flush algolia queue") { DiscourseAlgolia.process_queue! }
+      if post.post_number == 1
+        DiscourseAlgolia::TopicIndexer.enqueue(post.id)
+      else
+        DiscourseAlgolia::PostIndexer.enqueue(post.id)
+      end
+
+      Scheduler::Defer.later('flush algolia queue') { DiscourseAlgolia.process! }
     end
   end
 
-  TAG_EVENTS.each do |event|
-    DiscourseEvent.on(event) do |tag|
+  %i{tag_created tag_updated tag_destroyed}.each do |event|
+    on(event) do |tag|
       next if !SiteSetting.algolia_enabled?
 
-      DiscourseAlgolia.enqueue_record(:tag, tag.id)
+      DiscourseAlgolia::TagIndexer.enqueue(tag.id)
     end
   end
 end

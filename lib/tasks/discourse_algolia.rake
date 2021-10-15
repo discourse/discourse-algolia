@@ -2,76 +2,41 @@
 
 desc "reindex everything to algolia"
 task "algolia:reindex" => :environment do
-  algolia_reindex_users
-  algolia_reindex_posts
-  algolia_reindex_tags
+  algolia_reindex(User, DiscourseAlgolia.indexer(:user))
+  algolia_reindex(Tag, DiscourseAlgolia.indexer(:tag))
+  algolia_reindex(Post, DiscourseAlgolia.indexer(:post))
 end
 
 desc "reindex users in algolia"
 task "algolia:reindex_users" => :environment do
-  algolia_reindex_users
-end
-
-desc "reindex posts in algolia"
-task "algolia:reindex_posts" => :environment do
-  algolia_reindex_posts
+  algolia_reindex(User, DiscourseAlgolia.indexer(:user))
 end
 
 desc "reindex tags in algolia"
 task "algolia:reindex_tags" => :environment do
-  algolia_reindex_tags
+  algolia_reindex(Tag, DiscourseAlgolia.indexer(:tag))
 end
 
-def algolia_reindex_users
-  puts "[Starting] Clearing users in Algolia"
-  DiscourseAlgolia.users_index.clear_objects
-  puts "[Finished] Successfully deleted all users in Algolia"
-
-  puts "[Starting] Pushing users to Algolia"
-  count = 0
-
-  User.in_batches do |users|
-    ids = users.where_values_hash["id"]
-    count += ids.size
-    DiscourseAlgolia.process_users!(ids)
-    putc "."
-  end
-
-  puts "[Finished] Successfully pushed #{count} users to Algolia"
+desc "reindex posts in algolia"
+task "algolia:reindex_posts" => :environment do
+  algolia_reindex(Post, DiscourseAlgolia.indexer(:post))
 end
 
-def algolia_reindex_posts
-  puts "[Starting] Clearing posts in Algolia"
-  DiscourseAlgolia.posts_index.clear_objects
-  puts "[Finished] Successfully deleted all posts in Algolia"
+def algolia_reindex(model_class, indexer)
+  model_name = model_class.name.downcase.pluralize
 
-  puts "[Starting] Pushing posts to Algolia"
+  puts "Clearing #{model_name} from Algolia"
+  indexer.index.clear_objects
+
+  puts "Pushing #{model_name} to Algolia"
   count = 0
-
-  Post.in_batches do |posts|
-    ids = posts.where_values_hash["id"]
+  model_class.in_batches do |objects|
+    ids = objects.where_values_hash["id"]
     count += ids.size
-    DiscourseAlgolia.process_posts!(ids)
+    indexer.process!(ids: ids)
     putc "."
   end
+  puts "."
 
-  puts "[Finished] Successfully pushed #{count} posts to Algolia"
-end
-
-def algolia_reindex_tags
-  puts "[Starting] Clearing tags in Algolia"
-  DiscourseAlgolia.tags_index.clear_objects
-  puts "[Finished] Successfully deleted all tags in Algolia"
-
-  puts "[Starting] Pushing tags to Algolia"
-  count = 0
-
-  Tag.in_batches do |tags|
-    ids = tags.where_values_hash["id"]
-    count += ids.size
-    DiscourseAlgolia.process_tags!(ids)
-    putc "."
-  end
-
-  puts "[Finished] Successfully pushed #{count} tags to Algolia"
+  puts "Successfully pushed #{count} #{model_name} to Algolia"
 end
