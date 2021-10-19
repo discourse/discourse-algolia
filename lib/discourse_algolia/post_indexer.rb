@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class DiscourseAlgolia::PostIndexer < DiscourseAlgolia::Indexer
-  QUEUE_NAME ||= "algolia-posts"
+  QUEUE_NAME = "algolia-posts"
 
-  INDEX_NAME ||= "discourse-posts"
-  SETTINGS ||= {
+  INDEX_NAME = "discourse-posts"
+  SETTINGS = {
     "advancedSyntax" => true,
     "attributeForDistinct" => "topic.id",
     "attributesToHighlight" => ["topic.title", "topic.tags", "content"],

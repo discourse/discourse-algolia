@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class DiscourseAlgolia::Indexer
-  QUEUE_SIZE ||= 100
+  QUEUE_SIZE = 100
 
   attr_accessor :index
 
@@ -14,7 +14,7 @@ class DiscourseAlgolia::Indexer
   end
 
   def process!(ids: nil)
-    ids ||= Discourse.redis.lrange(QUEUE_NAME, 0, 100)
+    ids ||= queue_ids
     return if ids.blank?
 
     objects = []
@@ -33,6 +33,10 @@ class DiscourseAlgolia::Indexer
     @index.delete_objects(ids) if ids.present?
   end
 
+  def queue_ids
+    Discourse.redis.lpop(self.class::QUEUE_NAME, 100)&.map(&:to_i)&.uniq || []
+  end
+
   def queue(ids)
     raise NotImplementedError
   end
@@ -46,6 +50,6 @@ class DiscourseAlgolia::Indexer
   end
 
   def self.enqueue(id)
-    Discourse.redis.rpush(self.class::QUEUE_NAME, id)
+    Discourse.redis.rpush(self::QUEUE_NAME, id)
   end
 end

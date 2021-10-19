@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class DiscourseAlgolia::TopicIndexer < DiscourseAlgolia::PostIndexer
-  QUEUE_NAME ||= "algolia-first-posts"
+  QUEUE_NAME = "algolia-first-posts"
 
-  def self.process!(ids: nil)
-    ids ||= Discourse.redis.lrange(QUEUE_NAME, 0, 100)
+  def process!(ids: nil)
+    ids ||= queue_ids
     return if ids.blank?
 
     objects = []
@@ -12,6 +12,7 @@ class DiscourseAlgolia::TopicIndexer < DiscourseAlgolia::PostIndexer
     deleted_topic_ids = []
 
     Post
+      .unscoped
       .includes(:user, topic: [:tags, :category, :shared_draft])
       .where(id: ids)
       .find_each do |post|

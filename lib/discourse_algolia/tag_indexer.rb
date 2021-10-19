@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class DiscourseAlgolia::TagIndexer < DiscourseAlgolia::Indexer
-  QUEUE_NAME ||= "algolia-tags"
+  QUEUE_NAME = "algolia-tags"
 
-  INDEX_NAME ||= "discourse-tags"
-  SETTINGS ||= {
+  INDEX_NAME = "discourse-tags"
+  SETTINGS = {
     "attributesToRetrieve" => [:name, :url, :topic_count],
     "customRanking" => ["desc(topic_count)"],
     "removeWordsIfNoResults" => "allOptional",

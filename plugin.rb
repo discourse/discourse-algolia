@@ -39,7 +39,31 @@ after_initialize do
     end
   end
 
-  %i{post_created post_edited post_destroyed post_recovered}.each do |event|
+  %i{tag_created tag_updated tag_destroyed}.each do |event|
+    on(event) do |tag|
+      next if !SiteSetting.algolia_enabled?
+
+      DiscourseAlgolia::TagIndexer.enqueue(tag.id)
+    end
+  end
+
+  on(:post_created) do |post|
+    next if !SiteSetting.algolia_enabled?
+
+    DiscourseAlgolia::PostIndexer.enqueue(post.id)
+  end
+
+  on(:post_edited) do |post, topic_changed|
+    next if !SiteSetting.algolia_enabled?
+
+    if post.post_number == 1 && topic_changed
+      DiscourseAlgolia::TopicIndexer.enqueue(post.id)
+    else
+      DiscourseAlgolia::PostIndexer.enqueue(post.id)
+    end
+  end
+
+  %i{post_destroyed post_recovered}.each do |event|
     on(event) do |post|
       next if !SiteSetting.algolia_enabled?
 
@@ -49,15 +73,7 @@ after_initialize do
         DiscourseAlgolia::PostIndexer.enqueue(post.id)
       end
 
-      Scheduler::Defer.later('flush algolia queue') { DiscourseAlgolia.process! }
-    end
-  end
-
-  %i{tag_created tag_updated tag_destroyed}.each do |event|
-    on(event) do |tag|
-      next if !SiteSetting.algolia_enabled?
-
-      DiscourseAlgolia::TagIndexer.enqueue(tag.id)
+      Jobs.enqueue(:update_indexes)
     end
   end
 end
