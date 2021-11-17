@@ -31,7 +31,7 @@ def algolia_reindex(model_class, indexer)
   puts "Pushing #{model_name} to Algolia"
   count = 0
   model_class.in_batches do |objects|
-    ids = objects.where_values_hash["id"]
+    ids = objects.map(&:id)
     count += ids.size
     indexer.process!(ids: ids)
     putc "."
