@@ -2,7 +2,6 @@
 
 class DiscourseAlgolia::PostIndexer < DiscourseAlgolia::Indexer
   QUEUE_NAME = "algolia-posts"
-
   INDEX_NAME = "discourse-posts"
   SETTINGS = {
     "advancedSyntax" => true,

@@ -2,7 +2,6 @@
 
 class DiscourseAlgolia::UserIndexer < DiscourseAlgolia::Indexer
   QUEUE_NAME = "algolia-users"
-
   INDEX_NAME = "discourse-users"
   USERS_SETTINGS = {
     "attributesToHighlight" => [:username, :name],

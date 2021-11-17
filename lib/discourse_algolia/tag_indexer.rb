@@ -2,7 +2,6 @@
 
 class DiscourseAlgolia::TagIndexer < DiscourseAlgolia::Indexer
   QUEUE_NAME = "algolia-tags"
-
   INDEX_NAME = "discourse-tags"
   SETTINGS = {
     "attributesToRetrieve" => [:name, :url, :topic_count],
