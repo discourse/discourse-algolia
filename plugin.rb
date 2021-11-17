@@ -33,29 +33,21 @@ after_initialize do
 
   %i{user_created user_updated user_destroyed}.each do |event|
     on(event) do |user|
-      next if !SiteSetting.algolia_enabled?
-
       DiscourseAlgolia::UserIndexer.enqueue(user.id)
     end
   end
 
   %i{tag_created tag_updated tag_destroyed}.each do |event|
     on(event) do |tag|
-      next if !SiteSetting.algolia_enabled?
-
       DiscourseAlgolia::TagIndexer.enqueue(tag.id)
     end
   end
 
   on(:post_created) do |post|
-    next if !SiteSetting.algolia_enabled?
-
     DiscourseAlgolia::PostIndexer.enqueue(post.id)
   end
 
   on(:post_edited) do |post, topic_changed|
-    next if !SiteSetting.algolia_enabled?
-
     if post.post_number == 1 && topic_changed
       DiscourseAlgolia::TopicIndexer.enqueue(post.id)
     else
@@ -65,8 +57,6 @@ after_initialize do
 
   %i{post_destroyed post_recovered}.each do |event|
     on(event) do |post|
-      next if !SiteSetting.algolia_enabled?
-
       if post.post_number == 1
         DiscourseAlgolia::TopicIndexer.enqueue(post.id)
       else
