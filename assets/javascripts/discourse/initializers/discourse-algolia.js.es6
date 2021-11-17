@@ -28,7 +28,7 @@ function initializeAutocomplete(options) {
     ? postsSourceFallback
     : function (query, callback) {
         const data = {
-          query: query,
+          query,
           queryLanguages: ["en"],
           attributesForPrediction: ["content"],
           nbHits: hitsPerPage,
