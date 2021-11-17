@@ -3,7 +3,7 @@
 # name: discourse-algolia
 # about: Use Algolia to power the search on your Discourse
 # version: 0.3.0
-# authors: Josh Dzielak, Gianluca Bargelli and Paul-Louis Nech
+# authors: Josh Dzielak, Gianluca Bargelli, Paul-Louis Nech
 # url: https://github.com/discourse/discourse-algolia
 
 gem 'net-http-persistent', '4.0.1', require_name: 'net/http/persistent'
@@ -23,13 +23,13 @@ register_asset 'stylesheets/discourse-algolia-base.scss'
 register_asset 'stylesheets/discourse-algolia-layout.scss'
 
 after_initialize do
-  require_relative 'app/jobs/scheduled/update_indexes.rb'
-  require_relative 'lib/discourse_algolia.rb'
-  require_relative 'lib/discourse_algolia/indexer.rb'
-  require_relative 'lib/discourse_algolia/post_indexer.rb'
-  require_relative 'lib/discourse_algolia/tag_indexer.rb'
-  require_relative 'lib/discourse_algolia/topic_indexer.rb'
-  require_relative 'lib/discourse_algolia/user_indexer.rb'
+  require_relative 'app/jobs/scheduled/update_indexes'
+  require_relative 'lib/discourse_algolia'
+  require_relative 'lib/discourse_algolia/indexer'
+  require_relative 'lib/discourse_algolia/post_indexer'
+  require_relative 'lib/discourse_algolia/tag_indexer'
+  require_relative 'lib/discourse_algolia/topic_indexer'
+  require_relative 'lib/discourse_algolia/user_indexer'
 
   %i{user_created user_updated user_destroyed}.each do |event|
     on(event) do |user|
