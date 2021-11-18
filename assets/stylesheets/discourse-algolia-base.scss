@@ -19,13 +19,9 @@ body.algolia-enabled {
   .algolia-holder {
     margin-right: 0.5em;
     text-align: left;
-
-    form {
-      margin: 0;
-    }
   }
 
-  .algolia-holder .aa-input {
+  .aa-Input {
     color: var(--primary-medium);
     font-family: Open Sans, Arial, sans-serif;
     border: solid 1px var(--primary-low);
@@ -43,9 +39,13 @@ body.algolia-enabled {
   }
 
   @media (max-width: 768px) {
-    .algolia-holder .aa-input {
+    .aa-Input {
       display: none;
     }
+  }
+
+  .aa-Panel {
+    position: absolute;
   }
 
   .algolia-autocomplete .aa-dropdown-menu {

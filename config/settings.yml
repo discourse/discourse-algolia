@@ -16,6 +16,8 @@ plugins:
     client: true
   algolia_admin_api_key:
     default: ""
+    client: false
     secret: true
   algolia_discourse_username:
-    default: ""
+    default: "system"
+    client: false

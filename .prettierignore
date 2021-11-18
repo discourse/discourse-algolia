@@ -1,2 +1,2 @@
-assets/lib/algoliasearch.js
-assets/lib/autocomplete.js
+assets/vendor/algoliasearch.js
+assets/vendor/autocomplete.js

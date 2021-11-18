@@ -2,9 +2,3 @@ en:
   js:
     discourse_algolia:
       search_box_placeholder: "Search the forum..."
-      advanced_search: "advanced search"
-      powered_by: "Powered by the discourse-algolia search plugin"
-      user_likes: "Number of likes the user has received"
-      topic_tags: "Number of topics with this tag"
-      topic_views: "Number of times the topic has been viewed"
-      no_posts: "No matching posts."

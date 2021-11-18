@@ -25,15 +25,15 @@
 }
 
 /* suggestions */
-.algolia-autocomplete .hit-post-category-name:hover {
+.algolia-autocomplete .item-post-category-name:hover {
   text-decoration: underline;
 }
 
-.algolia-autocomplete .hit-post-tag:hover {
+.algolia-autocomplete .item-post-tag:hover {
   text-decoration: underline;
 }
 
-.algolia-autocomplete .hit-post-username:hover {
+.algolia-autocomplete .item-post-username:hover {
   text-decoration: underline;
 }
 
@@ -61,40 +61,40 @@
   .aa-suggestion {
     padding: 8px 12px;
   }
-  .hit-user-left,
-  .hit-user-right {
+  .item-user-left,
+  .item-user-right {
     display: table-cell;
     vertical-align: middle;
   }
-  .hit-user-right {
+  .item-user-right {
     padding-left: 8px;
   }
-  .hit-user-username-holder {
+  .item-user-username-holder {
     margin-bottom: 3px;
   }
-  .hit-user-username {
+  .item-user-username {
     font-weight: bold;
   }
-  .hit-user-name {
+  .item-user-name {
     font-size: $font-down-1;
     color: var(--primary-medium);
   }
-  .hit-user-name,
-  .hit-user-username-holder {
+  .item-user-name,
+  .item-user-username-holder {
     max-width: $aa-dropdown-right-panel-width - 78px;
     overflow: hidden;
   }
-  .hit-user-avatar {
+  .item-user-avatar {
     width: 45px;
     height: 45px;
     vertical-align: middle;
     border-radius: 50%;
   }
-  .hit-user-custom-ranking {
+  .item-user-custom-ranking {
     color: var(--primary-medium);
     font-size: $font-down-1;
   }
-  .hit-user-like-heart {
+  .item-user-like-heart {
     color: var(--love);
   }
 }
@@ -104,10 +104,10 @@
     padding: 8px 12px;
     border-top: 1px solid var(--primary-low);
   }
-  .hit-tag-name {
+  .item-tag-name {
     font-weight: bold;
   }
-  .hit-tag-topic_count {
+  .item-tag-topic_count {
     color: var(--primary-medium);
     font-size: $font-down-1;
   }
@@ -121,32 +121,32 @@
       border-bottom: none;
     }
   }
-  .hit-post {
-    .hit-post-topic-title {
+  .item-post {
+    .item-post-topic-title {
       font-size: $font-up-1;
       font-weight: bold;
     }
-    .hit-post-topic-views {
+    .item-post-topic-views {
       font-size: $font-down-1;
       color: var(--primary-medium);
     }
-    .hit-post-category-tags {
+    .item-post-category-tags {
       margin: 2px 0 4px;
     }
-    .hit-post-tag {
+    .item-post-tag {
       color: var(--primary-medium);
       font-size: $font-down-1;
       padding: 0 3px;
     }
-    .hit-post-category-name {
+    .item-post-category-name {
       color: var(--primary);
       font-weight: normal;
     }
-    .hit-post-content-holder {
+    .item-post-content-holder {
       color: var(--primary-medium);
       font-size: $font-down-1;
     }
-    .hit-post-content {
+    .item-post-content {
       word-break: break-word;
       font-size: $font-down-1;
     }
