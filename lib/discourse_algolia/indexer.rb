@@ -34,7 +34,9 @@ class DiscourseAlgolia::Indexer
   end
 
   def queue_ids
-    Discourse.redis.lpop(self.class::QUEUE_NAME, 100)&.map(&:to_i)&.uniq || []
+    ids = Discourse.redis.lrange(self.class::QUEUE_NAME, 0, QUEUE_SIZE - 1)
+    Discourse.redis.ltrim(self.class::QUEUE_NAME, ids.size, -1)
+    ids.map(&:to_i).uniq
   end
 
   def queue(ids)
