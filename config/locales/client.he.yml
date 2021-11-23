@@ -8,3 +8,9 @@ he:
   js:
     discourse_algolia:
       search_box_placeholder: "חיפוש בפורום…"
+      advanced_search: "חיפוש מתקדם"
+      powered_by: "מופעל על ידי תוסף החיפוש discourse-algolia"
+      user_likes: "מספר הלייקים שהמשתמש קיבל"
+      topic_tags: "מספר הנושאים עם תגית זו"
+      topic_views: "מספר הפעמים שהנושא נצפה"
+      no_posts: "אין פוסטים תואמים."

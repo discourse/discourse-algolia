@@ -5,3 +5,11 @@
 # https://translate.discourse.org/
 
 ru:
+  site_settings:
+    algolia_enabled: "Включить плагин discourse-algolia и отправить данные для индексации"
+    algolia_autocomplete_enabled: "Включить автозаполнение в заголовке сайта"
+    algolia_answers_enabled: "Использовать <a href='https://www.algolia.com/doc/guides/algolia-ai/answers/'>Algolia Answers</a> при поиске сообщений"
+    algolia_application_id: "Идентификатор Algolia, куда следует отправлять данные для индексации"
+    algolia_admin_api_key: "Ключ Algolia API с разрешениями на запись данных и настройку индексов"
+    algolia_search_api_key: "Ключ Algolia API с разрешением на <b>поиск</b>, используется для фронт-энда<br /><i>Когда используются Algolia Answers, также требуется разрешение </i><b>nluReadAnswers</b>"
+    algolia_discourse_username: "Проиндексированные данные будут содержать только те объекты, которые может видеть этот пользователь"
