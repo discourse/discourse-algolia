@@ -8,3 +8,9 @@ sv:
   js:
     discourse_algolia:
       search_box_placeholder: "Sök i forumet..."
+      advanced_search: "avancerad sökning"
+      powered_by: "Drivs av insticksprogrammet Discourse-algolia sökning"
+      user_likes: "Antal gillningar som användaren har fått"
+      topic_tags: "Antal ämnen med den här taggen"
+      topic_views: "Antal gånger ämnet har visats"
+      no_posts: "Inga matchande inlägg."
