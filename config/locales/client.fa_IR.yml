@@ -5,3 +5,12 @@
 # https://translate.discourse.org/
 
 fa_IR:
+  js:
+    discourse_algolia:
+      search_box_placeholder: "جستجو در انجمن..."
+      advanced_search: "جستجوی پیشرفته"
+      powered_by: "قدرت گرفته توسط افزونه جستجوی discourse-algolia"
+      user_likes: "تعداد پسندیدهای که کاربر دریافت کرده است"
+      topic_tags: "تعداد موضوعات با این برچسب"
+      topic_views: "تعداد دفعاتی که موضوع مشاهده شده است"
+      no_posts: "هیچ نوشته‌ای مطابق با این جستجو پیدا نشد."
