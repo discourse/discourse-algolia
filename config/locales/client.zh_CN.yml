@@ -5,3 +5,12 @@
 # https://translate.discourse.org/
 
 zh_CN:
+  js:
+    discourse_algolia:
+      search_box_placeholder: "搜索论坛…"
+      advanced_search: "高级搜索"
+      powered_by: "由 discourse-algolia 搜索插件提供支持"
+      user_likes: "用户收到的赞数"
+      topic_tags: "带有此标签的话题数"
+      topic_views: "话题被浏览的次数"
+      no_posts: "没有匹配的帖子。"

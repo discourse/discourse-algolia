@@ -5,3 +5,12 @@
 # https://translate.discourse.org/
 
 de:
+  js:
+    discourse_algolia:
+      search_box_placeholder: "Forum durchsuchen …"
+      advanced_search: "erweiterte Suche"
+      powered_by: "Unterstützt durch das discourse-algolia-Such-Plug-in"
+      user_likes: "Anzahl der „Gefällt mir“, die der Benutzer erhalten hat"
+      topic_tags: "Anzahl der Themen mit diesem Schlagwort"
+      topic_views: "Anzahl der Anrufe des Themas"
+      no_posts: "Keine übereinstimmenden Beiträge."
