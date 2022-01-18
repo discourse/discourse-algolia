@@ -5,3 +5,11 @@
 # https://translate.discourse.org/
 
 fr:
+  site_settings:
+    algolia_enabled: "Activer l'extension discourse-algolia et envoyer les données à Algolia pour indexation"
+    algolia_autocomplete_enabled: "Activer la saisie semi-automatique Algolia dans l'en-tête du site"
+    algolia_answers_enabled: "Utiliser <a href='https://www.algolia.com/doc/guides/algolia-ai/answers/'>Algolia Answers</a> lors des recherches de messages"
+    algolia_application_id: "L'ID de l'application Algolia à laquelle les données doivent être envoyées pour indexation"
+    algolia_admin_api_key: "Une clé API Algolia avec des autorisations pour écrire des données et configurer des index"
+    algolia_search_api_key: "Une clé API Algolia avec une autorisation de <b>recherche</b>, utilisée pour le front-end<br /><i>Lorsque Answers est activé, elle a également besoin de l'autorisation </i><b>nluReadAnswers</b><i></i>"
+    algolia_discourse_username: "Les données indexées ne contiendront que des objets que cet utilisateur peut voir"

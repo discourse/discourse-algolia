@@ -5,3 +5,12 @@
 # https://translate.discourse.org/
 
 fr:
+  js:
+    discourse_algolia:
+      search_box_placeholder: "Recherche dans le forum…"
+      advanced_search: "recherche avancée"
+      powered_by: "Optimisé par l'extension de recherche discourse-algolia"
+      user_likes: "Nombre de mentions « J'aime » que l'utilisateur a reçues"
+      topic_tags: "Nombre de sujets associés à cette étiquette"
+      topic_views: "Nombre de fois où le sujet a été consulté"
+      no_posts: "Aucun message correspondant."

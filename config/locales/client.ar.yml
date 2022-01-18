@@ -5,3 +5,12 @@
 # https://translate.discourse.org/
 
 ar:
+  js:
+    discourse_algolia:
+      search_box_placeholder: "البحث في المنتدى..."
+      advanced_search: "بحث متقدم"
+      powered_by: "بدعم من المكوِّن الإضافي للبحث discourse-algolia"
+      user_likes: "عدد الإعجابات التي تلقَّاها المستخدم"
+      topic_tags: "عدد الموضوعات التي تحمل هذا الوسم"
+      topic_views: "عدد المرات التي تم فيها عرض الموضوع"
+      no_posts: "لا توجد منشورات مطابقة."
