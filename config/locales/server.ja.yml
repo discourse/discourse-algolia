@@ -5,3 +5,11 @@
 # https://translate.discourse.org/
 
 ja:
+  site_settings:
+    algolia_enabled: "discourse-algolia プラグインを有効にし、Algolia にデータを送信してインデックスを作成する"
+    algolia_autocomplete_enabled: "サイトヘッダーで Algolia オートコンプリートを有効にする"
+    algolia_answers_enabled: "投稿を検索するときに <a href='https://www.algolia.com/doc/guides/algolia-ai/answers/'>Algolia Answers</a> を使用する"
+    algolia_application_id: "データを送信してインデックスを作成する Algolia アプリ ID"
+    algolia_admin_api_key: "データの書き込みとインデックスの構成を行う権限を持つ Algolia API キー"
+    algolia_search_api_key: "フロントエンドで使用する、<b>検索</b>権限を持つ Algolia API キー。<br /><i>Answers が有効である場合は、</i><b>nluReadAnswers</b><i> 権限も必要です</i>"
+    algolia_discourse_username: "インデックスが作成されるデータには、このユーザーが表示できるオブジェクトのみが含まれます"

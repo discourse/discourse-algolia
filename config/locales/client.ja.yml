@@ -5,3 +5,12 @@
 # https://translate.discourse.org/
 
 ja:
+  js:
+    discourse_algolia:
+      search_box_placeholder: "フォーラムを検索..."
+      advanced_search: "高度な検索"
+      powered_by: "discourse-algolia 検索プラグインを搭載"
+      user_likes: "ユーザーが受け取った「いいね！」の数"
+      topic_tags: "このタグが付いたトピックの数"
+      topic_views: "トピックが閲覧された回数"
+      no_posts: "一致する投稿はありません。"

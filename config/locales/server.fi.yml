@@ -5,3 +5,11 @@
 # https://translate.discourse.org/
 
 fi:
+  site_settings:
+    algolia_enabled: "Ota discourse-algolia-lisäosa käyttöön ja lähetä tiedot Algoliaan indeksoitavaksi"
+    algolia_autocomplete_enabled: "Ota Algolian automaattinen täydennys käyttöön sivuston yläpalkissa"
+    algolia_answers_enabled: "Käytä <a href='https://www.algolia.com/doc/guides/algolia-ai/answers/'>Algolia Answersia</a> haettaessa viestejä"
+    algolia_application_id: "Algolian sovellustunnus, johon tiedot lähetetään indeksoitavaksi"
+    algolia_admin_api_key: "Algolian API-avain, jolla on oikeudet kirjoittaa tietoja ja määrittää indeksejä"
+    algolia_search_api_key: "Algolian API-avain, jolla on <b>haun</b> käyttöoikeus, käytetään käyttöliittymässä<br /><i>Kun Answers on käytössä, se tarvitsee myös </i><b>nluReadAnswers</b><i>-käyttöoikeuden</i>"
+    algolia_discourse_username: "Indeksoidut tiedot sisältävät vain objekteja, jotka tämä käyttäjä voi nähdä"
