@@ -5,3 +5,12 @@
 # https://translate.discourse.org/
 
 fi:
+  js:
+    discourse_algolia:
+      search_box_placeholder: "Hae foorumilta..."
+      advanced_search: "tarkennettu haku"
+      powered_by: "Palvelun tarjoaa discourse-algolia-hakulisäosa"
+      user_likes: "Käyttäjän saamien tykkäysten määrä"
+      topic_tags: "Ketjujen määrä, jolla on tämä tunniste"
+      topic_views: "Kuinka monta kertaa ketjua on katsottu"
+      no_posts: "Ei vastaavia viestejä."
