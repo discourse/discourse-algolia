@@ -5,3 +5,12 @@
 # https://translate.discourse.org/
 
 pl_PL:
+  js:
+    discourse_algolia:
+      search_box_placeholder: "Przeszukaj forum..."
+      advanced_search: "zaawansowane wyszukiwanie"
+      powered_by: "Obsługiwane przez wtyczkę wyszukiwania discourse-algolia"
+      user_likes: "Liczba polubień, które otrzymał użytkownik"
+      topic_tags: "Liczba tematów z tym tagiem"
+      topic_views: "Liczba wyświetleń tematu"
+      no_posts: "Brak pasujących postów."

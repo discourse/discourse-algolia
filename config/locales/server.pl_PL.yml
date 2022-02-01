@@ -5,3 +5,11 @@
 # https://translate.discourse.org/
 
 pl_PL:
+  site_settings:
+    algolia_enabled: "Włącz wtyczkę discourse-algolia i wyślij dane do Algolii w celu indeksowania"
+    algolia_autocomplete_enabled: "Włącz autouzupełnianie Algolii w nagłówku witryny"
+    algolia_answers_enabled: "Użyj <a href='https://www.algolia.com/doc/guides/algolia-ai/answers/'>Algolia Answers</a> podczas wyszukiwania postów"
+    algolia_application_id: "Identyfikator aplikacji Algolia, do którego należy przesłać dane do indeksowania"
+    algolia_admin_api_key: "Klucz API Algolia z uprawnieniami do zapisu danych i konfiguracji indeksów"
+    algolia_search_api_key: "Klucz Algolia API z uprawnieniem do <b>wyszukiwania</b> , używany na front-endzie<br /><i>Gdy włączona jest opcja Answers, potrzebuje ona również uprawnienia </i><b>nluReadAnswers</b>."
+    algolia_discourse_username: "Zindeksowane dane będą zawierać tylko obiekty, które ten użytkownik może zobaczyć"
