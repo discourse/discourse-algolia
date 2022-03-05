@@ -5,6 +5,7 @@
 # version: 0.3.0
 # authors: Josh Dzielak, Gianluca Bargelli, Paul-Louis Nech
 # url: https://github.com/discourse/discourse-algolia
+# transpile_js: true
 
 gem 'net-http-persistent', '4.0.1', require_name: 'net/http/persistent'
 gem 'algolia', '2.1.1'
