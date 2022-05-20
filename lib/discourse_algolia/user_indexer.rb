@@ -3,7 +3,7 @@
 class DiscourseAlgolia::UserIndexer < DiscourseAlgolia::Indexer
   QUEUE_NAME = "algolia-users"
   INDEX_NAME = "discourse-users"
-  USERS_SETTINGS = {
+  SETTINGS = {
     "attributesToHighlight" => [:username, :name],
     "attributesToRetrieve" => [:username, :name, :url, :avatar_template, :likes_received, :days_visited],
     "customRanking" => ["desc(likes_received)", "desc(days_visited)"],

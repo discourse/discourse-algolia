@@ -1,5 +1,4 @@
-discourse-algolia [beta]
-============================
+# discourse-algolia [beta]
 
 Official Plugin Topic & Documentation: https://meta.discourse.org/t/add-algolia-search-to-your-discourse/73517
 
@@ -22,9 +21,9 @@ The discourse-algolia plugin uses the Algolia API, which provides powerful index
 
 You'll need an Algolia account if you don't have one already.
 
-* Go here to [sign up](https://algolia.com/users/sign_up) for a free account (10,000 records and 100,000 indexing operations monthly)
-* If you're using Discourse for an open source project and need higher limits, fill out the form on the [Algolia for Open Source](https://algolia.com/for-open-source) page.
-* If you need higher limits for your business, we're happy to help you [find the right plan](mailto:hey@algolia.com).
+- Go here to [sign up](https://algolia.com/users/sign_up) for a free account (10,000 records and 100,000 indexing operations monthly)
+- If you're using Discourse for an open source project and need higher limits, fill out the form on the [Algolia for Open Source](https://algolia.com/for-open-source) page.
+- If you need higher limits for your business, we're happy to help you [find the right plan](mailto:hey@algolia.com).
 
 ## Beta testers wanted
 
@@ -101,8 +100,6 @@ To run rake tasks, first `cd` into your Discourse directory. If you're using the
 Additional rake tasks are provided for configuring indices and syncing data.
 
 ```
-rake algolia:configure                                                 # configure algolia index settings
-rake algolia:initialize                                                # configure indices and upload data
 rake algolia:reindex                                                   # reindex everything to algolia
 rake algolia:reindex_posts                                             # reindex posts in algolia
 rake algolia:reindex_tags                                              # reindex tags in algolia
