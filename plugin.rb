@@ -8,12 +8,18 @@
 # transpile_js: true
 
 gem 'net-http-persistent', '4.0.1', require_name: 'net/http/persistent'
-gem 'algolia', '2.3.0'
 
-# HACK: Faraday tries to load `net/http/persistent` before this file is loaded
-# and caches that `require` result. These lines retry to load the library.
-Faraday::Adapter::NetHttpPersistent.instance_variable_set(:@load_error, nil)
-Faraday::Adapter::NetHttpPersistent.dependency('net/http/persistent')
+if Gem::Version.new(Faraday::VERSION) >= Gem::Version.new("2.0")
+  gem 'faraday-net_http_persistent', '2.1.0', require_name: 'faraday/net_http_persistent'
+else
+  # TODO: To be removed after Discourse 2.9.0.beta10 is released
+  # HACK: Faraday tries to load `net/http/persistent` before this file is loaded
+  # and caches that `require` result. These lines retry to load the library.
+  Faraday::Adapter::NetHttpPersistent.instance_variable_set(:@load_error, nil)
+  Faraday::Adapter::NetHttpPersistent.dependency('net/http/persistent')
+end
+
+gem 'algolia', '2.3.0'
 
 enabled_site_setting :algolia_enabled
 
