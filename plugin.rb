@@ -8,7 +8,7 @@
 # transpile_js: true
 
 gem 'net-http-persistent', '4.0.1', require_name: 'net/http/persistent'
-gem 'algolia', '2.1.1'
+gem 'algolia', '2.3.0'
 
 # HACK: Faraday tries to load `net/http/persistent` before this file is loaded
 # and caches that `require` result. These lines retry to load the library.
