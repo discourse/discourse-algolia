@@ -17,11 +17,6 @@ describe DiscourseAlgolia do
     setup_algolia_tests
   end
 
-  it 'loads net/http/persistent' do
-    expect(Faraday::Adapter::NetHttpPersistent.loaded?).to eq(true)
-    expect(Faraday::Adapter::NetHttpPersistent.load_error).to be_blank
-  end
-
   context 'users' do
     context 'event user_created' do
       it 'enqueues new user' do
