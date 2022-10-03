@@ -14,7 +14,7 @@ describe DiscourseAlgolia::TopicIndexer do
     setup_algolia_tests
   end
 
-  context 'destroyed topics' do
+  context 'with destroyed topics' do
     it 'deletes posts from destroyed topics' do
       PostDestroyer.new(admin, post).destroy
 
@@ -25,7 +25,7 @@ describe DiscourseAlgolia::TopicIndexer do
     end
   end
 
-  context 'recovered topics' do
+  context 'with recovered topics' do
     before do
       PostDestroyer.new(admin, post).destroy
       Discourse.redis.del(DiscourseAlgolia::TopicIndexer::QUEUE_NAME)

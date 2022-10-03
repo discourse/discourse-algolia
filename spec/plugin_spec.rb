@@ -17,8 +17,8 @@ describe DiscourseAlgolia do
     setup_algolia_tests
   end
 
-  context 'users' do
-    context 'event user_created' do
+  describe 'users' do
+    describe 'event user_created' do
       it 'enqueues new user' do
         user = Fabricate(:user)
 
@@ -26,7 +26,7 @@ describe DiscourseAlgolia do
       end
     end
 
-    context 'event user_updated' do
+    describe 'event user_updated' do
       it 'enqueues updated user' do
         user_updater = UserUpdater.new(user, user).update(bio_raw: 'I am a Discourse user')
 
@@ -34,7 +34,7 @@ describe DiscourseAlgolia do
       end
     end
 
-    context 'event user_destroyed' do
+    describe 'event user_destroyed' do
       it 'enqueues destroyed user' do
         UserDestroyer.new(admin).destroy(user)
 
@@ -43,10 +43,10 @@ describe DiscourseAlgolia do
     end
   end
 
-  context 'tags' do
+  describe 'tags' do
     fab!(:tag) { Fabricate(:tag) }
 
-    context 'event tag_created' do
+    describe 'event tag_created' do
       it 'enqueues new tag' do
         tag = Fabricate(:tag)
 
@@ -54,14 +54,14 @@ describe DiscourseAlgolia do
       end
     end
 
-    context 'event tag_updated' do
+    describe 'event tag_updated' do
       it 'enqueues updated tag' do
         tag.update!(name: 'new-tag-name')
         expect(tag_indexer.queue_ids).to contain_exactly(tag.id)
       end
     end
 
-    context 'event tag_destroyed' do
+    describe 'event tag_destroyed' do
       it 'enqueues destroyed tag' do
         tag.destroy!
 
@@ -70,8 +70,8 @@ describe DiscourseAlgolia do
     end
   end
 
-  context 'posts and topics' do
-    context 'event post_created' do
+  describe 'posts and topics' do
+    describe 'event post_created' do
       it 'enqueues new topic' do
         new_post = PostCreator.create(
           user,
@@ -95,7 +95,7 @@ describe DiscourseAlgolia do
       end
     end
 
-    context 'event post_edited' do
+    describe 'event post_edited' do
       it 'enqueue edited post' do
         post.revise(admin, raw: 'new content to be indexed')
 
@@ -104,7 +104,7 @@ describe DiscourseAlgolia do
       end
     end
 
-    context 'event post_destroyed' do
+    describe 'event post_destroyed' do
       it 'enqueues destroyed topics' do
         PostDestroyer.new(admin, post).destroy
 
@@ -124,7 +124,7 @@ describe DiscourseAlgolia do
       end
     end
 
-    context 'event post_recovered' do
+    describe 'event post_recovered' do
       before do
         PostDestroyer.new(admin, post).destroy
         PostDestroyer.new(admin, post_2).destroy
