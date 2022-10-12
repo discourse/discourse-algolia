@@ -19,52 +19,9 @@ function initializeAutocomplete(options) {
 
   const hitsPerPage = 4;
 
-  // When Algolia Answers is enabled, use a different endpoint
-  const postsSourceFallback = autocomplete.sources.hits(postsIndex, {
+  const postsSource = autocomplete.sources.hits(postsIndex, {
     hitsPerPage,
   });
-
-  const postsSource = !options.algoliaAnswersEnabled
-    ? postsSourceFallback
-    : function (query, callback) {
-        const data = {
-          query,
-          queryLanguages: ["en"],
-          attributesForPrediction: ["content"],
-          nbHits: hitsPerPage,
-        };
-
-        fetch(
-          `https://${options.algoliaApplicationId}-dsn.algolia.net/1/answers/${postsIndex.indexName}/prediction`,
-          {
-            method: "POST",
-            headers: {
-              "X-Algolia-Application-Id": options.algoliaApplicationId,
-              "X-Algolia-API-Key": options.algoliaSearchApiKey,
-            },
-            body: JSON.stringify(data),
-          }
-        )
-          .then((response) => response.json())
-          .then((res) => {
-            if (!res.hits) {
-              throw new Error(`Invalid response: ${res.message}`);
-            } else {
-              res.hits.forEach((hit) => {
-                if ("_answer" in hit && "extract" in hit["_answer"]) {
-                  hit["_snippetResult"]["content"]["value"] =
-                    hit["_answer"]["extract"];
-                }
-              });
-              callback(res.hits);
-            }
-          })
-          .catch((err) => {
-            // eslint-disable-next-line no-console
-            console.error("[Algolia Answers]", err);
-            return postsSourceFallback(query, callback);
-          });
-      };
 
   return autocomplete(
     "#search-box",
@@ -254,8 +211,6 @@ export default {
               this._search = initializeAutocomplete({
                 algoliaApplicationId: this.siteSettings.algolia_application_id,
                 algoliaSearchApiKey: this.siteSettings.algolia_search_api_key,
-                algoliaAnswersEnabled: this.siteSettings
-                  .algolia_answers_enabled,
                 imageBaseURL: "",
                 debug: document.location.host.indexOf("localhost") > -1,
                 onSelect(event, suggestion) {
