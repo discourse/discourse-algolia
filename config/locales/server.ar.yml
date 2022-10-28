@@ -8,7 +8,6 @@ ar:
   site_settings:
     algolia_enabled: "تفعيل المكوِّن الإضافي discourse-algolia وإرسال البيانات إلى Algolia لفهرستها"
     algolia_autocomplete_enabled: "تفعيل الإكمال التلقائي من Algolia في رأس الموقع"
-    algolia_answers_enabled: "استخدام <a href='https://www.algolia.com/doc/guides/algolia-ai/answers/'>Algolia Answers</a> عند البحث في المنشورات"
     algolia_application_id: "معرِّف تطبيق Algolia حيث يجب إرسال البيانات لفهرستها"
     algolia_admin_api_key: "مفتاح واجهة برمجة تطبيقات Algolia مع أذونات لكتابة البيانات وإعداد الفهارس"
     algolia_search_api_key: "مفتاح واجهة برمجة تطبيقات Algolia مع إذن <b>search</b>، ويتم استخدامه في الواجهة الأمامية<br /><i>عند تفعيل Answers، وهو بحاجة إلى إذن </i><b>nluReadAnswers</b><i> أيضًا</i>"

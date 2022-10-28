@@ -2,7 +2,7 @@
 
 # name: discourse-algolia
 # about: Use Algolia to power the search on your Discourse
-# version: 0.3.0
+# version: 0.4.0
 # authors: Josh Dzielak, Gianluca Bargelli, Paul-Louis Nech
 # url: https://github.com/discourse/discourse-algolia
 # transpile_js: true
@@ -23,8 +23,6 @@ gem 'algolia', '2.3.0'
 
 enabled_site_setting :algolia_enabled
 
-register_asset 'lib/algoliasearch.js'
-register_asset 'lib/autocomplete.js'
 register_asset 'stylesheets/variables.scss'
 register_asset 'stylesheets/discourse-algolia-base.scss'
 register_asset 'stylesheets/discourse-algolia-layout.scss'

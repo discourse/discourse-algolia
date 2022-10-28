@@ -1,231 +1,275 @@
-import { schedule } from "@ember/runloop";
 import { withPluginApi } from "discourse/lib/plugin-api";
 import DiscourseURL from "discourse/lib/url";
 import I18n from "I18n";
 import { h } from "virtual-dom";
 
-/* global algoliasearch */
-/* global autocomplete */
-
 function initializeAutocomplete(options) {
-  const client = algoliasearch(
+  const algoliasearch = window.algoliasearch;
+  const { autocomplete, getAlgoliaResults } = window[
+    "@algolia/autocomplete-js"
+  ];
+
+  const searchClient = algoliasearch(
     options.algoliaApplicationId,
     options.algoliaSearchApiKey
   );
-
-  const postsIndex = client.initIndex("discourse-posts");
-  const tagsIndex = client.initIndex("discourse-tags");
-  const usersIndex = client.initIndex("discourse-users");
-
   const hitsPerPage = 4;
 
-  // When Algolia Answers is enabled, use a different endpoint
-  const postsSourceFallback = autocomplete.sources.hits(postsIndex, {
-    hitsPerPage,
-  });
-
-  const postsSource = !options.algoliaAnswersEnabled
-    ? postsSourceFallback
-    : function (query, callback) {
-        const data = {
-          query,
-          queryLanguages: ["en"],
-          attributesForPrediction: ["content"],
-          nbHits: hitsPerPage,
-        };
-
-        fetch(
-          `https://${options.algoliaApplicationId}-dsn.algolia.net/1/answers/${postsIndex.indexName}/prediction`,
-          {
-            method: "POST",
-            headers: {
-              "X-Algolia-Application-Id": options.algoliaApplicationId,
-              "X-Algolia-API-Key": options.algoliaSearchApiKey,
-            },
-            body: JSON.stringify(data),
-          }
-        )
-          .then((response) => response.json())
-          .then((res) => {
-            if (!res.hits) {
-              throw new Error(`Invalid response: ${res.message}`);
-            } else {
-              res.hits.forEach((hit) => {
-                if ("_answer" in hit && "extract" in hit["_answer"]) {
-                  hit["_snippetResult"]["content"]["value"] =
-                    hit["_answer"]["extract"];
-                }
-              });
-              callback(res.hits);
-            }
-          })
-          .catch((err) => {
-            // eslint-disable-next-line no-console
-            console.error("[Algolia Answers]", err);
-            return postsSourceFallback(query, callback);
-          });
-      };
-
-  return autocomplete(
-    "#search-box",
-    {
-      openOnFocus: true,
-      hint: false,
-      debug: options.debug,
-      templates: {
-        dropdownMenu: `
-          <div class="left-container">
-            <div class="aa-dataset-posts" />
-          </div>
-          <div class="right-container">
-            <span class="aa-dataset-users" />
-            <span class="aa-dataset-tags" />
-          </div>
-        `,
-        footer: `
-          <div class="aa-footer">
-            <div class="left-container">
-              <a class="advanced-search" href="/search">${I18n.t(
-                "discourse_algolia.advanced_search"
-              )}</a>
-            </div>
-            <div class="right-container">
-              <a target="_blank" class="algolia-logo" href="https://algolia.com/"
-                title="${I18n.t("discourse_algolia.powered_by")}"></a>
-            </div>
-          </div>
-        `,
-      },
-    },
-    [
-      {
-        source: autocomplete.sources.hits(usersIndex, {
-          hitsPerPage,
-        }),
-        name: "users",
-        displayKey: "users",
-        templates: {
-          empty: "",
-          suggestion(hit) {
-            return `
-              <div class='hit-user-left'>
-                <img class="hit-user-avatar" src="${
-                  options.imageBaseURL
-                }${hit.avatar_template.replace("{size}", 50)}" />
-              </div>
-              <div class='hit-user-right'>
-                <div class="hit-user-username-holder">
-                  <span class="hit-user-username">
-                    @${hit._highlightResult.username.value}
-                  </span>
-                  <span class="hit-user-custom-ranking" title="${I18n.t(
-                    "discourse_algolia.user_likes"
-                  )}">
-                    ${
-                      hit.likes_received > 0
-                        ? `<span class="hit-user-like-heart">❤</span> ${hit.likes_received}`
-                        : ""
-                    }
-                  </span>
-                </div>
-                <div class="hit-user-name">
-                  ${autocomplete.escapeHighlightedString(
-                    hit._highlightResult.name
-                      ? hit._highlightResult.name.value
-                      : hit.name
-                      ? hit.name
-                      : hit.username
-                  )}
-                </div>
-              </div>
-            `;
+  const autocompleteSearch = autocomplete({
+    container: ".algolia-search",
+    panelContainer: ".algolia-autocomplete",
+    debug: options.debug,
+    detachedMediaQuery: "none",
+    placeholder: I18n.t("discourse_algolia.search_box_placeholder"),
+    getSources() {
+      return [
+        {
+          sourceId: "posts",
+          getItemInputValue: ({ item }) => item.query,
+          getItems({ query }) {
+            return getAlgoliaResults({
+              searchClient,
+              queries: [
+                {
+                  indexName: "discourse-posts",
+                  query,
+                  params: {
+                    hitsPerPage,
+                  },
+                },
+              ],
+            });
           },
-        },
-      },
-      {
-        source: autocomplete.sources.hits(tagsIndex, {
-          hitsPerPage,
-        }),
-        name: "tags",
-        displayKey: "tags",
-        templates: {
-          empty: "",
-          suggestion: function (hit) {
-            return `
-            <div class='hit-tag'>
-              <span class="hit-tag-name">#${autocomplete.escapeHighlightedString(
-                hit._highlightResult.name
-                  ? hit._highlightResult.name.value
-                  : hit.name
-              )}</span>
-              <span class="hit-tag-topic_count" title="${I18n.t(
-                "discourse_algolia.topic_tags"
-              )}">${hit.topic_count}</span>
-            </div>
-            `;
-          },
-        },
-      },
-      {
-        source: postsSource,
-        name: "posts",
-        displayKey: "posts",
-        templates: {
-          empty: `<div class="aa-empty">${I18n.t(
-            "discourse_algolia.no_posts"
-          )}</div>`,
-          suggestion: function (hit) {
-            let tags = "";
-            let baseTags = hit.topic.tags;
-            let highlightedTags = hit._highlightResult.topic.tags;
-
-            if (baseTags && highlightedTags) {
-              baseTags.forEach((baseTag, index) => {
-                tags += `<a class="hit-post-tag" href="/tags/${baseTag}">${autocomplete.escapeHighlightedString(
-                  highlightedTags[index].value
-                )}</a>`;
-              });
-            }
-            return `
-              <div class="hit-post">
+          templates: {
+            item({ item, components, html }) {
+              let tags = [];
+              let baseTags = item.topic.tags;
+              if (baseTags) {
+                baseTags.forEach((baseTag, index) => {
+                  tags.push(html`<a
+                    class="hit-post-tag"
+                    onClick="${(event) => {
+                      DiscourseURL.routeTo(`/tags/${baseTag}`);
+                      autocompleteSearch.setIsOpen(false);
+                      event.preventDefault();
+                      event.stopPropagation();
+                    }}"
+                  >
+                    ${components.Highlight({
+                      hit: item,
+                      attribute: ["topic", "tags", index],
+                    })}
+                  </a>`);
+                });
+              }
+              return html` <div class="hit-post">
                 <div class="hit-post-title-holder">
                   <span class="hit-post-topic-title">
-                    ${hit._highlightResult.topic.title.value}
+                    ${components.Highlight({
+                      hit: item,
+                      attribute: ["topic", "title"],
+                    })}
                   </span>
-                  <span class="hit-post-topic-views" title="${I18n.t(
-                    "discourse_algolia.topic_views"
-                  )}">
-                    ${hit.topic.views}
+                  <span
+                    class="hit-post-topic-views"
+                    title="${I18n.t("discourse_algolia.topic_views")}"
+                  >
+                    ${item.topic.views}
                   </span>
                 </div>
                 <div class="hit-post-category-tags">
                   <span class="hit-post-category">
                     <span class="badge-wrapper bullet">
-                      <span class="badge-category-bg" style="background-color: #${
-                        hit.category.color
-                      };" />
-                      <a class='badge-category hit-post-category-name' href="${
-                        hit.category.url
-                      }">${hit.category.name}</a>
+                      <span
+                        class="badge-category-bg"
+                        style="background-color: #${item.category?.color};"
+                      />
+                      <a
+                        class="badge-category hit-post-category-name"
+                        onClick="${(event) => {
+                          DiscourseURL.routeTo(item.category.url);
+                          autocompleteSearch.setIsOpen(false);
+                          event.preventDefault();
+                          event.stopPropagation();
+                        }}"
+                        >${item.category?.name}</a
+                      >
                     </span>
                   </span>
                   <span class="hit-post-tags">${tags}</span>
                 </div>
                 <div class="hit-post-content-holder">
-                  <a class="hit-post-username" href="${hit.user.url}">@${
-              hit.user.username
-            }</a>:
-                  <span class="hit-post-content">${autocomplete.escapeHighlightedString(
-                    hit._snippetResult.content.value
-                  )}</span>
+                  <a
+                    class="hit-post-username"
+                    onClick="${(event) => {
+                      DiscourseURL.routeTo(item.user.url);
+                      autocompleteSearch.setIsOpen(false);
+                      event.preventDefault();
+                      event.stopPropagation();
+                    }}"
+                    >@${item.user.username}</a
+                  >:
+                  <span class="hit-post-content">
+                    ${components.Snippet({
+                      hit: item,
+                      attribute: "content",
+                    })}
+                  </span>
                 </div>
-              </div>
-            `;
+              </div>`;
+            },
+            noResults({ html }) {
+              return html`<div class="aa-empty">
+                ${I18n.t("discourse_algolia.no_posts")}
+              </div>`;
+            },
+          },
+          onSelect({ item }) {
+            DiscourseURL.routeTo(item.url);
           },
         },
-      },
-    ]
-  ).on("autocomplete:selected", options.onSelect);
+        {
+          sourceId: "users",
+          getItemInputValue: ({ item }) => item.query,
+          getItems({ query }) {
+            return getAlgoliaResults({
+              searchClient,
+              queries: [
+                {
+                  indexName: "discourse-users",
+                  query,
+                  params: {
+                    hitsPerPage,
+                  },
+                },
+              ],
+            });
+          },
+          templates: {
+            item({ item, components, html }) {
+              let likesElement = "";
+
+              if (item.likes_received > 0) {
+                likesElement = html`<span class="hit-user-like-heart">❤</span>
+                  ${item.likes_received}`;
+              }
+              const usernameElement = components.Highlight({
+                hit: item,
+                attribute: item.name ? "name" : "username",
+              });
+
+              return html`<div class="hit-user-left">
+                  <img
+                    class="hit-user-avatar"
+                    src="${options.imageBaseURL}${item.avatar_template.replace(
+                      "{size}",
+                      50
+                    )}"
+                  />
+                </div>
+                <div class="hit-user-right">
+                  <div class="hit-user-username-holder">
+                    <span class="hit-user-username">
+                      @${components.Highlight({
+                        hit: item,
+                        attribute: "username",
+                      })}
+                    </span>
+                    <span
+                      class="hit-user-custom-ranking"
+                      title="${I18n.t("discourse_algolia.user_likes")}"
+                    >
+                      ${likesElement}
+                    </span>
+                  </div>
+                  <div class="hit-user-name">${usernameElement}</div>
+                </div>`;
+            },
+          },
+          onSelect({ item }) {
+            DiscourseURL.routeTo(item.url);
+          },
+        },
+        {
+          sourceId: "tags",
+          getItemInputValue: ({ item }) => item.query,
+          getItems({ query }) {
+            return getAlgoliaResults({
+              searchClient,
+              queries: [
+                {
+                  indexName: "discourse-tags",
+                  query,
+                  params: {
+                    hitsPerPage,
+                  },
+                },
+              ],
+            });
+          },
+          templates: {
+            item({ item, components, html }) {
+              return html`<div class="hit-tag">
+                #<span class="hit-tag-name">
+                  ${components.Highlight({
+                    hit: item,
+                    attribute: "name",
+                  })}</span
+                >
+                <span
+                  class="hit-tag-topic_count"
+                  title="${I18n.t("discourse_algolia.topic_tags")}"
+                  >${item.topic_count}</span
+                >
+              </div> `;
+            },
+          },
+          onSelect({ item }) {
+            DiscourseURL.routeTo(item.url);
+          },
+        },
+      ];
+    },
+
+    render({ elements, render, html }, root) {
+      const { posts, users, tags } = elements;
+      render(
+        html`<div class="aa-dropdown-menu">
+          <div class="left-container">
+            <div class="aa-dataset-posts">${posts}</div>
+          </div>
+          <div class="right-container">
+            <span class="aa-dataset-users">${users}</span>
+            <span class="aa-dataset-tags">${tags}</span>
+          </div>
+          <div class="aa-footer">
+            <div class="left-container">
+              <a
+                class="advanced-search"
+                onClick="${(event) => {
+                  DiscourseURL.routeTo("/search");
+                  autocompleteSearch.setIsOpen(false);
+                  event.preventDefault();
+                  event.stopPropagation();
+                }}"
+                >${I18n.t("discourse_algolia.advanced_search")}</a
+              >
+            </div>
+            <div class="right-container">
+              <a
+                target="_blank"
+                class="algolia-logo"
+                href="https://algolia.com/"
+                title="${I18n.t("discourse_algolia.powered_by")}"
+              ></a>
+            </div>
+          </div>
+        </div>`,
+        root
+      );
+    },
+  });
+  return autocompleteSearch;
 }
 
 export default {
@@ -241,64 +285,24 @@ export default {
             this.siteSettings.algolia_enabled &&
             this.siteSettings.algolia_autocomplete_enabled
           ) {
-            schedule("afterRender", () => {
-              document.body.classList.add("algolia-enabled");
-
-              const searchBox = document.querySelector("#search-box");
-              searchBox &&
-                searchBox.addEventListener(
-                  "focus",
-                  this._selectSearchBoxContent
-                );
-
-              this._search = initializeAutocomplete({
-                algoliaApplicationId: this.siteSettings.algolia_application_id,
-                algoliaSearchApiKey: this.siteSettings.algolia_search_api_key,
-                algoliaAnswersEnabled: this.siteSettings
-                  .algolia_answers_enabled,
-                imageBaseURL: "",
-                debug: document.location.host.indexOf("localhost") > -1,
-                onSelect(event, suggestion) {
-                  DiscourseURL.routeTo(suggestion.url);
-                },
-              });
+            document.body.classList.add("algolia-enabled");
+            this._search = initializeAutocomplete({
+              algoliaApplicationId: this.siteSettings.algolia_application_id,
+              algoliaSearchApiKey: this.siteSettings.algolia_search_api_key,
+              imageBaseURL: "",
+              debug: document.location.host.indexOf("localhost") > -1,
             });
           }
         },
 
         willRerenderWidget() {
-          const searchBox = document.querySelector("#search-box");
-          if (searchBox) {
-            searchBox.removeEventListener("focus", this._selectSearchBox);
-          }
           if (this._search) {
-            this._search.autocomplete.destroy();
+            this._search.destroy();
           }
         },
 
         html() {
-          return [
-            h(
-              "form",
-              {
-                action: "/search",
-                method: "GET",
-              },
-              [
-                h("input.aa-input#search-box", {
-                  name: "q",
-                  placeholder: I18n.t(
-                    "discourse_algolia.search_box_placeholder"
-                  ),
-                  autocomplete: "off",
-                }),
-              ]
-            ),
-          ];
-        },
-
-        _selectSearchBoxContent(event) {
-          event.target.select();
+          return [h(".algolia-search"), h(".algolia-autocomplete")];
         },
       });
 

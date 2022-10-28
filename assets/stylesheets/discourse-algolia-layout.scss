@@ -37,15 +37,15 @@
   text-decoration: underline;
 }
 
-.algolia-autocomplete .aa-dropdown-menu .aa-suggestion {
+.algolia-autocomplete .aa-dropdown-menu .aa-Item {
   cursor: pointer;
 }
 
-.algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {
+.algolia-autocomplete .aa-dropdown-menu .aa-Item.aa-cursor {
   background-color: var(--primary-very-low);
 }
 
-.algolia-autocomplete .aa-dropdown-menu .aa-suggestion em {
+.algolia-autocomplete .aa-dropdown-menu .aa-Item em {
   background-color: var(--highlight);
   font-weight: bold;
   font-style: normal;
@@ -58,7 +58,7 @@
 }
 
 .aa-dataset-users {
-  .aa-suggestion {
+  .aa-Item {
     padding: 8px 12px;
   }
   .hit-user-left,
@@ -100,7 +100,7 @@
 }
 
 .aa-dataset-tags {
-  .aa-suggestion {
+  .aa-Item {
     padding: 8px 12px;
     border-top: 1px solid var(--primary-low);
   }
@@ -114,7 +114,7 @@
 }
 
 .aa-dataset-posts {
-  .aa-suggestion {
+  .aa-List {
     padding: 12px;
     border-bottom: 1px solid var(--primary-low);
     &:last-child {
@@ -178,4 +178,40 @@
       font-size: 10px;
     }
   }
+}
+
+.algolia-search {
+  .aa-Label,
+  .aa-InputWrapperSuffix {
+    display: none;
+  }
+}
+.mobile-view .aa-Autocomplete {
+  display: none;
+}
+.algolia-autocomplete {
+  position: absolute;
+  top: 100%;
+  z-index: 100;
+  right: 0;
+  width: $aa-dropdown-width;
+}
+
+.aa-Item {
+  list-style: none;
+}
+.aa-List {
+  margin-left: 0;
+}
+.hit-user-username,
+.hit-tag-name,
+.hit-post-topic-title,
+.hit-user-like-heart {
+  margin-right: 0.2em;
+}
+.hit-post {
+  margin-bottom: 1em;
+}
+input.aa-Input {
+  margin-bottom: 0;
 }

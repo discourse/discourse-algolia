@@ -8,7 +8,6 @@ zh_CN:
   site_settings:
     algolia_enabled: "启用 discourse-algolia 插件并将数据发送到 Algolia 进行索引"
     algolia_autocomplete_enabled: "在站点标头中启用 Algolia 自动补全"
-    algolia_answers_enabled: "搜索帖子时使用 <a href='https://www.algolia.com/doc/guides/algolia-ai/answers/'>Algolia Answers</a>"
     algolia_application_id: "应发送数据进行索引的 Algolia 应用 ID"
     algolia_admin_api_key: "具有写入数据和配置索引权限的 Algolia API 密钥"
     algolia_search_api_key: "具有<b>搜索</b>权限的 Algolia API 密钥，用于前端<br /><i>启用 Answers 后，它也需要 </i><b>nluReadAnswers</b><i> 权限</i>"
