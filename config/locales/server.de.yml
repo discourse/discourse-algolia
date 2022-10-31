@@ -8,7 +8,6 @@ de:
   site_settings:
     algolia_enabled: "discourse-algolia-Plug-in aktivieren und Daten zur Indizierung an Algolia senden"
     algolia_autocomplete_enabled: "Automatische Vervollständigung von Algolia in der Website-Kopfzeile aktivieren"
-    algolia_answers_enabled: "<a href='https://www.algolia.com/doc/guides/algolia-ai/answers/'>Algolia Answers</a> beim Suchen von Beiträgen verwenden"
     algolia_application_id: "Die Algolia-App-ID, an die Daten zur Indizierung gesendet werden sollen"
     algolia_admin_api_key: "Ein Algolia-API-Schlüssel mit Berechtigungen zum Schreiben von Daten und zum Konfigurieren von Indizes"
     algolia_search_api_key: "Ein Algolia-API-Schlüssel mit <b>Suchberechtigung</b>, der für das Frontend verwendet wird<br /><i>Wenn Answers aktiviert ist, wird zusätzlich die Berechtigung </i><b>nluReadAnswers</b><i> benötigt</i>"

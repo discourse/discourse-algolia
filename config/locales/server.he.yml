@@ -8,7 +8,6 @@ he:
   site_settings:
     algolia_enabled: "הפעלת תוסף discourse-algolia ולשלוח נתונים ל־Algolia לסידור באינדקס"
     algolia_autocomplete_enabled: "להפעיל את ההשלמה האוטומטית של Algolia בכותרת האתר"
-    algolia_answers_enabled: "להשתמש ב־<a href='https://www.algolia.com/doc/guides/algolia-ai/answers/'>Algolia Answers</a> בחיפוש בפוסטים"
     algolia_application_id: "מזהה יישום Algolia אליו אמורים הנתונים להישלח לסידור באינדקס"
     algolia_admin_api_key: "מפתח API של Algolia עם הרשות לכתוב נתונים ולהגדיר אינדקסים"
     algolia_search_api_key: "מפתח API של Algolia עם הרשאת <b>חיפוש</b>, משמש את מנשק המשתמש<br /><i>כאשר Answers (תשובות) פעילות, נדרשת <i>גם ההרשאה </i><b>nluReadAnswers</b>"

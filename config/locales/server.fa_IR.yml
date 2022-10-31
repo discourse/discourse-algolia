@@ -8,5 +8,4 @@ fa_IR:
   site_settings:
     algolia_enabled: "افزونه discourse-algolia را فعال کنید و داده‌ها را برای نمایه‌سازی به Algolia ارسال کنید"
     algolia_autocomplete_enabled: "فعال کردن خودکار Algolia در header وب‌سایت"
-    algolia_answers_enabled: "هنگام جستجوی نوشته‌ها از <a href='https://www.algolia.com/doc/guides/algolia-ai/answers/'>پاسخ‌های Algolia</a> استفاده کنید"
     algolia_application_id: "شناسه برنامه Algolia که در آن اطلاعات باید برای نمایه‌سازی ارسال شوند"
