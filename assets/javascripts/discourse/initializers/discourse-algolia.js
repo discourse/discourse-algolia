@@ -286,24 +286,22 @@ export default {
             this.siteSettings.algolia_enabled &&
             this.siteSettings.algolia_autocomplete_enabled
           ) {
-            return loadScript(
-              "/plugins/discourse-algolia/javascripts/autocomplete.js"
-            )
-              .then(() => {
-                return loadScript(
-                  "/plugins/discourse-algolia/javascripts/algoliasearch.js"
-                );
-              })
-              .then(() => {
-                document.body.classList.add("algolia-enabled");
-                this._search = initializeAutocomplete({
-                  algoliaApplicationId: this.siteSettings
-                    .algolia_application_id,
-                  algoliaSearchApiKey: this.siteSettings.algolia_search_api_key,
-                  imageBaseURL: "",
-                  debug: document.location.host.indexOf("localhost") > -1,
-                });
+            Promise.all([
+              loadScript(
+                "/plugins/discourse-algolia/javascripts/autocomplete.js"
+              ),
+              loadScript(
+                "/plugins/discourse-algolia/javascripts/algoliasearch.js"
+              ),
+            ]).then(() => {
+              document.body.classList.add("algolia-enabled");
+              this._search = initializeAutocomplete({
+                algoliaApplicationId: this.siteSettings.algolia_application_id,
+                algoliaSearchApiKey: this.siteSettings.algolia_search_api_key,
+                imageBaseURL: "",
+                debug: document.location.host.indexOf("localhost") > -1,
               });
+            });
           }
         },
 
