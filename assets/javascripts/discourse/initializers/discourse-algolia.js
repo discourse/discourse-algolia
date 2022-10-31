@@ -2,6 +2,7 @@ import { withPluginApi } from "discourse/lib/plugin-api";
 import DiscourseURL from "discourse/lib/url";
 import I18n from "I18n";
 import { h } from "virtual-dom";
+import loadScript from "discourse/lib/load-script";
 
 function initializeAutocomplete(options) {
   const algoliasearch = window.algoliasearch;
@@ -285,13 +286,24 @@ export default {
             this.siteSettings.algolia_enabled &&
             this.siteSettings.algolia_autocomplete_enabled
           ) {
-            document.body.classList.add("algolia-enabled");
-            this._search = initializeAutocomplete({
-              algoliaApplicationId: this.siteSettings.algolia_application_id,
-              algoliaSearchApiKey: this.siteSettings.algolia_search_api_key,
-              imageBaseURL: "",
-              debug: document.location.host.indexOf("localhost") > -1,
-            });
+            return loadScript(
+              "/plugins/discourse-algolia/javascripts/autocomplete.js"
+            )
+              .then(() => {
+                return loadScript(
+                  "/plugins/discourse-algolia/javascripts/algoliasearch.js"
+                );
+              })
+              .then(() => {
+                document.body.classList.add("algolia-enabled");
+                this._search = initializeAutocomplete({
+                  algoliaApplicationId: this.siteSettings
+                    .algolia_application_id,
+                  algoliaSearchApiKey: this.siteSettings.algolia_search_api_key,
+                  imageBaseURL: "",
+                  debug: document.location.host.indexOf("localhost") > -1,
+                });
+              });
           }
         },
 
