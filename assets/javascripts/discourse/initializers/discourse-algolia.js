@@ -3,6 +3,7 @@ import DiscourseURL from "discourse/lib/url";
 import I18n from "I18n";
 import { h } from "virtual-dom";
 import loadScript from "discourse/lib/load-script";
+import { Promise } from "rsvp";
 
 function initializeAutocomplete(options) {
   const algoliasearch = window.algoliasearch;
