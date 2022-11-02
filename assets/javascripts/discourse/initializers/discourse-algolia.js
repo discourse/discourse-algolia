@@ -11,6 +11,13 @@ function initializeAutocomplete(options) {
     "@algolia/autocomplete-js"
   ];
 
+  const autocompleteElement = document
+    .getElementsByClassName("algolia-search")[0]
+    .getElementsByClassName("aa-Autocomplete");
+  if (autocompleteElement.length > 0) {
+    return;
+  }
+
   const searchClient = algoliasearch(
     options.algoliaApplicationId,
     options.algoliaSearchApiKey
