@@ -5,3 +5,10 @@
 # https://translate.discourse.org/
 
 nl:
+  site_settings:
+    algolia_enabled: "Schakel de Discourse-Algolia-plug-in in en stuur gegevens naar Algolia voor indexering"
+    algolia_autocomplete_enabled: "Schakel automatische Algolia-aanvulling in de siteheader in"
+    algolia_application_id: "De Algolia-app-ID waarnaar gegevens moeten worden gestuurd voor indexering"
+    algolia_admin_api_key: "Een Algolia-API-sleutel met machtigingen om gegevens te schrijven en indexen te configureren"
+    algolia_search_api_key: "Een Algolia-API-sleutel met <b>zoekrechten</b> , gebruikt voor de frontend<br /><i>Als Antwoorden is ingeschakeld, vereist deze ook het recht </i><b>nluReadAnswers</b><i></i>"
+    algolia_discourse_username: "De geïndexeerde gegevens bevatten alleen objecten die deze gebruiker kan zien"

@@ -5,3 +5,12 @@
 # https://translate.discourse.org/
 
 nl:
+  js:
+    discourse_algolia:
+      search_box_placeholder: "Zoek op het forum..."
+      advanced_search: "geavanceerd zoeken"
+      powered_by: "Mogelijk gemaakt door de Discourse-Algolia-zoekplug-in"
+      user_likes: "Aantal likes dat de gebruiker heeft ontvangen"
+      topic_tags: "Aantal topics met deze tag"
+      topic_views: "Aantal keren dat het topic is bekeken"
+      no_posts: "Geen overeenkomende berichten."
