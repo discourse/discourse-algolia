@@ -6,23 +6,36 @@ class DiscourseAlgolia::PostIndexer < DiscourseAlgolia::Indexer
   SETTINGS = {
     "advancedSyntax" => true,
     "attributeForDistinct" => "topic.id",
-    "attributesToHighlight" => ["topic.title", "topic.tags", "content"],
-    "attributesToRetrieve" => [
-      "post_number", "content", "url", "image_url",
-      "topic.title", "topic.tags", "topic.slug", "topic.url", "topic.views",
-      "user.username", "user.name", "user.avatar_template", "user.url",
-      "category.name", "category.color", "category.slug", "category.url",
+    "attributesToHighlight" => %w[topic.title topic.tags content],
+    "attributesToRetrieve" => %w[
+      post_number
+      content
+      url
+      image_url
+      topic.title
+      topic.tags
+      topic.slug
+      topic.url
+      topic.views
+      user.username
+      user.name
+      user.avatar_template
+      user.url
+      category.name
+      category.color
+      category.slug
+      category.url
     ],
     "attributesToSnippet" => ["content:30"],
-    "customRanking" => ["desc(topic.views)", "asc(post_number)"],
+    "customRanking" => %w[desc(topic.views) asc(post_number)],
     "distinct" => 1,
-    "ranking" => ["typo", "words", "filters", "proximity", "attribute", "custom"],
+    "ranking" => %w[typo words filters proximity attribute custom],
     "removeWordsIfNoResults" => "allOptional",
     "searchableAttributes" => ["topic.title,topic.tags,content"],
   }
 
   def queue(ids)
-    Post.includes(:user, topic: [:tags, :category, :shared_draft]).where(id: ids)
+    Post.includes(:user, topic: %i[tags category shared_draft]).where(id: ids)
   end
 
   def should_index?(post)
@@ -57,7 +70,7 @@ class DiscourseAlgolia::PostIndexer < DiscourseAlgolia::Indexer
         slug: post.topic.slug,
         like_count: post.topic.like_count,
         tags: post.topic.tags.map(&:name),
-      }
+      },
     }
 
     if post.topic.category.present?

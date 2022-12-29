@@ -4,9 +4,9 @@ class DiscourseAlgolia::UserIndexer < DiscourseAlgolia::Indexer
   QUEUE_NAME = "algolia-users"
   INDEX_NAME = "discourse-users"
   SETTINGS = {
-    "attributesToHighlight" => [:username, :name],
-    "attributesToRetrieve" => [:username, :name, :url, :avatar_template, :likes_received, :days_visited],
-    "customRanking" => ["desc(likes_received)", "desc(days_visited)"],
+    "attributesToHighlight" => %i[username name],
+    "attributesToRetrieve" => %i[username name url avatar_template likes_received days_visited],
+    "customRanking" => %w[desc(likes_received) desc(days_visited)],
     "removeWordsIfNoResults" => "allOptional",
     "searchableAttributes" => ["username,name"],
   }
