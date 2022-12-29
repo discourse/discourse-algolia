@@ -13,7 +13,7 @@ class DiscourseAlgolia::TopicIndexer < DiscourseAlgolia::PostIndexer
 
     Post
       .unscoped
-      .includes(:user, topic: [:tags, :category, :shared_draft])
+      .includes(:user, topic: %i[tags category shared_draft])
       .where(id: ids)
       .find_each do |post|
         if should_index?(post)
@@ -30,9 +30,7 @@ class DiscourseAlgolia::TopicIndexer < DiscourseAlgolia::PostIndexer
       .where("post_number > 1")
       .where(topic_id: recovered_topic_ids)
       .pluck(:id)
-      .each do |post_id|
-        DiscourseAlgolia::PostIndexer.enqueue(post_id)
-      end
+      .each { |post_id| DiscourseAlgolia::PostIndexer.enqueue(post_id) }
 
     # Delete all posts in deleted topics
     ids |= Post.unscoped.where(topic_id: deleted_topic_ids).pluck(:id) if deleted_topic_ids.present?

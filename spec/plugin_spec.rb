@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 describe DiscourseAlgolia do
   fab!(:user) { Fabricate(:user) }
@@ -13,29 +13,27 @@ describe DiscourseAlgolia do
   let(:topic_indexer) { DiscourseAlgolia.indexer(:topic) }
   let(:post_indexer) { DiscourseAlgolia.indexer(:post) }
 
-  before do
-    setup_algolia_tests
-  end
+  before { setup_algolia_tests }
 
-  describe 'users' do
-    describe 'event user_created' do
-      it 'enqueues new user' do
+  describe "users" do
+    describe "event user_created" do
+      it "enqueues new user" do
         user = Fabricate(:user)
 
         expect(user_indexer.queue_ids).to contain_exactly(user.id)
       end
     end
 
-    describe 'event user_updated' do
-      it 'enqueues updated user' do
-        user_updater = UserUpdater.new(user, user).update(bio_raw: 'I am a Discourse user')
+    describe "event user_updated" do
+      it "enqueues updated user" do
+        user_updater = UserUpdater.new(user, user).update(bio_raw: "I am a Discourse user")
 
         expect(user_indexer.queue_ids).to contain_exactly(user.id)
       end
     end
 
-    describe 'event user_destroyed' do
-      it 'enqueues destroyed user' do
+    describe "event user_destroyed" do
+      it "enqueues destroyed user" do
         UserDestroyer.new(admin).destroy(user)
 
         expect(user_indexer.queue_ids).to contain_exactly(user.id)
@@ -43,26 +41,26 @@ describe DiscourseAlgolia do
     end
   end
 
-  describe 'tags' do
+  describe "tags" do
     fab!(:tag) { Fabricate(:tag) }
 
-    describe 'event tag_created' do
-      it 'enqueues new tag' do
+    describe "event tag_created" do
+      it "enqueues new tag" do
         tag = Fabricate(:tag)
 
         expect(tag_indexer.queue_ids).to contain_exactly(tag.id)
       end
     end
 
-    describe 'event tag_updated' do
-      it 'enqueues updated tag' do
-        tag.update!(name: 'new-tag-name')
+    describe "event tag_updated" do
+      it "enqueues updated tag" do
+        tag.update!(name: "new-tag-name")
         expect(tag_indexer.queue_ids).to contain_exactly(tag.id)
       end
     end
 
-    describe 'event tag_destroyed' do
-      it 'enqueues destroyed tag' do
+    describe "event tag_destroyed" do
+      it "enqueues destroyed tag" do
         tag.destroy!
 
         expect(tag_indexer.queue_ids).to contain_exactly(tag.id)
@@ -70,61 +68,58 @@ describe DiscourseAlgolia do
     end
   end
 
-  describe 'posts and topics' do
-    describe 'event post_created' do
-      it 'enqueues new topic' do
-        new_post = PostCreator.create(
-          user,
-          title: 'hello world this is title',
-          raw: 'this is my first topic'
-        )
+  describe "posts and topics" do
+    describe "event post_created" do
+      it "enqueues new topic" do
+        new_post =
+          PostCreator.create(
+            user,
+            title: "hello world this is title",
+            raw: "this is my first topic",
+          )
 
-        expect(topic_indexer.queue_ids).to contain_exactly()
+        expect(topic_indexer.queue_ids).to contain_exactly
         expect(post_indexer.queue_ids).to contain_exactly(new_post.id)
       end
 
-      it 'enqueues new post' do
-        new_post = PostCreator.create(
-          user,
-          topic_id: post.topic_id,
-          raw: 'this is my first topic'
-        )
+      it "enqueues new post" do
+        new_post = PostCreator.create(user, topic_id: post.topic_id, raw: "this is my first topic")
 
-        expect(topic_indexer.queue_ids).to contain_exactly()
+        expect(topic_indexer.queue_ids).to contain_exactly
         expect(post_indexer.queue_ids).to contain_exactly(new_post.id)
       end
     end
 
-    describe 'event post_edited' do
-      it 'enqueue edited post' do
-        post.revise(admin, raw: 'new content to be indexed')
+    describe "event post_edited" do
+      it "enqueue edited post" do
+        post.revise(admin, raw: "new content to be indexed")
 
-        expect(topic_indexer.queue_ids).to contain_exactly()
+        expect(topic_indexer.queue_ids).to contain_exactly
         expect(post_indexer.queue_ids).to contain_exactly(post.id)
       end
     end
 
-    describe 'event post_destroyed' do
-      it 'enqueues destroyed topics' do
+    describe "event post_destroyed" do
+      it "enqueues destroyed topics" do
         PostDestroyer.new(admin, post).destroy
 
         expect(Jobs::UpdateIndexes.jobs.size).to eq(1)
         expect(topic_indexer.queue_ids).to contain_exactly(post.id)
-        expect(post_indexer.queue_ids).to contain_exactly()
+        expect(post_indexer.queue_ids).to contain_exactly
       end
 
-      it 'enqueues destroyed post' do
+      it "enqueues destroyed post" do
         PostDestroyer.new(admin, post_2).destroy
 
         # A post must be scrubbed immediately from the index when it is
         # destroyed
         expect(Jobs::UpdateIndexes.jobs.size).to eq(1)
-        expect(topic_indexer.queue_ids).to contain_exactly()
+        expect(topic_indexer.queue_ids).to contain_exactly
         expect(post_indexer.queue_ids).to contain_exactly(post_2.id)
       end
     end
 
-    describe 'event post_recovered' do
+    describe "event post_recovered" do
       before do
         PostDestroyer.new(admin, post).destroy
         PostDestroyer.new(admin, post_2).destroy
@@ -133,17 +128,17 @@ describe DiscourseAlgolia do
         Discourse.redis.del(DiscourseAlgolia::PostIndexer::QUEUE_NAME)
       end
 
-      it 'enqueues recovered topics' do
+      it "enqueues recovered topics" do
         PostDestroyer.new(admin, post).recover
 
         expect(topic_indexer.queue_ids).to contain_exactly(post.id)
-        expect(post_indexer.queue_ids).to contain_exactly()
+        expect(post_indexer.queue_ids).to contain_exactly
       end
 
-      it 'enqueues recovered post' do
+      it "enqueues recovered post" do
         PostDestroyer.new(admin, post_2).recover
 
-        expect(topic_indexer.queue_ids).to contain_exactly()
+        expect(topic_indexer.queue_ids).to contain_exactly
         expect(post_indexer.queue_ids).to contain_exactly(post_2.id)
       end
     end

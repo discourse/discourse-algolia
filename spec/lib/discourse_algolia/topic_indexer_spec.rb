@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 describe DiscourseAlgolia::TopicIndexer do
   let(:subject) { DiscourseAlgolia.indexer(:topic) }
@@ -10,12 +10,10 @@ describe DiscourseAlgolia::TopicIndexer do
   fab!(:post) { Fabricate(:post, post_number: 1) }
   fab!(:post_2) { Fabricate(:post, topic: post.topic, post_number: 2) }
 
-  before do
-    setup_algolia_tests
-  end
+  before { setup_algolia_tests }
 
-  context 'with destroyed topics' do
-    it 'deletes posts from destroyed topics' do
+  context "with destroyed topics" do
+    it "deletes posts from destroyed topics" do
       PostDestroyer.new(admin, post).destroy
 
       subject.index.expects(:save_objects).never
@@ -25,13 +23,13 @@ describe DiscourseAlgolia::TopicIndexer do
     end
   end
 
-  context 'with recovered topics' do
+  context "with recovered topics" do
     before do
       PostDestroyer.new(admin, post).destroy
       Discourse.redis.del(DiscourseAlgolia::TopicIndexer::QUEUE_NAME)
     end
 
-    it 'enqueues all posts from recovered topic' do
+    it "enqueues all posts from recovered topic" do
       PostDestroyer.new(admin, post).recover
 
       subject.index.expects(:save_objects).with([post_indexer.to_object(post)])

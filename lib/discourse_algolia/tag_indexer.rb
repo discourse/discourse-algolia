@@ -4,7 +4,7 @@ class DiscourseAlgolia::TagIndexer < DiscourseAlgolia::Indexer
   QUEUE_NAME = "algolia-tags"
   INDEX_NAME = "discourse-tags"
   SETTINGS = {
-    "attributesToRetrieve" => [:name, :url, :topic_count],
+    "attributesToRetrieve" => %i[name url topic_count],
     "customRanking" => ["desc(topic_count)"],
     "removeWordsIfNoResults" => "allOptional",
     "searchableAttributes" => [:name],
@@ -19,11 +19,6 @@ class DiscourseAlgolia::TagIndexer < DiscourseAlgolia::Indexer
   end
 
   def to_object(tag)
-    {
-      objectID: tag.id,
-      url: tag.url,
-      name: tag.name,
-      topic_count: tag.topic_count,
-    }
+    { objectID: tag.id, url: tag.url, name: tag.name, topic_count: tag.topic_count }
   end
 end
