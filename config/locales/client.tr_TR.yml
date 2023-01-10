@@ -5,3 +5,12 @@
 # https://translate.discourse.org/
 
 tr_TR:
+  js:
+    discourse_algolia:
+      search_box_placeholder: "Forumda ara..."
+      advanced_search: "gelişmiş arama"
+      powered_by: "discourse-algolia arama eklentisi tarafından desteklenmektedir"
+      user_likes: "Kullanıcının aldığı beğeni sayısı"
+      topic_tags: "Bu etikete sahip konu sayısı"
+      topic_views: "Konunun görüntülenme sayısı"
+      no_posts: "Eşleşen gönderi yok."
