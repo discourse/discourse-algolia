@@ -7,8 +7,8 @@
 tr_TR:
   site_settings:
     algolia_enabled: "discourse-algolia eklentisini etkinleştirin ve indeksleme için Algolia'ya veri gönderin"
-    algolia_autocomplete_enabled: "Site üstbilgisinde Algolia otomatik tamamlamayı etkinleştirin"
+    algolia_autocomplete_enabled: "Site üst bilgisinde Algolia otomatik tamamlamayı etkinleştirin"
     algolia_application_id: "İndeksleme için verilerin gönderilmesi gereken Algolia uygulama kimliği"
     algolia_admin_api_key: "Veri yazma ve endeksleri yapılandırma izinlerine sahip bir Algolia API anahtarı"
-    algolia_search_api_key: "Ön uç için kullanılan <b>ara</b> iznine sahip bir Algolia API anahtarı<br /><i>Yanıtlar etkinleştirildiğinde, </i><b>nluReadAnswers</b><i> iznine de ihtiyaç duyar</i>"
-    algolia_discourse_username: "İndekslenen veriler yalnızca bu kullanıcının görebileceği nesneleri içerecek"
+    algolia_search_api_key: "Ön uç için kullanılan <b>ara</b> iznine sahip bir Algolia API anahtarı<br /><i> Yanıtlar etkinleştirildiğinde, </i><b>nluReadAnswers</b><i> iznine de ihtiyaç duyar</i>"
+    algolia_discourse_username: "İndekslenen veriler yalnızca bu kullanıcının görebileceği nesneleri içerir"
