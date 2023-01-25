@@ -4,9 +4,8 @@ Official Plugin Topic & Documentation: https://meta.discourse.org/t/add-algolia-
 
 Power the search on your Discourse with [Algolia](https://algolia.com/) 🔎🎉
 
-The discourse-algolia plugin indexes users, posts, topics and tags with Algolia and adds a search box built with [autocomplete.js](https://github.com/algolia/autocomplete.js) to the Discourse header. Try it live on [Algolia's Community Forum](https://discourse.algolia.com/):
+The discourse-algolia plugin indexes users, posts, topics and tags with Algolia and adds a search box built with [autocomplete.js](https://github.com/algolia/autocomplete.js) to the Discourse header. Try it live on [Algolia's Community Forum](https://discourse.algolia.com/)!
 
-![discourse-algolia autocomplete](https://d26dzxoao6i3hh.cloudfront.net/items/3B23471G3E0b3E1j1K2L/Screen%20Recording%202017-11-07%20at%2012.20%20AM.gif)
 
 ## Features
 
@@ -55,11 +54,11 @@ git pull
 
 Once you've installed the plugin and restarted your Discourse, you will see a new plugin available in your admin configuration. Click the `Settings` button next to the `discourse-algolia` plugin.
 
-![Discourse admin plugins list](https://cl.ly/0D3e0a2A2C0Y/[93746251235ab2720a904dda08be4c49]_Screenshot%202017-10-04%2013.38.35.png)
+![plugins_list](https://user-images.githubusercontent.com/5862206/214546935-31fdcbcc-e87e-4df2-b70f-ba58c98c41c3.png)
 
 You will now see all of the plugin configuration options available.
 
-![discourse-algolia configuration options](https://cl.ly/0o1d1h361M33/Screenshot%202017-10-04%2013.41.16.png)
+![config](https://user-images.githubusercontent.com/5862206/214546977-9ef651b0-e866-475a-81f0-1eb115c785fc.png)
 
 Populate the settings as follows:
 
@@ -72,11 +71,11 @@ Populate the settings as follows:
 
 You can find the **algolia application id**, **algolia search api key**, and **algolia admin api key** in the **API Keys** page of your [Algolia dashboard](https://algolia.com/dashboard/).
 
-![Algolia dashboard API Keys page](https://cl.ly/380F0e1Y220Z/Screenshot%202017-10-04%2013.51.02.png)
+![algolia_dash](https://user-images.githubusercontent.com/5862206/214547025-54fe7b5a-f7ec-4690-836b-5a58c42d4df8.png)
 
 Once all of the settings are turned on and populated, the plugin configuration should look like this:
 
-![discourse-algolia populated configuration options](https://cl.ly/0A3T431l0t0B/Screenshot%202017-10-04%2014.00.09.png)
+![config_example](https://user-images.githubusercontent.com/5862206/214547108-6832c971-7e0b-4cf1-84cc-bc0e70b544de.png)
 
 ## Initial indexing
 
@@ -134,7 +133,7 @@ You'll see style definitions like this, which you can override by creating a for
 
 Once you've indexed your data with Algolia, you can see it and search it from the Algolia dashboard. That will give you an idea of what attributes the plugin indexes. You can also make changes to relevance and other index configuration settings. A full treatment of ranking, relevance and the Algolia dashboard is out of scope here, but we encourage you to head over to the [Algolia documentation](https://algolia.com/doc/) and start digging in.
 
-![algolia dashboard indices tab](https://cl.ly/3w112X0B2m1M/Screenshot%202017-11-12%2016.43.10.png)
+![algolia_dashboard_indices](https://user-images.githubusercontent.com/5862206/214547733-dad6f4ba-0284-4662-8e53-a7754ba78d4f.png)
 
 ## Support
 
