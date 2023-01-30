@@ -134,7 +134,3 @@ You'll see style definitions like this, which you can override by creating a for
 Once you've indexed your data with Algolia, you can see it and search it from the Algolia dashboard. That will give you an idea of what attributes the plugin indexes. You can also make changes to relevance and other index configuration settings. A full treatment of ranking, relevance and the Algolia dashboard is out of scope here, but we encourage you to head over to the [Algolia documentation](https://algolia.com/doc/) and start digging in.
 
 ![algolia_dashboard_indices](https://user-images.githubusercontent.com/5862206/214547733-dad6f4ba-0284-4662-8e53-a7754ba78d4f.png)
-
-## Support
-
-Have a question? Ran into an issue? If it's code-related, please file an issue in this repository and include as much information as possible. If it's a general question, please post it on the [Algolia Community Forum](https://discourse.algolia.com/) and add the tag `#discourse-algolia`. We look forward to hearing from you!
