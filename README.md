@@ -82,7 +82,7 @@ Once all of the settings are turned on and populated, the plugin configuration s
 Once you have enabled the Algolia plugin and added an application ID and admin API key, you can now index all of your forum's content. Run the following rake task in your Discourse directory:
 
 ```shell
-LOAD_PLUGINS=1 bundle exec rails algolia:initialize
+LOAD_PLUGINS=1 bundle exec rails algolia:reindex
 ```
 
 This will create and configure three indices - `discourse-users`, `discourse-posts`, and `discourse-tags` - and then populate them by loading data from your database and sending it to Algolia. The data will be searchable as soon as the task is finished. You can now enable the **algolia autocomplete enabled** setting of the plugin, reload the page of your Discourse, and try the autocomplete search.
