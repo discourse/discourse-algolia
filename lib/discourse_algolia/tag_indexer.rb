@@ -15,10 +15,14 @@ class DiscourseAlgolia::TagIndexer < DiscourseAlgolia::Indexer
   end
 
   def should_index?(tag)
-    @guardian.can_see?(tag) && tag.topic_count > 0
+    @guardian.can_see?(tag) && topic_count_for_tag(tag) > 0
   end
 
   def to_object(tag)
-    { objectID: tag.id, url: tag.url, name: tag.name, topic_count: tag.topic_count }
+    { objectID: tag.id, url: tag.url, name: tag.name, topic_count: topic_count_for_tag(tag) }
+  end
+
+  def topic_count_for_tag(tag)
+    tag.public_send(Tag.topic_count_column(@guardian))
   end
 end
