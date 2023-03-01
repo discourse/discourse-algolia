@@ -2,7 +2,7 @@
 
 # name: discourse-algolia
 # about: Use Algolia to power the search on your Discourse
-# version: 0.4.0
+# version: 0.4.1
 # authors: Josh Dzielak, Gianluca Bargelli, Paul-Louis Nech
 # url: https://github.com/discourse/discourse-algolia
 # transpile_js: true

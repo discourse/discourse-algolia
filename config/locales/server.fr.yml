@@ -11,4 +11,3 @@ fr:
     algolia_application_id: "L'ID de l'application Algolia à laquelle les données doivent être envoyées pour indexation"
     algolia_admin_api_key: "Une clé API Algolia avec des autorisations pour écrire des données et configurer des index"
     algolia_search_api_key: "Une clé API Algolia avec une autorisation de <b>recherche</b>, utilisée pour le front-end<br /><i>Lorsque Answers est activé, elle a également besoin de l'autorisation </i><b>nluReadAnswers</b><i></i>"
-    algolia_discourse_username: "Les données indexées ne contiendront que des objets que cet utilisateur peut voir"

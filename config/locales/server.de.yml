@@ -11,4 +11,3 @@ de:
     algolia_application_id: "Die Algolia-App-ID, an die Daten zur Indizierung gesendet werden sollen"
     algolia_admin_api_key: "Ein Algolia-API-Schlüssel mit Berechtigungen zum Schreiben von Daten und zum Konfigurieren von Indizes"
     algolia_search_api_key: "Ein Algolia-API-Schlüssel mit <b>Suchberechtigung</b>, der für das Frontend verwendet wird<br /><i>Wenn Answers aktiviert ist, wird zusätzlich die Berechtigung </i><b>nluReadAnswers</b><i> benötigt</i>"
-    algolia_discourse_username: "Die indizierten Daten enthalten nur Objekte, die dieser Benutzer sehen kann"

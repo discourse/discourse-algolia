@@ -11,4 +11,3 @@ es:
     algolia_application_id: "El ID de la aplicación Alglia al que se deben enviar los datos para la indexación"
     algolia_admin_api_key: "Una clave de API de Alglia con permisos para escribir datos y configurar índices"
     algolia_search_api_key: "Una clave de API de Alglia con permiso <b>search</b>, utilizada para el front-end<br /><i>Cuando Respuestas está habilitado, también necesita el permiso </i><b>BlueReadAnswers</b><i></i>"
-    algolia_discourse_username: "Los datos indexados contendrán solo objetos que este usuario pueda ver"

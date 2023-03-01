@@ -1,5 +1,6 @@
 import {
   acceptance,
+  exists,
   query,
   queryAll,
 } from "discourse/tests/helpers/qunit-helpers";
@@ -15,7 +16,6 @@ acceptance("Discourse Algolia - Search", function (needs) {
     algolia_application_id: "123",
     algolia_search_api_key: "key",
     algolia_admin_api_key: "adminkey",
-    algolia_discourse_username: "system",
   });
   needs.site({ can_tag_topics: true });
 
@@ -240,5 +240,11 @@ acceptance("Discourse Algolia - Search", function (needs) {
     );
     await click(".hit-tag-name");
     assert.strictEqual(currentURL(), "/tag/bug", "redirects to tag page");
+  });
+
+  test("search not visible when site is requiring login", async function (assert) {
+    this.siteSettings.login_required = true;
+    await visit("/");
+    assert.ok(!exists(document.querySelector(".algolia-search")));
   });
 });

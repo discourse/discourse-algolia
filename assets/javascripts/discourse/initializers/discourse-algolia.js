@@ -327,7 +327,9 @@ export default {
       api.decorateWidget("header-icons:before", function (helper) {
         if (
           helper.widget.siteSettings.algolia_enabled &&
-          helper.widget.siteSettings.algolia_autocomplete_enabled
+          helper.widget.siteSettings.algolia_autocomplete_enabled &&
+          (!helper.widget.siteSettings.login_required ||
+            helper.widget.currentUser)
         ) {
           return helper.attach("algolia");
         }

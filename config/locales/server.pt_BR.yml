@@ -11,4 +11,3 @@ pt_BR:
     algolia_application_id: "A ID do app Algolia para o qual os dados devem ser enviados para indexação"
     algolia_admin_api_key: "A chave de API com permissões para gravar dados e configurar índices"
     algolia_search_api_key: "Uma chave de API do Algolia com permissão de <b>pesquisa</b>, usada para o front-end<br /><i>Ao ativar Respostas, é preciso ter a permissão </i><b>nluReadAnswers</b><i> também"
-    algolia_discourse_username: "Os dados indexados conterão apenas objetos que este(a) usuário(a) pode ver"

@@ -5,4 +5,3 @@ en:
     algolia_application_id: "The Algolia app ID where data should be sent for indexing"
     algolia_admin_api_key: "An Algolia API key with permissions to write data and configure indices"
     algolia_search_api_key: "An Algolia API key with <b>search</b> permission, used for the front end<br /><i>When Answers is enabled, it needs the </i><b>nluReadAnswers</b><i> permission too</i>"
-    algolia_discourse_username: "The data indexed will contain only objects that this user can see"

@@ -11,4 +11,3 @@ sv:
     algolia_application_id: "Algolia app-ID där data ska skickas för indexering"
     algolia_admin_api_key: "En Algolia API-nyckel med behörighet att skriva data och konfigurera index"
     algolia_search_api_key: "En Algolia API-nyckel med <b>sök</b> behörighet, används för besöksidan<br /><i>När Svar är aktiverat behöver den också behörighet till </i><b>nluReadAnswers</b>"
-    algolia_discourse_username: "Data som indexeras innehåller endast objekt som den här användaren kan se"
