@@ -11,4 +11,3 @@ ar:
     algolia_application_id: "معرِّف تطبيق Algolia حيث يجب إرسال البيانات لفهرستها"
     algolia_admin_api_key: "مفتاح واجهة برمجة تطبيقات Algolia مع أذونات لكتابة البيانات وإعداد الفهارس"
     algolia_search_api_key: "مفتاح واجهة برمجة تطبيقات Algolia مع إذن <b>search</b>، ويتم استخدامه في الواجهة الأمامية<br /><i>عند تفعيل Answers، وهو بحاجة إلى إذن </i><b>nluReadAnswers</b><i> أيضًا</i>"
-    algolia_discourse_username: "ستتضمَّن البيانات المفهرسة الكائنات التي يمكن لهذا المستخدم رؤيتها فقط"

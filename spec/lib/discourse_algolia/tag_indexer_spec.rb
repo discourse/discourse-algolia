@@ -26,17 +26,6 @@ describe DiscourseAlgolia::TagIndexer do
     subject.process!(ids: [tag.id])
   end
 
-  it "enqueues a tag for indexing with Tag#staff_topic_count if `algolia_discourse_username` site setting is configured to a staff user" do
-    SiteSetting.algolia_discourse_username = admin.username
-
-    subject
-      .index
-      .expects(:save_objects)
-      .with([{ objectID: tag.id, url: tag.url, name: tag.name, topic_count: 2 }])
-
-    subject.process!(ids: [tag.id])
-  end
-
   it "enqueues a tag for indexing with Tag#staff_topic_count if `include_secure_categories_in_tag_counts` site setting is enabled" do
     SiteSetting.include_secure_categories_in_tag_counts = true
 

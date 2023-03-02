@@ -15,8 +15,7 @@ class DiscourseAlgolia
         SiteSetting.algolia_application_id,
         SiteSetting.algolia_admin_api_key,
       )
-    user = User.find_by_username(SiteSetting.algolia_discourse_username)
-    guardian = Guardian.new(user)
+    guardian = Guardian.new
 
     case type.to_sym
     when :user

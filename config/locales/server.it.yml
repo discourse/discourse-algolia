@@ -11,4 +11,3 @@ it:
     algolia_application_id: "L'ID dell'app Algolia a cui inviare i dati per l'indicizzazione"
     algolia_admin_api_key: "Una chiave API Algolia con autorizzazioni per la scrittura dei dati e la configurazione di indici"
     algolia_search_api_key: "Una chiave API Algolia con autorizzazione di <b>ricerca</b>, utilizzata per il front-end<br /><i>Quando Answers è abilitato, necessita anche dell'autorizzazione </i><b>nluReadAnswers</b><i></i>"
-    algolia_discourse_username: "I dati indicizzati conterranno solo oggetti visibili a questo utente"

@@ -11,4 +11,3 @@ zh_CN:
     algolia_application_id: "应发送数据进行索引的 Algolia 应用 ID"
     algolia_admin_api_key: "具有写入数据和配置索引权限的 Algolia API 密钥"
     algolia_search_api_key: "具有<b>搜索</b>权限的 Algolia API 密钥，用于前端<br /><i>启用 Answers 后，它也需要 </i><b>nluReadAnswers</b><i> 权限</i>"
-    algolia_discourse_username: "索引的数据将仅包含此用户可以看到的对象"

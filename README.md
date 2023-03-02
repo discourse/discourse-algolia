@@ -67,7 +67,6 @@ Populate the settings as follows:
 - **algolia application id**: The ID of an Algolia application you have created.
 - **algolia search api key**: A search-only API key of the Algolia application. Do not use an admin API key, as this will be visible to the clients of your Discourse.
 - **algolia admin api key**: The admin API key of your Discourse application, or any API key that can write and configure indices.
-- **algolia discourse username**: If content is visible to this Discourse user, it will be indexed. If not, it will be skipped. This defaults to `system`, which is an admin account and can see content in all categories, including Staff. (Private messages, however, are always excluded from indexing.) It is recommended that you create a dummy separate user who can only see content you consider to be public, and change this value to their username.
 
 You can find the **algolia application id**, **algolia search api key**, and **algolia admin api key** in the **API Keys** page of your [Algolia dashboard](https://algolia.com/dashboard/).
 
