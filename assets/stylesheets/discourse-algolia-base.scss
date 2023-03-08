@@ -1,6 +1,6 @@
 /* make changes to discourse styling outside the affected widgets
    only when the algolia plugin has been enabled */
-body.algolia-enabled {
+html:not(.mobile-view) body.algolia-enabled {
   /* don't let topic titles run into the search bar */
   .extra-info-wrapper {
     max-width: 300px;
