@@ -1,4 +1,7 @@
 {
+  "name": "discourse-algolia",
+  "version": "0.4.1",
+  "repository": "https://github.com/discourse/discourse-algolia",
   "author": "Discourse",
   "license": "MIT",
   "devDependencies": {
