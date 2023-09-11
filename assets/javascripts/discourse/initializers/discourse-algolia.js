@@ -4,6 +4,7 @@ import I18n from "I18n";
 import { h } from "virtual-dom";
 import loadScript from "discourse/lib/load-script";
 import { Promise } from "rsvp";
+import { isDevelopment } from "discourse-common/config/environment";
 
 function initializeAutocomplete(options) {
   const algoliasearch = window.algoliasearch;
@@ -307,7 +308,7 @@ export default {
                 algoliaApplicationId: this.siteSettings.algolia_application_id,
                 algoliaSearchApiKey: this.siteSettings.algolia_search_api_key,
                 imageBaseURL: "",
-                debug: document.location.host.indexOf("localhost") > -1,
+                debug: isDevelopment(),
               });
             });
           }
