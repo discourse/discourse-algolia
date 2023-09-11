@@ -104,7 +104,7 @@ rake algolia:reindex_users                                             # reindex
 
 ## Styling with CSS
 
-To see how you can change the look and feel of the autocomplete, see the CSS styles in the plugin's [assets/stylesheets](https://github.com/algolia/discourse-algolia/tree/master/assets/stylesheets) directory.
+To see how you can change the look and feel of the autocomplete, see the CSS styles in the plugin's [assets/stylesheets](https://github.com/algolia/discourse-algolia/tree/main/assets/stylesheets) directory.
 
 ```
  .algolia-holder .aa-input {
