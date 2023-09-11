@@ -1,7 +1,10 @@
 {
+  "name": "discourse-algolia",
+  "version": "0.4.1",
+  "repository": "https://github.com/discourse/discourse-algolia",
   "author": "Discourse",
   "license": "MIT",
   "devDependencies": {
-    "eslint-config-discourse": "^1.1.5"
+    "eslint-config-discourse": "^4.0.0"
   }
 }

@@ -6,7 +6,6 @@ Power the search on your Discourse with [Algolia](https://algolia.com/) 🔎🎉
 
 The discourse-algolia plugin indexes users, posts, topics and tags with Algolia and adds a search box built with [autocomplete.js](https://github.com/algolia/autocomplete.js) to the Discourse header. Try it live on [Algolia's Community Forum](https://discourse.algolia.com/)!
 
-
 ## Features
 
 The discourse-algolia plugin uses the Algolia API, which provides powerful indexing and search capabilities.
@@ -105,7 +104,7 @@ rake algolia:reindex_users                                             # reindex
 
 ## Styling with CSS
 
-To see how you can change the look and feel of the autocomplete, see the CSS styles in the plugin's [assets/stylesheets](https://github.com/algolia/discourse-algolia/tree/master/assets/stylesheets) directory.
+To see how you can change the look and feel of the autocomplete, see the CSS styles in the plugin's [assets/stylesheets](https://github.com/algolia/discourse-algolia/tree/main/assets/stylesheets) directory.
 
 ```
  .algolia-holder .aa-input {

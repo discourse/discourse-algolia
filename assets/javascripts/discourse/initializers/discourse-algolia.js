@@ -8,9 +8,8 @@ import { isDevelopment } from "discourse-common/config/environment";
 
 function initializeAutocomplete(options) {
   const algoliasearch = window.algoliasearch;
-  const { autocomplete, getAlgoliaResults } = window[
-    "@algolia/autocomplete-js"
-  ];
+  const { autocomplete, getAlgoliaResults } =
+    window["@algolia/autocomplete-js"];
 
   const autocompleteElement = document
     .getElementsByClassName("algolia-search")[0]

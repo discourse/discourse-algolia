@@ -3,7 +3,7 @@
 require "rails_helper"
 
 describe DiscourseAlgolia::PostIndexer do
-  let(:subject) { DiscourseAlgolia.indexer(:post) }
+  subject(:post_indexer) { DiscourseAlgolia.indexer(:post) }
 
   fab!(:post) { Fabricate(:post) }
   fab!(:pm_post) { Fabricate(:private_message_post) }
@@ -11,8 +11,8 @@ describe DiscourseAlgolia::PostIndexer do
   before { setup_algolia_tests }
 
   it "does not index private posts" do
-    subject.index.expects(:save_objects).with([subject.to_object(post)])
-    subject.index.expects(:delete_objects).with([pm_post.id])
-    subject.process!(ids: [post.id, pm_post.id])
+    post_indexer.index.expects(:save_objects).with([post_indexer.to_object(post)])
+    post_indexer.index.expects(:delete_objects).with([pm_post.id])
+    post_indexer.process!(ids: [post.id, pm_post.id])
   end
 end
