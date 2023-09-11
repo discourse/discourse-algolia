@@ -4,7 +4,7 @@ import I18n from "I18n";
 import { h } from "virtual-dom";
 import loadScript from "discourse/lib/load-script";
 import { Promise } from "rsvp";
-import { isDevelopment } from 'discourse-common/config/environment';
+import { isDevelopment } from "discourse-common/config/environment";
 
 function initializeAutocomplete(options) {
   const algoliasearch = window.algoliasearch;
