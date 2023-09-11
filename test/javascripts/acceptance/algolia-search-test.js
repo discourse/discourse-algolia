@@ -45,8 +45,7 @@ acceptance("Discourse Algolia - Search", function (needs) {
                     "/user_avatar/localhost/eviltrout/{size}/13_2.png",
                 },
                 topic: {
-                  url:
-                    "http://localhost:3000/t/internationalization-localization/280h",
+                  url: "http://localhost:3000/t/internationalization-localization/280h",
                   title: "Internationalization / localization",
                   views: 4369,
                   slug: "internationalization-localization",
