@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 # name: discourse-algolia
-# about: Use Algolia to power the search on your Discourse
+# about: Integrates Algolia with Discourse search.
+# meta_topic_id: 73517
 # version: 0.4.1
 # authors: Josh Dzielak, Gianluca Bargelli, Paul-Louis Nech
 # url: https://github.com/discourse/discourse-algolia
