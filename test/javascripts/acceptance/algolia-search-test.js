@@ -1,12 +1,12 @@
+import { click, currentURL, fillIn, visit } from "@ember/test-helpers";
+import { test } from "qunit";
+import discoveryFixture from "discourse/tests/fixtures/discovery-fixtures";
 import {
   acceptance,
   exists,
   query,
   queryAll,
 } from "discourse/tests/helpers/qunit-helpers";
-import { test } from "qunit";
-import { click, currentURL, fillIn, settled, visit } from "@ember/test-helpers";
-import discoveryFixture from "discourse/tests/fixtures/discovery-fixtures";
 import { cloneJSON } from "discourse-common/lib/object";
 
 acceptance("Discourse Algolia - Search", function (needs) {
@@ -183,7 +183,6 @@ acceptance("Discourse Algolia - Search", function (needs) {
   test("search posts, users and tags", async function (assert) {
     await visit("/");
     await fillIn(".aa-Input", "internationalization");
-    await settled();
 
     const posts = queryAll(".hit-post-topic-title");
     assert.strictEqual(posts.length, 1);
@@ -199,7 +198,7 @@ acceptance("Discourse Algolia - Search", function (needs) {
     );
 
     await fillIn(".aa-Input", "internationalization");
-    await settled();
+
     await click(".hit-post-category-name");
     assert.strictEqual(
       currentURL(),
@@ -208,7 +207,7 @@ acceptance("Discourse Algolia - Search", function (needs) {
     );
 
     await fillIn(".aa-Input", "internationalization");
-    await settled();
+
     await click(".hit-post-username");
     assert.strictEqual(
       currentURL(),
@@ -217,11 +216,11 @@ acceptance("Discourse Algolia - Search", function (needs) {
     );
 
     await fillIn(".aa-Input", "eviltrout");
-    await settled();
+
     assert.strictEqual(
       query(".hit-user-custom-ranking").innerText.trim(),
       "❤18",
-      "displayes amount of likes"
+      "displays amount of likes"
     );
     await click(".hit-user-username");
     assert.strictEqual(
@@ -231,11 +230,11 @@ acceptance("Discourse Algolia - Search", function (needs) {
     );
 
     await fillIn(".aa-Input", "bug");
-    await settled();
+
     assert.strictEqual(
       query(".hit-tag-topic_count").innerText.trim(),
       "6",
-      "displayes amount of topics with tag"
+      "displays amount of topics with tag"
     );
     await click(".hit-tag-name");
     assert.strictEqual(currentURL(), "/tag/bug", "redirects to tag page");

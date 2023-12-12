@@ -1,10 +1,10 @@
-import { withPluginApi } from "discourse/lib/plugin-api";
-import DiscourseURL from "discourse/lib/url";
-import I18n from "I18n";
+import { Promise } from "rsvp";
 import { h } from "virtual-dom";
 import loadScript from "discourse/lib/load-script";
-import { Promise } from "rsvp";
+import { withPluginApi } from "discourse/lib/plugin-api";
+import DiscourseURL from "discourse/lib/url";
 import { isDevelopment } from "discourse-common/config/environment";
+import I18n from "I18n";
 
 function initializeAutocomplete(options) {
   const algoliasearch = window.algoliasearch;
