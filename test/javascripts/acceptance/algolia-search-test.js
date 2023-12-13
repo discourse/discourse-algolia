@@ -1,12 +1,7 @@
-import {
-  acceptance,
-  exists,
-  query,
-  queryAll,
-} from "discourse/tests/helpers/qunit-helpers";
+import { click, currentURL, fillIn, visit, waitFor } from "@ember/test-helpers";
 import { test } from "qunit";
-import { click, currentURL, fillIn, settled, visit } from "@ember/test-helpers";
 import discoveryFixture from "discourse/tests/fixtures/discovery-fixtures";
+import { acceptance } from "discourse/tests/helpers/qunit-helpers";
 import { cloneJSON } from "discourse-common/lib/object";
 
 acceptance("Discourse Algolia - Search", function (needs) {
@@ -17,6 +12,7 @@ acceptance("Discourse Algolia - Search", function (needs) {
     algolia_search_api_key: "key",
     algolia_admin_api_key: "adminkey",
   });
+
   needs.site({ can_tag_topics: true });
 
   needs.pretender((server, helper) => {
@@ -180,17 +176,17 @@ acceptance("Discourse Algolia - Search", function (needs) {
       }),
     ]);
   });
+
   test("search posts, users and tags", async function (assert) {
     await visit("/");
-    await fillIn(".aa-Input", "internationalization");
-    await settled();
 
-    const posts = queryAll(".hit-post-topic-title");
-    assert.strictEqual(posts.length, 1);
-    assert.strictEqual(
-      posts[0].textContent.trim(),
-      "Internationalizations / localization"
-    );
+    await fillIn(".aa-Input", "internationalization");
+    await waitFor(".hit-post-topic-title", { count: 1 });
+
+    assert
+      .dom(".hit-post-topic-title")
+      .hasText("Internationalizations / localization");
+
     await click(".hit-post-topic-title");
     assert.strictEqual(
       currentURL(),
@@ -199,7 +195,8 @@ acceptance("Discourse Algolia - Search", function (needs) {
     );
 
     await fillIn(".aa-Input", "internationalization");
-    await settled();
+    await waitFor(".hit-post-category-name");
+
     await click(".hit-post-category-name");
     assert.strictEqual(
       currentURL(),
@@ -208,7 +205,8 @@ acceptance("Discourse Algolia - Search", function (needs) {
     );
 
     await fillIn(".aa-Input", "internationalization");
-    await settled();
+    await waitFor(".hit-post-username");
+
     await click(".hit-post-username");
     assert.strictEqual(
       currentURL(),
@@ -217,12 +215,12 @@ acceptance("Discourse Algolia - Search", function (needs) {
     );
 
     await fillIn(".aa-Input", "eviltrout");
-    await settled();
-    assert.strictEqual(
-      query(".hit-user-custom-ranking").innerText.trim(),
-      "❤18",
-      "displayes amount of likes"
-    );
+    await waitFor(".hit-user-custom-ranking");
+
+    assert
+      .dom(".hit-user-custom-ranking")
+      .hasText("❤18", "displays amount of likes");
+
     await click(".hit-user-username");
     assert.strictEqual(
       currentURL(),
@@ -231,12 +229,12 @@ acceptance("Discourse Algolia - Search", function (needs) {
     );
 
     await fillIn(".aa-Input", "bug");
-    await settled();
-    assert.strictEqual(
-      query(".hit-tag-topic_count").innerText.trim(),
-      "6",
-      "displayes amount of topics with tag"
-    );
+    await waitFor(".hit-tag-topic_count");
+
+    assert
+      .dom(".hit-tag-topic_count")
+      .hasText("6", "displays amount of topics with tag");
+
     await click(".hit-tag-name");
     assert.strictEqual(currentURL(), "/tag/bug", "redirects to tag page");
   });
@@ -244,6 +242,6 @@ acceptance("Discourse Algolia - Search", function (needs) {
   test("search not visible when site is requiring login", async function (assert) {
     this.siteSettings.login_required = true;
     await visit("/");
-    assert.ok(!exists(document.querySelector(".algolia-search")));
+    assert.dom(".algolia-search").doesNotExist();
   });
 });
