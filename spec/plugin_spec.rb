@@ -3,7 +3,7 @@
 require "rails_helper"
 
 describe DiscourseAlgolia do
-  fab!(:user) { Fabricate(:user) }
+  fab!(:user) { Fabricate(:user, refresh_auto_groups: true) }
   fab!(:admin) { Fabricate(:admin) }
   fab!(:post) { Fabricate(:post, post_number: 1) }
   fab!(:post_2) { Fabricate(:post, topic: post.topic, post_number: 2) }
