@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "rails_helper"
-
 describe DiscourseAlgolia::TopicIndexer do
   subject(:topic_indexer) { DiscourseAlgolia.indexer(:topic) }
 
