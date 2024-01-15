@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "rails_helper"
-
 describe DiscourseAlgolia do
   fab!(:user) { Fabricate(:user, refresh_auto_groups: true) }
   fab!(:admin) { Fabricate(:admin) }
