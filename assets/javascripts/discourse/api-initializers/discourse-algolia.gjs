@@ -284,7 +284,7 @@ function initializeAutocomplete(options) {
 export default apiInitializer("0.8", (api) => {
   const siteSettings = api.container.lookup("service:site-settings");
   const currentUser = api.getCurrentUser();
-  const shouldDisplay =
+  const shouldDisplay = () =>
     siteSettings.algolia_enabled &&
     siteSettings.algolia_autocomplete_enabled &&
     (!siteSettings.login_required || currentUser);
@@ -309,7 +309,7 @@ export default apiInitializer("0.8", (api) => {
   }
 
   api.headerIcons.add("algolia", <template>
-    {{#if shouldDisplay}}
+    {{#if (shouldDisplay)}}
       <li class="algolia-holder" {{didInsert renderAlgolia}}>
         <div class="algolia-search"></div>
         <div class="algolia-autocomplete"></div>
