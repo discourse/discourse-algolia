@@ -1,7 +1,7 @@
+import didInsert from "@ember/render-modifiers/modifiers/did-insert";
 import { Promise } from "rsvp";
-import { h } from "virtual-dom";
+import { apiInitializer } from "discourse/lib/api";
 import loadScript from "discourse/lib/load-script";
-import { withPluginApi } from "discourse/lib/plugin-api";
 import DiscourseURL from "discourse/lib/url";
 import { isDevelopment } from "discourse-common/config/environment";
 import I18n from "I18n";
@@ -171,9 +171,9 @@ function initializeAutocomplete(options) {
                   <img
                     class="hit-user-avatar"
                     src="${options.imageBaseURL}${item.avatar_template.replace(
-                      "{size}",
-                      50
-                    )}"
+                "{size}",
+                50
+              )}"
                   />
                 </div>
                 <div class="hit-user-right">
@@ -281,59 +281,39 @@ function initializeAutocomplete(options) {
   return autocompleteSearch;
 }
 
-export default {
-  name: "discourse-algolia",
+export default apiInitializer("0.8", (api) => {
+  const siteSettings = api.container.lookup("service:site-settings");
+  const currentUser = api.getCurrentUser();
+  const shouldDisplay = () =>
+    siteSettings.algolia_enabled &&
+    siteSettings.algolia_autocomplete_enabled &&
+    (!siteSettings.login_required || currentUser);
 
-  initialize() {
-    withPluginApi("0.8.8", (api) => {
-      api.createWidget("algolia", {
-        tagName: "li.algolia-holder",
+  let search;
 
-        didRenderWidget() {
-          if (
-            this.siteSettings.algolia_enabled &&
-            this.siteSettings.algolia_autocomplete_enabled
-          ) {
-            Promise.all([
-              loadScript(
-                "/plugins/discourse-algolia/javascripts/autocomplete.js"
-              ),
-              loadScript(
-                "/plugins/discourse-algolia/javascripts/algoliasearch.js"
-              ),
-            ]).then(() => {
-              document.body.classList.add("algolia-enabled");
-              this._search = initializeAutocomplete({
-                algoliaApplicationId: this.siteSettings.algolia_application_id,
-                algoliaSearchApiKey: this.siteSettings.algolia_search_api_key,
-                imageBaseURL: "",
-                debug: isDevelopment(),
-              });
-            });
-          }
-        },
+  function renderAlgolia() {
+    search?.destroy();
 
-        willRerenderWidget() {
-          if (this._search) {
-            this._search.destroy();
-          }
-        },
-
-        html() {
-          return [h(".algolia-search"), h(".algolia-autocomplete")];
-        },
-      });
-
-      api.decorateWidget("header-icons:before", function (helper) {
-        if (
-          helper.widget.siteSettings.algolia_enabled &&
-          helper.widget.siteSettings.algolia_autocomplete_enabled &&
-          (!helper.widget.siteSettings.login_required ||
-            helper.widget.currentUser)
-        ) {
-          return helper.attach("algolia");
-        }
+    Promise.all([
+      loadScript("/plugins/discourse-algolia/javascripts/autocomplete.js"),
+      loadScript("/plugins/discourse-algolia/javascripts/algoliasearch.js"),
+    ]).then(() => {
+      document.body.classList.add("algolia-enabled");
+      search = initializeAutocomplete({
+        algoliaApplicationId: siteSettings.algolia_application_id,
+        algoliaSearchApiKey: siteSettings.algolia_search_api_key,
+        imageBaseURL: "",
+        debug: isDevelopment(),
       });
     });
-  },
-};
+  }
+
+  api.headerIcons.add("algolia", <template>
+    {{#if (shouldDisplay)}}
+      <li class="algolia-holder" {{didInsert renderAlgolia}}>
+        <div class="algolia-search"></div>
+        <div class="algolia-autocomplete"></div>
+      </li>
+    {{/if}}
+  </template>);
+});
