@@ -4,7 +4,7 @@ describe DiscourseAlgolia::TopicIndexer do
   subject(:topic_indexer) { DiscourseAlgolia.indexer(:topic) }
 
   let(:post_indexer) { DiscourseAlgolia.indexer(:post) }
-  fab!(:admin) { Fabricate(:admin) }
+  fab!(:admin)
   fab!(:post) { Fabricate(:post, post_number: 1) }
   fab!(:post_2) { Fabricate(:post, topic: post.topic, post_number: 2) }
 
