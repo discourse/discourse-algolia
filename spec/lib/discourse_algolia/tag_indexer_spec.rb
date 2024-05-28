@@ -3,10 +3,10 @@
 describe DiscourseAlgolia::TagIndexer do
   subject(:tag_indexer) { DiscourseAlgolia.indexer(:tag) }
 
-  fab!(:user) { Fabricate(:user) }
-  fab!(:admin) { Fabricate(:admin) }
-  fab!(:group) { Fabricate(:group) }
-  fab!(:tag) { Fabricate(:tag) }
+  fab!(:user)
+  fab!(:admin)
+  fab!(:group)
+  fab!(:tag)
   fab!(:public_category) { Fabricate(:category) }
   fab!(:read_restricted_category) { Fabricate(:private_category, group: group) }
   fab!(:topic_in_public_category) { Fabricate(:topic, category: public_category, tags: [tag]) }

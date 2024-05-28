@@ -2,7 +2,7 @@
 
 describe DiscourseAlgolia do
   fab!(:user) { Fabricate(:user, refresh_auto_groups: true) }
-  fab!(:admin) { Fabricate(:admin) }
+  fab!(:admin)
   fab!(:post) { Fabricate(:post, post_number: 1) }
   fab!(:post_2) { Fabricate(:post, topic: post.topic, post_number: 2) }
 
@@ -40,7 +40,7 @@ describe DiscourseAlgolia do
   end
 
   describe "tags" do
-    fab!(:tag) { Fabricate(:tag) }
+    fab!(:tag)
 
     describe "event tag_created" do
       it "enqueues new tag" do
