@@ -1,8 +1,8 @@
 import { click, currentURL, fillIn, visit, waitFor } from "@ember/test-helpers";
 import { test } from "qunit";
+import { cloneJSON } from "discourse/lib/object";
 import discoveryFixture from "discourse/tests/fixtures/discovery-fixtures";
 import { acceptance } from "discourse/tests/helpers/qunit-helpers";
-import { cloneJSON } from "discourse-common/lib/object";
 
 acceptance("Discourse Algolia - Search", function (needs) {
   needs.settings({
