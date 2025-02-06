@@ -1,10 +1,10 @@
 import didInsert from "@ember/render-modifiers/modifiers/did-insert";
 import { Promise } from "rsvp";
 import { apiInitializer } from "discourse/lib/api";
+import { isDevelopment } from "discourse/lib/environment";
 import loadScript from "discourse/lib/load-script";
 import DiscourseURL from "discourse/lib/url";
-import { isDevelopment } from "discourse-common/config/environment";
-import I18n from "I18n";
+import { i18n } from "discourse-i18n";
 
 function initializeAutocomplete(options) {
   const algoliasearch = window.algoliasearch;
@@ -29,7 +29,7 @@ function initializeAutocomplete(options) {
     panelContainer: ".algolia-autocomplete",
     debug: options.debug,
     detachedMediaQuery: "none",
-    placeholder: I18n.t("discourse_algolia.search_box_placeholder"),
+    placeholder: i18n("discourse_algolia.search_box_placeholder"),
     getSources() {
       return [
         {
@@ -81,7 +81,7 @@ function initializeAutocomplete(options) {
                   </span>
                   <span
                     class="hit-post-topic-views"
-                    title="${I18n.t("discourse_algolia.topic_views")}"
+                    title="${i18n("discourse_algolia.topic_views")}"
                   >
                     ${item.topic.views}
                   </span>
@@ -129,7 +129,7 @@ function initializeAutocomplete(options) {
             },
             noResults({ html }) {
               return html`<div class="aa-empty">
-                ${I18n.t("discourse_algolia.no_posts")}
+                ${i18n("discourse_algolia.no_posts")}
               </div>`;
             },
           },
@@ -186,7 +186,7 @@ function initializeAutocomplete(options) {
                     </span>
                     <span
                       class="hit-user-custom-ranking"
-                      title="${I18n.t("discourse_algolia.user_likes")}"
+                      title="${i18n("discourse_algolia.user_likes")}"
                     >
                       ${likesElement}
                     </span>
@@ -227,7 +227,7 @@ function initializeAutocomplete(options) {
                 >
                 <span
                   class="hit-tag-topic_count"
-                  title="${I18n.t("discourse_algolia.topic_tags")}"
+                  title="${i18n("discourse_algolia.topic_tags")}"
                   >${item.topic_count}</span
                 >
               </div> `;
@@ -261,7 +261,7 @@ function initializeAutocomplete(options) {
                   event.preventDefault();
                   event.stopPropagation();
                 }}"
-                >${I18n.t("discourse_algolia.advanced_search")}</a
+                >${i18n("discourse_algolia.advanced_search")}</a
               >
             </div>
             <div class="right-container">
@@ -269,7 +269,7 @@ function initializeAutocomplete(options) {
                 target="_blank"
                 class="algolia-logo"
                 href="https://algolia.com/"
-                title="${I18n.t("discourse_algolia.powered_by")}"
+                title="${i18n("discourse_algolia.powered_by")}"
               ></a>
             </div>
           </div>
