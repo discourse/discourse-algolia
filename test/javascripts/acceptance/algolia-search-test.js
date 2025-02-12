@@ -180,6 +180,7 @@ acceptance("Discourse Algolia - Search", function (needs) {
   test("search posts, users and tags", async function (assert) {
     await visit("/");
 
+    await waitFor(".aa-Input");
     await fillIn(".aa-Input", "internationalization");
     await waitFor(".hit-post-topic-title", { count: 1 });
 
