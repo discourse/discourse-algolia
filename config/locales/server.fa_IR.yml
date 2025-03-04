@@ -1,10 +1,4 @@
-# WARNING: Never edit this file.
-# It will be overwritten when translations are pulled from Crowdin.
-#
-# To work with us on translations, join this project:
-# https://translate.discourse.org/
-
-fa_IR:
+fa:
   site_settings:
     algolia_enabled: "افزونه discourse-algolia را فعال کنید و داده‌ها را برای نمایه‌سازی به Algolia ارسال کنید"
     algolia_autocomplete_enabled: "فعال کردن خودکار Algolia در header وب‌سایت"
