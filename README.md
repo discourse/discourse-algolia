@@ -4,7 +4,7 @@ Official Plugin Topic & Documentation: https://meta.discourse.org/t/add-algolia-
 
 Power the search on your Discourse with [Algolia](https://algolia.com/) 🔎🎉
 
-The discourse-algolia plugin indexes users, posts, topics and tags with Algolia and adds a search box built with [autocomplete.js](https://github.com/algolia/autocomplete.js) to the Discourse header. Try it live on [Algolia's Community Forum](https://discourse.algolia.com/)!
+The discourse-algolia plugin indexes users, posts, topics and tags with Algolia and adds a search box built with [autocomplete.js](https://github.com/algolia/autocomplete.js) to the Discourse header. 
 
 ## Features
 
