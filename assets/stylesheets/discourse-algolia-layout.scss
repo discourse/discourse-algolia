@@ -1,26 +1,22 @@
 .aa-dropdown-menu {
   width: $aa-dropdown-width;
+  border: 1px solid var(--primary-low);
+
   .right-container,
   .left-container {
     display: table-cell;
     vertical-align: top;
   }
+
   .right-container {
+    background-color: var(--primary-very-low);
+    border-left: 1px solid var(--primary-low);
     width: $aa-dropdown-right-panel-width;
   }
-  .left-container {
-    width: $aa-dropdown-left-panel-width;
-  }
-}
 
-.aa-dropdown-menu {
-  border: 1px solid var(--primary-low);
   .left-container {
     background-color: var(--primary-low);
-  }
-  .right-container {
-    border-left: 1px solid var(--primary-low);
-    background-color: var(--primary-very-low);
+    width: $aa-dropdown-left-panel-width;
   }
 }
 
@@ -47,7 +43,6 @@
 
 .algolia-autocomplete .aa-dropdown-menu .aa-Item em {
   background-color: var(--highlight);
-  font-weight: bold;
   font-style: normal;
   font-weight: inherit;
 }
@@ -61,39 +56,48 @@
   .aa-Item {
     padding: 8px 12px;
   }
+
   .hit-user-left,
   .hit-user-right {
     display: table-cell;
     vertical-align: middle;
   }
+
   .hit-user-right {
     padding-left: 8px;
   }
+
   .hit-user-username-holder {
     margin-bottom: 3px;
   }
+
   .hit-user-username {
     font-weight: bold;
   }
+
   .hit-user-name {
     font-size: $font-down-1;
     color: var(--primary-medium);
   }
+
   .hit-user-name,
   .hit-user-username-holder {
     max-width: $aa-dropdown-right-panel-width - 78px;
     overflow: hidden;
   }
+
   .hit-user-avatar {
     width: 45px;
     height: 45px;
     vertical-align: middle;
     border-radius: 50%;
   }
+
   .hit-user-custom-ranking {
     color: var(--primary-medium);
     font-size: $font-down-1;
   }
+
   .hit-user-like-heart {
     color: var(--love);
   }
@@ -104,9 +108,11 @@
     padding: 8px 12px;
     border-top: 1px solid var(--primary-low);
   }
+
   .hit-tag-name {
     font-weight: bold;
   }
+
   .hit-tag-topic_count {
     color: var(--primary-medium);
     font-size: $font-down-1;
@@ -117,35 +123,43 @@
   .aa-List {
     padding: 12px;
     border-bottom: 1px solid var(--primary-low);
+
     &:last-child {
       border-bottom: none;
     }
   }
+
   .hit-post {
     .hit-post-topic-title {
       font-size: $font-up-1;
       font-weight: bold;
     }
+
     .hit-post-topic-views {
       font-size: $font-down-1;
       color: var(--primary-medium);
     }
+
     .hit-post-category-tags {
       margin: 2px 0 4px;
     }
+
     .hit-post-tag {
       color: var(--primary-medium);
       font-size: $font-down-1;
       padding: 0 3px;
     }
+
     .hit-post-category-name {
       color: var(--primary);
       font-weight: normal;
     }
+
     .hit-post-content-holder {
       color: var(--primary-medium);
       font-size: $font-down-1;
     }
+
     .hit-post-content {
       word-break: break-word;
       font-size: $font-down-1;
@@ -169,8 +183,10 @@
     vertical-align: middle;
     padding: 0 !important;
   }
+
   .left-container {
     vertical-align: middle;
+
     .advanced-search {
       float: right;
       display: inline-block;
@@ -186,9 +202,11 @@
     display: none;
   }
 }
+
 .mobile-view .aa-Autocomplete {
   display: none;
 }
+
 .algolia-autocomplete {
   position: absolute;
   top: 100%;
@@ -200,21 +218,26 @@
 .aa-Item {
   list-style: none;
 }
+
 .aa-List {
   margin-left: 0;
 }
+
 .hit-user-username,
 .hit-tag-name,
 .hit-post-topic-title,
 .hit-user-like-heart {
   margin-right: 0.2em;
 }
+
 .hit-post {
   margin-bottom: 1em;
 }
+
 .hit-post-content {
   margin-left: 0.2em;
 }
+
 input.aa-Input {
   margin-bottom: 0;
 }
