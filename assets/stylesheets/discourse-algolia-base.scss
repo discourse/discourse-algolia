@@ -1,5 +1,6 @@
 /* make changes to discourse styling outside the affected widgets
    only when the algolia plugin has been enabled */
+
 html:not(.mobile-view) body.algolia-enabled {
   /* don't let topic titles run into the search bar */
   .extra-info-wrapper {
@@ -27,7 +28,7 @@ html:not(.mobile-view) body.algolia-enabled {
 
   .algolia-holder .aa-Input {
     color: var(--primary-medium);
-    font-family: Open Sans, Arial, sans-serif;
+    font-family: "Open Sans", Arial, sans-serif;
     border: solid 1px var(--primary-low);
     border-radius: 6px;
     font-size: 13px;
