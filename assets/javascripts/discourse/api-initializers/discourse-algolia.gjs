@@ -171,9 +171,9 @@ function initializeAutocomplete(options) {
                   <img
                     class="hit-user-avatar"
                     src="${options.imageBaseURL}${item.avatar_template.replace(
-                "{size}",
-                50
-              )}"
+                      "{size}",
+                      50
+                    )}"
                   />
                 </div>
                 <div class="hit-user-right">
@@ -308,12 +308,15 @@ export default apiInitializer("0.8", (api) => {
     });
   }
 
-  api.headerIcons.add("algolia", <template>
-    {{#if (shouldDisplay)}}
-      <li class="algolia-holder" {{didInsert renderAlgolia}}>
-        <div class="algolia-search"></div>
-        <div class="algolia-autocomplete"></div>
-      </li>
-    {{/if}}
-  </template>);
+  api.headerIcons.add(
+    "algolia",
+    <template>
+      {{#if (shouldDisplay)}}
+        <li class="algolia-holder" {{didInsert renderAlgolia}}>
+          <div class="algolia-search"></div>
+          <div class="algolia-autocomplete"></div>
+        </li>
+      {{/if}}
+    </template>
+  );
 });
