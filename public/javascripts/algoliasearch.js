@@ -5,8 +5,8 @@
   "object" == typeof exports && "undefined" != typeof module
     ? (module.exports = e())
     : "function" == typeof define && define.amd
-    ? define(e)
-    : ((t = t || self).algoliasearch = e());
+      ? define(e)
+      : ((t = t || self).algoliasearch = e());
 })(this, function () {
   "use strict";
   function t(t, e, r) {
@@ -42,10 +42,14 @@
             t(r, e, a[e]);
           })
         : Object.getOwnPropertyDescriptors
-        ? Object.defineProperties(r, Object.getOwnPropertyDescriptors(a))
-        : e(Object(a)).forEach(function (t) {
-            Object.defineProperty(r, t, Object.getOwnPropertyDescriptor(a, t));
-          });
+          ? Object.defineProperties(r, Object.getOwnPropertyDescriptors(a))
+          : e(Object(a)).forEach(function (t) {
+              Object.defineProperty(
+                r,
+                t,
+                Object.getOwnPropertyDescriptor(a, t)
+              );
+            });
     }
     return r;
   }
@@ -319,9 +323,12 @@
       return (
         e++,
         new Promise(function (n) {
-          setTimeout(function () {
-            n(t(r));
-          }, Math.min(100 * e, 1e3));
+          setTimeout(
+            function () {
+              n(t(r));
+            },
+            Math.min(100 * e, 1e3)
+          );
         })
       );
     });
@@ -569,8 +576,8 @@
             })(t)
               ? e.onRetry(t)
               : 2 == ~~(t.status / 100)
-              ? e.onSuccess(t)
-              : e.onFail(t);
+                ? e.onSuccess(t)
+                : e.onFail(t);
           })(t, m);
         });
       };
@@ -1588,23 +1595,23 @@
           c = n(i, ["query", "paginate"]),
           f = 0;
         return (function n() {
-          return ie(t)(u || "", r(r({}, c), {}, { page: f })).then(function (
-            t
-          ) {
-            for (var r = 0, o = Object.entries(t.hits); r < o.length; r++) {
-              var i = a(o[r], 2),
-                u = i[0],
-                c = i[1];
-              if (e(c))
-                return { object: c, position: parseInt(u, 10), page: f };
+          return ie(t)(u || "", r(r({}, c), {}, { page: f })).then(
+            function (t) {
+              for (var r = 0, o = Object.entries(t.hits); r < o.length; r++) {
+                var i = a(o[r], 2),
+                  u = i[0],
+                  c = i[1];
+                if (e(c))
+                  return { object: c, position: parseInt(u, 10), page: f };
+              }
+              if ((f++, !1 === s || f >= t.nbPages))
+                throw {
+                  name: "ObjectNotFoundError",
+                  message: "Object not found.",
+                };
+              return n();
             }
-            if ((f++, !1 === s || f >= t.nbPages))
-              throw {
-                name: "ObjectNotFoundError",
-                message: "Object not found.",
-              };
-            return n();
-          });
+          );
         })();
       };
     },
