@@ -5,10 +5,10 @@
   typeof exports === "object" && typeof module !== "undefined"
     ? factory(exports)
     : typeof define === "function" && define.amd
-    ? define(["exports"], factory)
-    : ((global =
-        typeof globalThis !== "undefined" ? globalThis : global || self),
-      factory((global["@algolia/autocomplete-js"] = {})));
+      ? define(["exports"], factory)
+      : ((global =
+          typeof globalThis !== "undefined" ? globalThis : global || self),
+        factory((global["@algolia/autocomplete-js"] = {})));
 })(this, function (exports) {
   "use strict";
 
@@ -35,17 +35,17 @@
             _defineProperty$g(target, key, source[key]);
           })
         : Object.getOwnPropertyDescriptors
-        ? Object.defineProperties(
-            target,
-            Object.getOwnPropertyDescriptors(source)
-          )
-        : ownKeys$g(Object(source)).forEach(function (key) {
-            Object.defineProperty(
+          ? Object.defineProperties(
               target,
-              key,
-              Object.getOwnPropertyDescriptor(source, key)
-            );
-          });
+              Object.getOwnPropertyDescriptors(source)
+            )
+          : ownKeys$g(Object(source)).forEach(function (key) {
+              Object.defineProperty(
+                target,
+                key,
+                Object.getOwnPropertyDescriptor(source, key)
+              );
+            });
     }
 
     return target;
@@ -682,17 +682,17 @@
             _defineProperty$f(target, key, source[key]);
           })
         : Object.getOwnPropertyDescriptors
-        ? Object.defineProperties(
-            target,
-            Object.getOwnPropertyDescriptors(source)
-          )
-        : ownKeys$f(Object(source)).forEach(function (key) {
-            Object.defineProperty(
+          ? Object.defineProperties(
               target,
-              key,
-              Object.getOwnPropertyDescriptor(source, key)
-            );
-          });
+              Object.getOwnPropertyDescriptors(source)
+            )
+          : ownKeys$f(Object(source)).forEach(function (key) {
+              Object.defineProperty(
+                target,
+                key,
+                Object.getOwnPropertyDescriptor(source, key)
+              );
+            });
     }
 
     return target;
@@ -816,8 +816,7 @@
       }
 
       return acc;
-    },
-    0);
+    }, 0);
     return state.collections[collectionIndex];
   }
   /**
@@ -915,17 +914,17 @@
             _defineProperty$e(target, key, source[key]);
           })
         : Object.getOwnPropertyDescriptors
-        ? Object.defineProperties(
-            target,
-            Object.getOwnPropertyDescriptors(source)
-          )
-        : ownKeys$e(Object(source)).forEach(function (key) {
-            Object.defineProperty(
+          ? Object.defineProperties(
               target,
-              key,
-              Object.getOwnPropertyDescriptor(source, key)
-            );
-          });
+              Object.getOwnPropertyDescriptors(source)
+            )
+          : ownKeys$e(Object(source)).forEach(function (key) {
+              Object.defineProperty(
+                target,
+                key,
+                Object.getOwnPropertyDescriptor(source, key)
+              );
+            });
     }
 
     return target;
@@ -1025,17 +1024,17 @@
             _defineProperty$d(target, key, source[key]);
           })
         : Object.getOwnPropertyDescriptors
-        ? Object.defineProperties(
-            target,
-            Object.getOwnPropertyDescriptors(source)
-          )
-        : ownKeys$d(Object(source)).forEach(function (key) {
-            Object.defineProperty(
+          ? Object.defineProperties(
               target,
-              key,
-              Object.getOwnPropertyDescriptor(source, key)
-            );
-          });
+              Object.getOwnPropertyDescriptors(source)
+            )
+          : ownKeys$d(Object(source)).forEach(function (key) {
+              Object.defineProperty(
+                target,
+                key,
+                Object.getOwnPropertyDescriptor(source, key)
+              );
+            });
     }
 
     return target;
@@ -1101,17 +1100,17 @@
             _defineProperty$c(target, key, source[key]);
           })
         : Object.getOwnPropertyDescriptors
-        ? Object.defineProperties(
-            target,
-            Object.getOwnPropertyDescriptors(source)
-          )
-        : ownKeys$c(Object(source)).forEach(function (key) {
-            Object.defineProperty(
+          ? Object.defineProperties(
               target,
-              key,
-              Object.getOwnPropertyDescriptor(source, key)
-            );
-          });
+              Object.getOwnPropertyDescriptors(source)
+            )
+          : ownKeys$c(Object(source)).forEach(function (key) {
+              Object.defineProperty(
+                target,
+                key,
+                Object.getOwnPropertyDescriptor(source, key)
+              );
+            });
     }
 
     return target;
@@ -1258,17 +1257,17 @@
             _defineProperty$b(target, key, source[key]);
           })
         : Object.getOwnPropertyDescriptors
-        ? Object.defineProperties(
-            target,
-            Object.getOwnPropertyDescriptors(source)
-          )
-        : ownKeys$b(Object(source)).forEach(function (key) {
-            Object.defineProperty(
+          ? Object.defineProperties(
               target,
-              key,
-              Object.getOwnPropertyDescriptor(source, key)
-            );
-          });
+              Object.getOwnPropertyDescriptors(source)
+            )
+          : ownKeys$b(Object(source)).forEach(function (key) {
+              Object.defineProperty(
+                target,
+                key,
+                Object.getOwnPropertyDescriptor(source, key)
+              );
+            });
     }
 
     return target;
@@ -1488,17 +1487,17 @@
             _defineProperty$a(target, key, source[key]);
           })
         : Object.getOwnPropertyDescriptors
-        ? Object.defineProperties(
-            target,
-            Object.getOwnPropertyDescriptors(source)
-          )
-        : ownKeys$a(Object(source)).forEach(function (key) {
-            Object.defineProperty(
+          ? Object.defineProperties(
               target,
-              key,
-              Object.getOwnPropertyDescriptor(source, key)
-            );
-          });
+              Object.getOwnPropertyDescriptors(source)
+            )
+          : ownKeys$a(Object(source)).forEach(function (key) {
+              Object.defineProperty(
+                target,
+                key,
+                Object.getOwnPropertyDescriptor(source, key)
+              );
+            });
     }
 
     return target;
@@ -1651,17 +1650,17 @@
             _defineProperty$9(target, key, source[key]);
           })
         : Object.getOwnPropertyDescriptors
-        ? Object.defineProperties(
-            target,
-            Object.getOwnPropertyDescriptors(source)
-          )
-        : ownKeys$9(Object(source)).forEach(function (key) {
-            Object.defineProperty(
+          ? Object.defineProperties(
               target,
-              key,
-              Object.getOwnPropertyDescriptor(source, key)
-            );
-          });
+              Object.getOwnPropertyDescriptors(source)
+            )
+          : ownKeys$9(Object(source)).forEach(function (key) {
+              Object.defineProperty(
+                target,
+                key,
+                Object.getOwnPropertyDescriptor(source, key)
+              );
+            });
     }
 
     return target;
@@ -1852,17 +1851,17 @@
             _defineProperty$8(target, key, source[key]);
           })
         : Object.getOwnPropertyDescriptors
-        ? Object.defineProperties(
-            target,
-            Object.getOwnPropertyDescriptors(source)
-          )
-        : ownKeys$8(Object(source)).forEach(function (key) {
-            Object.defineProperty(
+          ? Object.defineProperties(
               target,
-              key,
-              Object.getOwnPropertyDescriptor(source, key)
-            );
-          });
+              Object.getOwnPropertyDescriptors(source)
+            )
+          : ownKeys$8(Object(source)).forEach(function (key) {
+              Object.defineProperty(
+                target,
+                key,
+                Object.getOwnPropertyDescriptor(source, key)
+              );
+            });
     }
 
     return target;
@@ -2111,17 +2110,17 @@
             _defineProperty$7(target, key, source[key]);
           })
         : Object.getOwnPropertyDescriptors
-        ? Object.defineProperties(
-            target,
-            Object.getOwnPropertyDescriptors(source)
-          )
-        : ownKeys$7(Object(source)).forEach(function (key) {
-            Object.defineProperty(
+          ? Object.defineProperties(
               target,
-              key,
-              Object.getOwnPropertyDescriptor(source, key)
-            );
-          });
+              Object.getOwnPropertyDescriptors(source)
+            )
+          : ownKeys$7(Object(source)).forEach(function (key) {
+              Object.defineProperty(
+                target,
+                key,
+                Object.getOwnPropertyDescriptor(source, key)
+              );
+            });
     }
 
     return target;
@@ -2438,17 +2437,17 @@
             _defineProperty$6(target, key, source[key]);
           })
         : Object.getOwnPropertyDescriptors
-        ? Object.defineProperties(
-            target,
-            Object.getOwnPropertyDescriptors(source)
-          )
-        : ownKeys$6(Object(source)).forEach(function (key) {
-            Object.defineProperty(
+          ? Object.defineProperties(
               target,
-              key,
-              Object.getOwnPropertyDescriptor(source, key)
-            );
-          });
+              Object.getOwnPropertyDescriptors(source)
+            )
+          : ownKeys$6(Object(source)).forEach(function (key) {
+              Object.defineProperty(
+                target,
+                key,
+                Object.getOwnPropertyDescriptor(source, key)
+              );
+            });
     }
 
     return target;
@@ -2945,17 +2944,17 @@
             _defineProperty$5(target, key, source[key]);
           })
         : Object.getOwnPropertyDescriptors
-        ? Object.defineProperties(
-            target,
-            Object.getOwnPropertyDescriptors(source)
-          )
-        : ownKeys$5(Object(source)).forEach(function (key) {
-            Object.defineProperty(
+          ? Object.defineProperties(
               target,
-              key,
-              Object.getOwnPropertyDescriptor(source, key)
-            );
-          });
+              Object.getOwnPropertyDescriptors(source)
+            )
+          : ownKeys$5(Object(source)).forEach(function (key) {
+              Object.defineProperty(
+                target,
+                key,
+                Object.getOwnPropertyDescriptor(source, key)
+              );
+            });
     }
 
     return target;
@@ -3033,9 +3032,9 @@
       _environment$navigato === void 0
         ? void 0
         : (_environment$navigato2 = _environment$navigato.userAgent) === null ||
-          _environment$navigato2 === void 0
-        ? void 0
-        : _environment$navigato2.includes("Algolia Crawler");
+            _environment$navigato2 === void 0
+          ? void 0
+          : _environment$navigato2.includes("Algolia Crawler");
 
     if (isMetadataEnabled) {
       var metadataContainer = environment.document.createElement("meta");
@@ -3088,17 +3087,17 @@
             _defineProperty$4(target, key, source[key]);
           })
         : Object.getOwnPropertyDescriptors
-        ? Object.defineProperties(
-            target,
-            Object.getOwnPropertyDescriptors(source)
-          )
-        : ownKeys$4(Object(source)).forEach(function (key) {
-            Object.defineProperty(
+          ? Object.defineProperties(
               target,
-              key,
-              Object.getOwnPropertyDescriptor(source, key)
-            );
-          });
+              Object.getOwnPropertyDescriptors(source)
+            )
+          : ownKeys$4(Object(source)).forEach(function (key) {
+              Object.defineProperty(
+                target,
+                key,
+                Object.getOwnPropertyDescriptor(source, key)
+              );
+            });
     }
 
     return target;
@@ -3377,17 +3376,17 @@
             _defineProperty$3(target, key, source[key]);
           })
         : Object.getOwnPropertyDescriptors
-        ? Object.defineProperties(
-            target,
-            Object.getOwnPropertyDescriptors(source)
-          )
-        : ownKeys$3(Object(source)).forEach(function (key) {
-            Object.defineProperty(
+          ? Object.defineProperties(
               target,
-              key,
-              Object.getOwnPropertyDescriptor(source, key)
-            );
-          });
+              Object.getOwnPropertyDescriptors(source)
+            )
+          : ownKeys$3(Object(source)).forEach(function (key) {
+              Object.defineProperty(
+                target,
+                key,
+                Object.getOwnPropertyDescriptor(source, key)
+              );
+            });
     }
 
     return target;
@@ -3513,16 +3512,16 @@
         3 === p
           ? (e[0] = a)
           : 4 === p
-          ? (e[1] = Object.assign(e[1] || {}, a))
-          : 5 === p
-          ? ((e[1] = e[1] || {})[s[++h]] = a)
-          : 6 === p
-          ? (e[1][s[++h]] += a + "")
-          : p
-          ? ((u = t.apply(a, n$1(t, a, r, ["", null]))),
-            e.push(u),
-            a[0] ? (s[0] |= 2) : ((s[h - 2] = 0), (s[h] = u)))
-          : e.push(a);
+            ? (e[1] = Object.assign(e[1] || {}, a))
+            : 5 === p
+              ? ((e[1] = e[1] || {})[s[++h]] = a)
+              : 6 === p
+                ? (e[1][s[++h]] += a + "")
+                : p
+                  ? ((u = t.apply(a, n$1(t, a, r, ["", null]))),
+                    e.push(u),
+                    a[0] ? (s[0] |= 2) : ((s[h - 2] = 0), (s[h] = u)))
+                  : e.push(a);
       }
       return e;
     },
@@ -3549,15 +3548,15 @@
                     (n || (e = e.replace(/^\s*\n\s*|\s*\n\s*$/g, "")))
                       ? h.push(0, n, e)
                       : 3 === r && (n || e)
-                      ? (h.push(3, n, e), (r = 2))
-                      : 2 === r && "..." === e && n
-                      ? h.push(4, n, 0)
-                      : 2 === r && e && !n
-                      ? h.push(5, 0, !0, e)
-                      : r >= 5 &&
-                        ((e || (!n && 5 === r)) &&
-                          (h.push(r, 0, e, s), (r = 6)),
-                        n && (h.push(r, n, 0, s), (r = 6))),
+                        ? (h.push(3, n, e), (r = 2))
+                        : 2 === r && "..." === e && n
+                          ? h.push(4, n, 0)
+                          : 2 === r && e && !n
+                            ? h.push(5, 0, !0, e)
+                            : r >= 5 &&
+                              ((e || (!n && 5 === r)) &&
+                                (h.push(r, 0, e, s), (r = 6)),
+                              n && (h.push(r, n, 0, s), (r = 6))),
                       (e = "");
                   },
                   a = 0;
@@ -3572,29 +3571,32 @@
                         ? (p(), (h = [h]), (r = 3))
                         : (e += t)
                       : 4 === r
-                      ? "--" === e && ">" === t
-                        ? ((r = 1), (e = ""))
-                        : (e = t + e[0])
-                      : u
-                      ? t === u
-                        ? (u = "")
-                        : (e += t)
-                      : '"' === t || "'" === t
-                      ? (u = t)
-                      : ">" === t
-                      ? (p(), (r = 1))
-                      : r &&
-                        ("=" === t
-                          ? ((r = 5), (s = e), (e = ""))
-                          : "/" === t && (r < 5 || ">" === n[a][l + 1])
-                          ? (p(),
-                            3 === r && (h = h[0]),
-                            (r = h),
-                            (h = h[0]).push(2, 0, r),
-                            (r = 0))
-                          : " " === t || "\t" === t || "\n" === t || "\r" === t
-                          ? (p(), (r = 2))
-                          : (e += t)),
+                        ? "--" === e && ">" === t
+                          ? ((r = 1), (e = ""))
+                          : (e = t + e[0])
+                        : u
+                          ? t === u
+                            ? (u = "")
+                            : (e += t)
+                          : '"' === t || "'" === t
+                            ? (u = t)
+                            : ">" === t
+                              ? (p(), (r = 1))
+                              : r &&
+                                ("=" === t
+                                  ? ((r = 5), (s = e), (e = ""))
+                                  : "/" === t && (r < 5 || ">" === n[a][l + 1])
+                                    ? (p(),
+                                      3 === r && (h = h[0]),
+                                      (r = h),
+                                      (h = h[0]).push(2, 0, r),
+                                      (r = 0))
+                                    : " " === t ||
+                                        "\t" === t ||
+                                        "\n" === t ||
+                                        "\r" === t
+                                      ? (p(), (r = 2))
+                                      : (e += t)),
                     3 === r && "!--" === e && ((r = 4), (h = h[0]));
               }
               return p(), h;
@@ -4362,14 +4364,14 @@
           null == (_ = l[h]) || "boolean" == typeof _
             ? null
             : "string" == typeof _ ||
-              "number" == typeof _ ||
-              "bigint" == typeof _
-            ? y(null, _, null, null, _)
-            : Array.isArray(_)
-            ? y(d, { children: _ }, null, null, null)
-            : _.__b > 0
-            ? y(_.type, _.props, _.key, null, _.__v)
-            : _)
+                "number" == typeof _ ||
+                "bigint" == typeof _
+              ? y(null, _, null, null, _)
+              : Array.isArray(_)
+                ? y(d, { children: _ }, null, null, null)
+                : _.__b > 0
+                  ? y(_.type, _.props, _.key, null, _.__v)
+                  : _)
       ) {
         if (
           ((_.__ = u),
@@ -4590,7 +4592,10 @@
           h.__h.length && f.push(h),
           b && (h.__E = h.__ = null),
           (h.__e = !1);
-      } else null == o && u.__v === i.__v ? ((u.__k = i.__k), (u.__e = i.__e)) : (u.__e = L(i.__e, u, i, t, r, o, f, c));
+      } else
+        null == o && u.__v === i.__v
+          ? ((u.__k = i.__k), (u.__e = i.__e))
+          : (u.__e = L(i.__e, u, i, t, r, o, f, c));
       (s = l.diffed) && s(u);
     } catch (n) {
       (u.__v = null),
@@ -4982,17 +4987,17 @@
             _defineProperty$2(target, key, source[key]);
           })
         : Object.getOwnPropertyDescriptors
-        ? Object.defineProperties(
-            target,
-            Object.getOwnPropertyDescriptors(source)
-          )
-        : ownKeys$2(Object(source)).forEach(function (key) {
-            Object.defineProperty(
+          ? Object.defineProperties(
               target,
-              key,
-              Object.getOwnPropertyDescriptor(source, key)
-            );
-          });
+              Object.getOwnPropertyDescriptors(source)
+            )
+          : ownKeys$2(Object(source)).forEach(function (key) {
+              Object.defineProperty(
+                target,
+                key,
+                Object.getOwnPropertyDescriptor(source, key)
+              );
+            });
     }
 
     return target;
@@ -5148,17 +5153,17 @@
             _defineProperty$1(target, key, source[key]);
           })
         : Object.getOwnPropertyDescriptors
-        ? Object.defineProperties(
-            target,
-            Object.getOwnPropertyDescriptors(source)
-          )
-        : ownKeys$1(Object(source)).forEach(function (key) {
-            Object.defineProperty(
+          ? Object.defineProperties(
               target,
-              key,
-              Object.getOwnPropertyDescriptor(source, key)
-            );
-          });
+              Object.getOwnPropertyDescriptors(source)
+            )
+          : ownKeys$1(Object(source)).forEach(function (key) {
+              Object.defineProperty(
+                target,
+                key,
+                Object.getOwnPropertyDescriptor(source, key)
+              );
+            });
     }
 
     return target;
@@ -5241,17 +5246,17 @@
             _defineProperty(target, key, source[key]);
           })
         : Object.getOwnPropertyDescriptors
-        ? Object.defineProperties(
-            target,
-            Object.getOwnPropertyDescriptors(source)
-          )
-        : ownKeys(Object(source)).forEach(function (key) {
-            Object.defineProperty(
+          ? Object.defineProperties(
               target,
-              key,
-              Object.getOwnPropertyDescriptor(source, key)
-            );
-          });
+              Object.getOwnPropertyDescriptors(source)
+            )
+          : ownKeys(Object(source)).forEach(function (key) {
+              Object.defineProperty(
+                target,
+                key,
+                Object.getOwnPropertyDescriptor(source, key)
+              );
+            });
     }
 
     return target;
@@ -6112,11 +6117,10 @@
                 _props$value$core$onS,
                 _props$value$core;
 
-              hasNoResultsSourceTemplateRef.current = params.state.collections.some(
-                function (collection) {
+              hasNoResultsSourceTemplateRef.current =
+                params.state.collections.some(function (collection) {
                   return collection.source.templates.noResults;
-                }
-              );
+                });
               (_onStateChangeRef$cur = onStateChangeRef.current) === null ||
               _onStateChangeRef$cur === void 0
                 ? void 0
@@ -6314,9 +6318,10 @@
         // results come in) so that users don't have to.
 
         if (state.query !== prevState.query) {
-          var scrollablePanels = props.value.core.environment.document.querySelectorAll(
-            ".aa-Panel--scrollable"
-          );
+          var scrollablePanels =
+            props.value.core.environment.document.querySelectorAll(
+              ".aa-Panel--scrollable"
+            );
           scrollablePanels.forEach(function (scrollablePanel) {
             if (scrollablePanel.scrollTop !== 0) {
               scrollablePanel.scrollTop = 0;

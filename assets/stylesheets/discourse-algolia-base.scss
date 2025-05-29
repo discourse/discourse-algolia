@@ -43,7 +43,7 @@ html:not(.mobile-view) body.algolia-enabled {
     background-position: 10px center;
   }
 
-  @media (max-width: 768px) {
+  @media (width <= 768px) {
     .algolia-holder .aa-input {
       display: none;
     }
@@ -54,7 +54,7 @@ html:not(.mobile-view) body.algolia-enabled {
     margin-top: 8px;
     border-radius: 3px;
     box-shadow:
-      0 1px 0 0 rgba(0, 0, 0, 0.2),
-      0 2px 3px 0 rgba(0, 0, 0, 0.1);
+      0 1px 0 0 rgb(0, 0, 0, 0.2),
+      0 2px 3px 0 rgb(0, 0, 0, 0.1);
   }
 }
