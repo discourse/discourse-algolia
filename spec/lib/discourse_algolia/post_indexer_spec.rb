@@ -4,7 +4,7 @@ describe DiscourseAlgolia::PostIndexer do
   subject(:post_indexer) { DiscourseAlgolia.indexer(:post) }
 
   fab!(:post)
-  fab!(:pm_post) { Fabricate(:private_message_post) }
+  fab!(:pm_post, :private_message_post)
 
   before { setup_algolia_tests }
 
