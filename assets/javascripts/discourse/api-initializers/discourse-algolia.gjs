@@ -281,7 +281,7 @@ function initializeAutocomplete(options) {
   return autocompleteSearch;
 }
 
-export default apiInitializer("0.8", (api) => {
+export default apiInitializer((api) => {
   const siteSettings = api.container.lookup("service:site-settings");
   const currentUser = api.getCurrentUser();
   const shouldDisplay = () =>
