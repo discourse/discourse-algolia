@@ -7,7 +7,7 @@
 # authors: Josh Dzielak, Gianluca Bargelli, Paul-Louis Nech
 # url: https://github.com/discourse/discourse-algolia
 
-gem "net-http-persistent", "4.0.1", require_name: "net/http/persistent"
+gem "net-http-persistent", "4.0.8", require_name: "net/http/persistent"
 
 if Gem::Version.new(Faraday::VERSION) >= Gem::Version.new("2.0")
   gem "faraday-net_http_persistent", "2.1.0", require_name: "faraday/net_http_persistent"
