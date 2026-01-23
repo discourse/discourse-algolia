@@ -55,10 +55,14 @@ function initializeAutocomplete(options) {
               let baseTags = item.topic.tags;
               if (baseTags) {
                 baseTags.forEach((baseTag, index) => {
+                  // TODO(https://github.com/discourse/discourse/pull/36678): The string check can be
+                  // removed using .discourse-compatibility once the PR is merged.
+                  const tagName =
+                    typeof baseTag === "string" ? baseTag : baseTag.name;
                   tags.push(html`<a
                     class="hit-post-tag"
                     onClick="${(event) => {
-                      DiscourseURL.routeTo(`/tags/${baseTag}`);
+                      DiscourseURL.routeTo(`/tags/${tagName}`);
                       autocompleteSearch.setIsOpen(false);
                       event.preventDefault();
                       event.stopPropagation();
@@ -66,7 +70,12 @@ function initializeAutocomplete(options) {
                   >
                     ${components.Highlight({
                       hit: item,
-                      attribute: ["topic", "tags", index],
+                      // TODO(https://github.com/discourse/discourse/pull/36678): The string check can be
+                      // removed using .discourse-compatibility once the PR is merged.
+                      attribute:
+                        typeof baseTag === "string"
+                          ? ["topic", "tags", index]
+                          : ["topic", "tags", index, "name"],
                     })}
                   </a>`);
                 });

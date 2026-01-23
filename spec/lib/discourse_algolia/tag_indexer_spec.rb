@@ -21,7 +21,7 @@ describe DiscourseAlgolia::TagIndexer do
     tag_indexer
       .index
       .expects(:save_objects)
-      .with([{ objectID: tag.id, url: tag.url, name: tag.name, topic_count: 1 }])
+      .with([{ objectID: tag.id, url: tag.url, name: tag.name, slug: tag.slug, topic_count: 1 }])
 
     tag_indexer.process!(ids: [tag.id])
   end
@@ -32,7 +32,7 @@ describe DiscourseAlgolia::TagIndexer do
     tag_indexer
       .index
       .expects(:save_objects)
-      .with([{ objectID: tag.id, url: tag.url, name: tag.name, topic_count: 2 }])
+      .with([{ objectID: tag.id, url: tag.url, name: tag.name, slug: tag.slug, topic_count: 2 }])
 
     tag_indexer.process!(ids: [tag.id])
   end

@@ -69,7 +69,7 @@ class DiscourseAlgolia::PostIndexer < DiscourseAlgolia::Indexer
         views: post.topic.views,
         slug: post.topic.slug,
         like_count: post.topic.like_count,
-        tags: post.topic.tags.map(&:name),
+        tags: post.topic.tags.map { |tag| { id: tag.id, name: tag.name, slug: tag.slug } },
       },
     }
 

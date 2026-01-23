@@ -19,7 +19,13 @@ class DiscourseAlgolia::TagIndexer < DiscourseAlgolia::Indexer
   end
 
   def to_object(tag)
-    { objectID: tag.id, url: tag.url, name: tag.name, topic_count: topic_count_for_tag(tag) }
+    {
+      objectID: tag.id,
+      url: tag.url,
+      name: tag.name,
+      slug: tag.slug,
+      topic_count: topic_count_for_tag(tag),
+    }
   end
 
   def topic_count_for_tag(tag)
