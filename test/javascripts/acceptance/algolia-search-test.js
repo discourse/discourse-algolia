@@ -45,7 +45,7 @@ acceptance("Discourse Algolia - Search", function (needs) {
                   title: "Internationalization / localization",
                   views: 4369,
                   slug: "internationalization-localization",
-                  tags: [],
+                  tags: [{ id: 1, name: "bug", slug: "bug" }],
                 },
                 category: {
                   url: "/c/feature",
@@ -177,7 +177,7 @@ acceptance("Discourse Algolia - Search", function (needs) {
     ]);
   });
 
-  test("search posts, users and tags", async function (assert) {
+  test("search posts, topic tags, users and tags", async function (assert) {
     await visit("/");
 
     await waitFor(".aa-Input");
@@ -194,6 +194,12 @@ acceptance("Discourse Algolia - Search", function (needs) {
       "/t/internationalization-localization/280",
       "redirects to topic"
     );
+
+    await waitFor(".aa-Input");
+    await fillIn(".aa-Input", "internationalization");
+    await waitFor(".hit-post-topic-title", { count: 1 });
+    await click(".hit-post-tag");
+    assert.strictEqual(currentURL(), "/tag/bug", "redirects to tag page");
 
     await fillIn(".aa-Input", "internationalization");
     await waitFor(".hit-post-category-name");
