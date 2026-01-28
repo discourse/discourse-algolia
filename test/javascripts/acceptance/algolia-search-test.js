@@ -16,7 +16,7 @@ acceptance("Discourse Algolia - Search", function (needs) {
   needs.site({ can_tag_topics: true });
 
   needs.pretender((server, helper) => {
-    server.get(`/tag/bug/l/latest.json`, () => {
+    server.get(`/tag/bug/1/l/latest.json`, () => {
       return helper.response(
         cloneJSON(discoveryFixture["/tag/important/l/latest.json"])
       );
@@ -141,7 +141,7 @@ acceptance("Discourse Algolia - Search", function (needs) {
           {
             hits: [
               {
-                url: "/tag/bug",
+                url: "/tag/bug/1",
                 name: "bug",
                 topic_count: 6,
                 objectID: "27",
@@ -199,7 +199,7 @@ acceptance("Discourse Algolia - Search", function (needs) {
     await fillIn(".aa-Input", "internationalization");
     await waitFor(".hit-post-topic-title", { count: 1 });
     await click(".hit-post-tag");
-    assert.strictEqual(currentURL(), "/tag/bug", "redirects to tag page");
+    assert.strictEqual(currentURL(), "/tag/bug/1", "redirects to tag page");
 
     await fillIn(".aa-Input", "internationalization");
     await waitFor(".hit-post-category-name");
@@ -243,7 +243,7 @@ acceptance("Discourse Algolia - Search", function (needs) {
       .hasText("6", "displays amount of topics with tag");
 
     await click(".hit-tag-name");
-    assert.strictEqual(currentURL(), "/tag/bug", "redirects to tag page");
+    assert.strictEqual(currentURL(), "/tag/bug/1", "redirects to tag page");
   });
 
   test("search not visible when site is requiring login", async function (assert) {
