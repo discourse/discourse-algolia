@@ -5,3 +5,9 @@
 # https://translate.discourse.org/
 
 el:
+  site_settings:
+    algolia_enabled: "Ενεργοποιήστε το πρόσθετο discourse-algolia και στείλτε δεδομένα στην Algolia για δημιουργία ευρετηρίου"
+    algolia_autocomplete_enabled: "Ενεργοποιήστε την αυτόματη συμπλήρωση Algolia στην κεφαλίδα του ιστότοπου"
+    algolia_application_id: "Το αναγνωριστικό εφαρμογής Algolia όπου θα πρέπει να αποστέλλονται τα δεδομένα για δημιουργία ευρετηρίου"
+    algolia_admin_api_key: "Ένα κλειδί API της Algolia με δικαιώματα εγγραφής δεδομένων και διαμόρφωσης ευρετηρίων"
+    algolia_search_api_key: "Ένα κλειδί API της Algolia με δικαίωμα <b>αναζήτησης</b> , που χρησιμοποιείται για το front end<br /><i>Όταν είναι ενεργοποιημένες οι Απαντήσεις, χρειάζεται και το δικαίωμα </i><b>nluReadAnswers</b>"
