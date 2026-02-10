@@ -16,7 +16,7 @@ acceptance("Discourse Algolia - Search", function (needs) {
   needs.site({ can_tag_topics: true });
 
   needs.pretender((server, helper) => {
-    server.get(`/tag/bug/1/l/latest.json`, () => {
+    server.get(`/tag/important/1/l/latest.json`, () => {
       return helper.response(
         cloneJSON(discoveryFixture["/tag/important/l/latest.json"])
       );
@@ -45,7 +45,7 @@ acceptance("Discourse Algolia - Search", function (needs) {
                   title: "Internationalization / localization",
                   views: 4369,
                   slug: "internationalization-localization",
-                  tags: [{ id: 1, name: "bug", slug: "bug" }],
+                  tags: [{ id: 1, name: "important", slug: "important" }],
                 },
                 category: {
                   url: "/c/feature",
@@ -141,16 +141,16 @@ acceptance("Discourse Algolia - Search", function (needs) {
           {
             hits: [
               {
-                url: "/tag/bug/1",
-                name: "bug",
+                url: "/tag/important/1",
+                name: "important",
                 topic_count: 6,
                 objectID: "27",
                 _highlightResult: {
                   name: {
-                    value: "__aa-highlight__bug__/aa-highlight__",
+                    value: "__aa-highlight__important__/aa-highlight__",
                     matchLevel: "full",
                     fullyHighlighted: false,
-                    matchedWords: ["bug"],
+                    matchedWords: ["important"],
                   },
                 },
               },
@@ -165,9 +165,9 @@ acceptance("Discourse Algolia - Search", function (needs) {
               nbHits: true,
               typo: true,
             },
-            query: "bug",
+            query: "important",
             params:
-              "query=bug&hitsPerPage=4&highlightPreTag=__aa-highlight__&highlightPostTag=__%2Faa-highlight__",
+              "query=important&hitsPerPage=4&highlightPreTag=__aa-highlight__&highlightPostTag=__%2Faa-highlight__",
             index: "discourse-tags",
             renderingContent: {},
             processingTimeMS: 1,
@@ -199,7 +199,7 @@ acceptance("Discourse Algolia - Search", function (needs) {
     await fillIn(".aa-Input", "internationalization");
     await waitFor(".hit-post-topic-title", { count: 1 });
     await click(".hit-post-tag");
-    assert.strictEqual(currentURL(), "/tag/bug/1", "redirects to tag page");
+    assert.strictEqual(currentURL(), "/tag/important/1", "redirects to tag page");
 
     await fillIn(".aa-Input", "internationalization");
     await waitFor(".hit-post-category-name");
@@ -235,7 +235,7 @@ acceptance("Discourse Algolia - Search", function (needs) {
       "redirects to user profile"
     );
 
-    await fillIn(".aa-Input", "bug");
+    await fillIn(".aa-Input", "important");
     await waitFor(".hit-tag-topic_count");
 
     assert
@@ -243,7 +243,7 @@ acceptance("Discourse Algolia - Search", function (needs) {
       .hasText("6", "displays amount of topics with tag");
 
     await click(".hit-tag-name");
-    assert.strictEqual(currentURL(), "/tag/bug/1", "redirects to tag page");
+    assert.strictEqual(currentURL(), "/tag/important/1", "redirects to tag page");
   });
 
   test("search not visible when site is requiring login", async function (assert) {

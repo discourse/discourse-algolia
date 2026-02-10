@@ -5,3 +5,12 @@
 # https://translate.discourse.org/
 
 el:
+  js:
+    discourse_algolia:
+      search_box_placeholder: "Αναζήτηση στο φόρουμ..."
+      advanced_search: "προηγμένη αναζήτηση"
+      powered_by: "Λειτουργεί με το πρόσθετο αναζήτησης discourse-algolia"
+      user_likes: "Αριθμός «μου αρέσει» που έχει λάβει ο χρήστης"
+      topic_tags: "Αριθμός θεμάτων με αυτήν την ετικέτα"
+      topic_views: "Αριθμός φορών που έχει προβληθεί το θέμα"
+      no_posts: "Δεν υπάρχουν αντίστοιχες αναρτήσεις."
