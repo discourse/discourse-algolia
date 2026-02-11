@@ -57,12 +57,14 @@ function initializeAutocomplete(options) {
                 baseTags.forEach((baseTag, index) => {
                   // TODO(https://github.com/discourse/discourse/pull/36678): The string check can be
                   // removed using .discourse-compatibility once the PR is merged.
-                  const tagName =
-                    typeof baseTag === "string" ? baseTag : baseTag.name;
+                  const tagPath =
+                    typeof baseTag === "string"
+                      ? `/tags/${baseTag}`
+                      : `/tag/${baseTag.slug}/${baseTag.id}`;
                   tags.push(html`<a
                     class="hit-post-tag"
                     onClick="${(event) => {
-                      DiscourseURL.routeTo(`/tags/${tagName}`);
+                      DiscourseURL.routeTo(tagPath);
                       autocompleteSearch.setIsOpen(false);
                       event.preventDefault();
                       event.stopPropagation();
