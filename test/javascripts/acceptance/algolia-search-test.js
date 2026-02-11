@@ -16,7 +16,7 @@ acceptance("Discourse Algolia - Search", function (needs) {
   needs.site({ can_tag_topics: true });
 
   needs.pretender((server, helper) => {
-    server.get(`/tag/important/1/l/latest.json`, () => {
+    server.get(`/tag/1/l/latest.json`, () => {
       return helper.response(
         cloneJSON(discoveryFixture["/tag/important/l/latest.json"])
       );
