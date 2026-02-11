@@ -199,7 +199,11 @@ acceptance("Discourse Algolia - Search", function (needs) {
     await fillIn(".aa-Input", "internationalization");
     await waitFor(".hit-post-topic-title", { count: 1 });
     await click(".hit-post-tag");
-    assert.strictEqual(currentURL(), "/tag/important/1", "redirects to tag page");
+    assert.strictEqual(
+      currentURL(),
+      "/tag/important/1",
+      "redirects to tag page"
+    );
 
     await fillIn(".aa-Input", "internationalization");
     await waitFor(".hit-post-category-name");
@@ -243,7 +247,11 @@ acceptance("Discourse Algolia - Search", function (needs) {
       .hasText("6", "displays amount of topics with tag");
 
     await click(".hit-tag-name");
-    assert.strictEqual(currentURL(), "/tag/important/1", "redirects to tag page");
+    assert.strictEqual(
+      currentURL(),
+      "/tag/important/1",
+      "redirects to tag page"
+    );
   });
 
   test("search not visible when site is requiring login", async function (assert) {
