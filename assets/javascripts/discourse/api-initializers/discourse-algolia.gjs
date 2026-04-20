@@ -1,5 +1,4 @@
 import didInsert from "@ember/render-modifiers/modifiers/did-insert";
-import { Promise } from "rsvp";
 import { apiInitializer } from "discourse/lib/api";
 import { isDevelopment } from "discourse/lib/environment";
 import loadScript from "discourse/lib/load-script";
@@ -302,20 +301,33 @@ export default apiInitializer((api) => {
 
   let search;
 
-  function renderAlgolia() {
-    search?.destroy();
-
-    Promise.all([
+  async function loadAlgoliaScripts() {
+    await Promise.all([
       loadScript("/plugins/discourse-algolia/javascripts/autocomplete.js"),
       loadScript("/plugins/discourse-algolia/javascripts/algoliasearch.js"),
-    ]).then(() => {
-      document.body.classList.add("algolia-enabled");
-      search = initializeAutocomplete({
-        algoliaApplicationId: siteSettings.algolia_application_id,
-        algoliaSearchApiKey: siteSettings.algolia_search_api_key,
-        imageBaseURL: "",
-        debug: isDevelopment(),
-      });
+    ]);
+  }
+
+  async function renderAlgolia() {
+    search?.destroy();
+
+    try {
+      await loadAlgoliaScripts();
+    } catch {
+      // Retry once
+      try {
+        await loadAlgoliaScripts();
+      } catch (error) {
+        throw error;
+      }
+    }
+
+    document.body.classList.add("algolia-enabled");
+    search = initializeAutocomplete({
+      algoliaApplicationId: siteSettings.algolia_application_id,
+      algoliaSearchApiKey: siteSettings.algolia_search_api_key,
+      imageBaseURL: "",
+      debug: isDevelopment(),
     });
   }
 
