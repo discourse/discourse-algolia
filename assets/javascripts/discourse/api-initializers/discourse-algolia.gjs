@@ -301,8 +301,8 @@ export default apiInitializer((api) => {
 
   let search;
 
-  async function loadAlgoliaScripts() {
-    await Promise.all([
+  function loadAlgoliaScripts() {
+    return Promise.all([
       loadScript("/plugins/discourse-algolia/javascripts/autocomplete.js"),
       loadScript("/plugins/discourse-algolia/javascripts/algoliasearch.js"),
     ]);
@@ -315,11 +315,7 @@ export default apiInitializer((api) => {
       await loadAlgoliaScripts();
     } catch {
       // Retry once
-      try {
-        await loadAlgoliaScripts();
-      } catch (error) {
-        throw error;
-      }
+      await loadAlgoliaScripts();
     }
 
     document.body.classList.add("algolia-enabled");
