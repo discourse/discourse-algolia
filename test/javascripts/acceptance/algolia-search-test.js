@@ -74,6 +74,20 @@ acceptance("Discourse Algolia - Search", function (needs) {
                       fullyHighlighted: false,
                       matchedWords: ["internationalization"],
                     },
+                    tags: [
+                      {
+                        name: {
+                          value: "important",
+                          matchLevel: "none",
+                          matchedWords: [],
+                        },
+                        slug: {
+                          value: "important",
+                          matchLevel: "none",
+                          matchedWords: [],
+                        },
+                      },
+                    ],
                   },
                 },
               },
