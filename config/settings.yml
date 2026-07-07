@@ -10,7 +10,6 @@ plugins:
     client: true
   algolia_search_api_key:
     default: ""
-    client: true
   algolia_admin_api_key:
     default: ""
     secret: true

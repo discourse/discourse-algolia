@@ -14,6 +14,16 @@ describe DiscourseAlgolia::PostIndexer do
     post_indexer.process!(ids: [post.id, pm_post.id])
   end
 
+  it "clears the post index when login is required" do
+    SiteSetting.login_required = true
+
+    post_indexer.index.expects(:clear_objects)
+    post_indexer.index.expects(:save_objects).never
+    post_indexer.index.expects(:delete_objects).never
+
+    post_indexer.process!(ids: [post.id])
+  end
+
   describe "#to_object" do
     fab!(:tag1) { Fabricate(:tag, name: "bug") }
     fab!(:tag2) { Fabricate(:tag, name: "feature-request") }

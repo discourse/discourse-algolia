@@ -293,10 +293,13 @@ function initializeAutocomplete(options) {
 
 export default apiInitializer((api) => {
   const siteSettings = api.container.lookup("service:site-settings");
+  const site = api.container.lookup("service:site");
   const currentUser = api.getCurrentUser();
   const shouldDisplay = () =>
     siteSettings.algolia_enabled &&
     siteSettings.algolia_autocomplete_enabled &&
+    siteSettings.algolia_application_id &&
+    site.algolia_search_api_key &&
     (!siteSettings.login_required || currentUser);
 
   let search;
@@ -321,7 +324,7 @@ export default apiInitializer((api) => {
     document.body.classList.add("algolia-enabled");
     search = initializeAutocomplete({
       algoliaApplicationId: siteSettings.algolia_application_id,
-      algoliaSearchApiKey: siteSettings.algolia_search_api_key,
+      algoliaSearchApiKey: site.algolia_search_api_key,
       imageBaseURL: "",
       debug: isDevelopment(),
     });
