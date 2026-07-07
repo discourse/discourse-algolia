@@ -13,7 +13,7 @@ acceptance("Discourse Algolia - Search", function (needs) {
     algolia_admin_api_key: "adminkey",
   });
 
-  needs.site({ can_tag_topics: true });
+  needs.site({ can_tag_topics: true, algolia_search_api_key: "key" });
 
   needs.pretender((server, helper) => {
     server.get(`/tag/1/l/latest.json`, () => {

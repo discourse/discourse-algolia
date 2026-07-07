@@ -38,8 +38,14 @@ class DiscourseAlgolia::PostIndexer < DiscourseAlgolia::Indexer
     Post.includes(:user, topic: %i[tags category shared_draft]).where(id: ids)
   end
 
+  def process!(ids: nil)
+    return clear_index! if SiteSetting.login_required
+
+    super
+  end
+
   def should_index?(post)
-    @guardian.can_see?(post)
+    !SiteSetting.login_required && @guardian.can_see?(post)
   end
 
   def to_object(post)
@@ -84,5 +90,12 @@ class DiscourseAlgolia::PostIndexer < DiscourseAlgolia::Indexer
     end
 
     object
+  end
+
+  private
+
+  def clear_index!
+    @index.clear_objects
+    Discourse.redis.del(self.class::QUEUE_NAME)
   end
 end

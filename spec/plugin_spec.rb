@@ -13,6 +13,38 @@ describe DiscourseAlgolia do
 
   before { setup_algolia_tests }
 
+  describe "Algolia search key exposure" do
+    it "keeps the search key out of global client settings and private anonymous site payloads" do
+      client_settings = JSON.parse(SiteSetting.client_settings_json_uncached)
+      expect(client_settings).not_to have_key("algolia_search_api_key")
+
+      public_guardian = Guardian.new
+      public_site =
+        SiteSerializer.new(Site.new(public_guardian), scope: public_guardian, root: false).as_json
+      expect(public_site[:algolia_search_api_key]).to eq("searchapikey")
+
+      SiteSetting.login_required = true
+
+      anonymous_guardian = Guardian.new
+      anonymous_site =
+        SiteSerializer.new(
+          Site.new(anonymous_guardian),
+          scope: anonymous_guardian,
+          root: false,
+        ).as_json
+      expect(anonymous_site).not_to have_key(:algolia_search_api_key)
+
+      authenticated_guardian = Guardian.new(user)
+      authenticated_site =
+        SiteSerializer.new(
+          Site.new(authenticated_guardian),
+          scope: authenticated_guardian,
+          root: false,
+        ).as_json
+      expect(authenticated_site[:algolia_search_api_key]).to eq("searchapikey")
+    end
+  end
+
   describe "users" do
     describe "event user_created" do
       it "enqueues new user" do

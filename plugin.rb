@@ -36,6 +36,15 @@ after_initialize do
   require_relative "lib/discourse_algolia/topic_indexer"
   require_relative "lib/discourse_algolia/user_indexer"
 
+  add_to_serializer(
+    :site,
+    :algolia_search_api_key,
+    include_condition: -> do
+      SiteSetting.algolia_search_api_key.present? &&
+        (!SiteSetting.login_required || scope&.current_user.present?)
+    end,
+  ) { SiteSetting.algolia_search_api_key }
+
   %i[user_created user_updated user_destroyed].each do |event|
     on(event) { |user| DiscourseAlgolia::UserIndexer.enqueue(user.id) }
   end
