@@ -38,6 +38,13 @@ class DiscourseAlgolia::PostIndexer < DiscourseAlgolia::Indexer
     Post.includes(:user, topic: %i[tags category shared_draft]).where(id: ids)
   end
 
+  def process_category!(category_id)
+    Post
+      .joins(:topic)
+      .where(topics: { category_id: category_id })
+      .in_batches(of: QUEUE_SIZE) { |posts| process!(ids: posts.pluck(:id)) }
+  end
+
   def should_index?(post)
     @guardian.can_see?(post)
   end
