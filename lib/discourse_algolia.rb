@@ -1,11 +1,15 @@
 # frozen_string_literal: true
 
 class DiscourseAlgolia
-  def self.process!
+  def self.process!(category_id: nil)
     return if !SiteSetting.algolia_enabled?
 
     DistributedMutex.synchronize("algolia-queue", validity: 1.minute) do
-      %i[user tag topic post].each { |type| indexer(type).process! }
+      if category_id
+        indexer(:post).process_category!(category_id)
+      else
+        %i[user tag topic post].each { |type| indexer(type).process! }
+      end
     end
   end
 
