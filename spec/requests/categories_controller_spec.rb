@@ -80,7 +80,7 @@ RSpec.describe CategoriesController do
 
   describe "#update" do
     it "synchronizes every post in the public Algolia index when category access changes" do
-      get "/site.json"
+      get "/site/settings.json"
 
       expect(response).to have_http_status(:ok)
       anonymous_search_key = response.parsed_body["algolia_search_api_key"]
