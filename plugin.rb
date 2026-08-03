@@ -53,6 +53,10 @@ after_initialize do
     on(event) { |tag| DiscourseAlgolia::TagIndexer.enqueue(tag.id) }
   end
 
+  add_model_callback(Category, :after_commit, on: :update) do
+    Jobs.enqueue(:update_indexes, category_id: id) if saved_change_to_read_restricted?
+  end
+
   on(:post_created) { |post| DiscourseAlgolia::PostIndexer.enqueue(post.id) }
 
   on(:post_edited) do |post, topic_changed|

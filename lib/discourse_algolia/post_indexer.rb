@@ -44,6 +44,15 @@ class DiscourseAlgolia::PostIndexer < DiscourseAlgolia::Indexer
     super
   end
 
+  def process_category!(category_id)
+    return clear_index! if SiteSetting.login_required
+
+    Post
+      .joins(:topic)
+      .where(topics: { category_id: category_id })
+      .in_batches(of: QUEUE_SIZE) { |posts| process!(ids: posts.pluck(:id)) }
+  end
+
   def should_index?(post)
     !SiteSetting.login_required && @guardian.can_see?(post)
   end
