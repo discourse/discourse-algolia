@@ -5,7 +5,7 @@ module Jobs
     every 5.minutes
 
     def execute(args)
-      DiscourseAlgolia.process!
+      DiscourseAlgolia.process!(category_id: args[:category_id])
     end
   end
 end
